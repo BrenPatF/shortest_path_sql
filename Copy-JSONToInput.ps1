@@ -1,0 +1,2 @@
+cp tt_shortest_path_sql.purely_wrap_ins_min_tree_links_inp.json c:\input
+cp tt_shortest_path_sql.purely_wrap_ins_node_roots_inp.json c:\input

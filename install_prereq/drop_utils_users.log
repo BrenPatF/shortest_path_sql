@@ -1,0 +1,25 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:21:45 Version 21.3.0.0.0
+
+Drop lib and shortest_path_sql
+old   1: DROP USER &LIB_USER CASCADE
+new   1: DROP USER lib CASCADE
+
+User dropped.
+
+old   1: DROP USER &APP_USER CASCADE
+new   1: DROP USER shortest_path_sql CASCADE
+
+User dropped.
+
+Drop directory input_dir
+
+Directory dropped.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:21:46
+

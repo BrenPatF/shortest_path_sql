@@ -1,0 +1,33 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:23:30 Version 21.3.0.0.0
+
+Create view links_v in lib schema (will be superseded by any view of same name defined in calling schema)
+
+View created.
+
+Create package Net_Pipe
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Grant access to shortest_path_sql (skip if none passed)
+
+PL/SQL procedure successfully completed.
+
+Granting Net_Pipe components to shortest_path_sql..
+old   1: GRANT EXECUTE ON Net_Pipe TO &app
+new   1: GRANT EXECUTE ON Net_Pipe TO shortest_path_sql
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:23:31
+

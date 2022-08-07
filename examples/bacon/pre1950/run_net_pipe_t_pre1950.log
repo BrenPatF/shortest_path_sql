@@ -1,0 +1,25 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 20:31:08 Version 21.3.0.0.0
+
+Network detail (tree)
+  FROM TABLE(Net_Pipe.All_Nets) t
+             *
+ERROR at line 5:
+ORA-00028: your session has been killed
+
+
+ERROR:
+ORA-03114: not connected to ORACLE
+
+
+Elapsed: 00:04:29.22
+ERROR:
+ORA-03114: not connected to ORACLE
+
+
+ERROR:
+ORA-03114: not connected to ORACLE
+
+

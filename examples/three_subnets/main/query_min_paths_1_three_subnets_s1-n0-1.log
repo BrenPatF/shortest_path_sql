@@ -1,0 +1,76 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          07-AUG-2022 15:38:38 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: S1-N0-1, Root id:          1
+One recursive subqueries - XPLAN_RSF_1
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+S1-N0-1                             1                                 0
+S1-N1-1                             ..2                               1
+S1-N2-1                             ....7                             2
+S1-N3-1                             ......10                          3
+S1-N1-2                             ..3                               1
+S1-N2-2                             ....8                             2
+S1-N1-3                             ..4                               1
+S1-N1-4                             ..5
+S1-N2-3                             ....9                             2
+S1-N3-2                             ......11                          3
+S1-N1-5                             ..6                               1
+
+11 rows selected.
+
+Elapsed: 00:00:00.01
+SQL_ID  crunybmx0tbrq, child number 0
+-------------------------------------
+WITH paths (node_id, rnk, lev) AS (     SELECT          1, 1, 0
+FROM DUAL      UNION ALL     SELECT CASE WHEN l.node_id_fr = p.node_id
+THEN l.node_id_to ELSE l.node_id_fr END,             Rank () OVER
+(PARTITION BY CASE WHEN l.node_id_fr = p.node_id THEN l.node_id_to
+ELSE l.node_id_fr END                           ORDER BY p.node_id),
+p.lev + 1       FROM paths p       JOIN links l         ON
+p.node_id IN (l.node_id_fr, l.node_id_to)      WHERE p.rnk = 1 )
+SEARCH DEPTH FIRST BY node_id SET line_no CYCLE node_id SET lp TO '*'
+DEFAULT ' ' , node_min_levs AS (     SELECT node_id,            Min
+(lev) KEEP (DENSE_RANK FIRST ORDER BY lev) lev,            Min
+(line_no) KEEP (DENSE_RANK FIRST ORDER BY lev) line_no       FROM paths
+GROUP BY node_id ) SELECT /*+ gather_plan_statistics XPLAN_RSF_1
+*/        n.node_name,        Substr(LPad ('.', 1 + 2 * m.lev, '.') ||
+m.node_id, 2) node,        m.lev
+Plan hash value: 1417849669
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                    | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                             |              |      1 |        |     11 |00:00:00.01 |     107 |       |       |          |
+|   1 |  SORT ORDER BY                               |              |      1 |   1054 |     11 |00:00:00.01 |     107 |  2048 |  2048 | 2048  (0)|
+|   2 |   MERGE JOIN                                 |              |      1 |   1054 |     11 |00:00:00.01 |     107 |       |       |          |
+|   3 |    TABLE ACCESS BY INDEX ROWID               | NODES        |      1 |     14 |     12 |00:00:00.01 |       2 |       |       |          |
+|   4 |     INDEX FULL SCAN                          | SYS_C0018915 |      1 |     14 |     12 |00:00:00.01 |       1 |       |       |          |
+|*  5 |    SORT JOIN                                 |              |     12 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|   6 |     VIEW                                     |              |      1 |   1054 |     11 |00:00:00.01 |     105 |       |       |          |
+|   7 |      SORT GROUP BY                           |              |      1 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|   8 |       VIEW                                   |              |      1 |   1054 |     33 |00:00:00.01 |     105 |       |       |          |
+|   9 |        UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |     33 |00:00:00.01 |     105 |  4096 |  4096 | 4096  (0)|
+|  10 |         FAST DUAL                            |              |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  11 |         WINDOW SORT                          |              |      4 |   1053 |     32 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|  12 |          NESTED LOOPS                        |              |      4 |   1053 |     32 |00:00:00.01 |     105 |       |       |          |
+|  13 |           RECURSIVE WITH PUMP                |              |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
+|* 14 |           TABLE ACCESS FULL                  | LINKS        |     15 |      3 |     32 |00:00:00.01 |     105 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("N"."ID"="M"."NODE_ID")
+filter("N"."ID"="M"."NODE_ID")
+14 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.24
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 07-AUG-2022 15:38:39
+

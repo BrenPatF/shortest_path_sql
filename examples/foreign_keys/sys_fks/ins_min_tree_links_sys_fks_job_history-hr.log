@@ -1,0 +1,111 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:17 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: JOB_HISTORY|HR, Root id:         50
+SQL_ID  3mgh8qxnmmcmj, child number 0
+-------------------------------------
+INSERT INTO MIN_TREE_LINKS SELECT /*+ gather_plan_statistics XPLAN_MTL
+*/ CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE
+LNK.NODE_ID_FR END, MIN (MLP_CUR.NODE_ID), :B1 + 1 FROM MIN_TREE_LINKS
+MLP_CUR JOIN LINKS LNK ON (LNK.NODE_ID_FR = MLP_CUR.NODE_ID OR
+LNK.NODE_ID_TO = MLP_CUR.NODE_ID) LEFT JOIN MIN_TREE_LINKS MLP_PRI ON
+MLP_PRI.NODE_ID = CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN
+LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END WHERE MLP_PRI.NODE_ID IS NULL
+AND MLP_CUR.LEV = :B1 GROUP BY CASE WHEN LNK.NODE_ID_FR =
+MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END
+Plan hash value: 3414462724
+--------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name           | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |                |      1 |        |      0 |00:00:00.01 |      19 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | MIN_TREE_LINKS |      1 |        |      0 |00:00:00.01 |      19 |       |       |          |
+|   2 |   HASH GROUP BY          |                |      1 |      1 |      0 |00:00:00.01 |      19 |   974K|   974K|          |
+|*  3 |    HASH JOIN ANTI        |                |      1 |      1 |      0 |00:00:00.01 |      19 |  1399K|  1399K|  733K (0)|
+|   4 |     NESTED LOOPS         |                |      1 |      4 |      2 |00:00:00.01 |      16 |       |       |          |
+|*  5 |      TABLE ACCESS FULL   | MIN_TREE_LINKS |      1 |      1 |      2 |00:00:00.01 |       4 |       |       |          |
+|*  6 |      TABLE ACCESS FULL   | LINKS          |      2 |      4 |      2 |00:00:00.01 |      12 |       |       |          |
+|   7 |     TABLE ACCESS FULL    | MIN_TREE_LINKS |      1 |      1 |     15 |00:00:00.01 |       3 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - access("MLP_PRI"."NODE_ID"=CASE "LNK"."NODE_ID_FR" WHEN "MLP_CUR"."NODE_ID" THEN "LNK"."NODE_ID_TO" ELSE
+"LNK"."NODE_ID_FR" END )
+5 - filter("MLP_CUR"."LEV"=:B1)
+6 - filter(("LNK"."NODE_ID_FR"="MLP_CUR"."NODE_ID" OR "LNK"."NODE_ID_TO"="MLP_CUR"."NODE_ID"))
+Note
+-----
+- dynamic statistics used: dynamic sampling (level=2)
+Timer Set: Ins_Min_Tree_Links: 50, Constructed at 06 Aug 2022 14:46:17, written at 14:46:17
+===========================================================================================
+Timer                  Elapsed         CPU       Calls       Ela/Call       CPU/Call
+------------------  ----------  ----------  ----------  -------------  -------------
+Level: 0, nodes: 3        0.04        0.04           1        0.03700        0.04000
+Level: 1, nodes: 3        0.00        0.00           1        0.00100        0.00000
+Level: 2, nodes: 3        0.00        0.00           1        0.00100        0.00000
+Level: 3, nodes: 3        0.00        0.00           1        0.00000        0.00000
+Level: 4, nodes: 2        0.00        0.00           1        0.00100        0.00000
+Level: 5, nodes: 0        0.00        0.00           1        0.00100        0.00000
+(Other)                   0.28        0.28           1        0.28300        0.28000
+------------------  ----------  ----------  ----------  -------------  -------------
+Total                     0.32        0.32           7        0.04629        0.04571
+------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01906, CPU: 0.01887]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.46
+
+       LEV NODE_NAME                           NODE_NAME_PRIOR
+---------- ----------------------------------- -----------------------------------
+         0 JOB_HISTORY|HR
+         1 DEPARTMENTS|HR                      JOB_HISTORY|HR
+           EMPLOYEES|HR                        JOB_HISTORY|HR
+           JOBS|HR                             JOB_HISTORY|HR
+         2 LOCATIONS|HR                        DEPARTMENTS|HR
+           CUSTOMERS|OE                        EMPLOYEES|HR
+           ORDERS|OE                           EMPLOYEES|HR
+         3 COUNTRIES|HR                        LOCATIONS|HR
+           WAREHOUSES|OE                       LOCATIONS|HR
+           ORDER_ITEMS|OE                      ORDERS|OE
+         4 REGIONS|HR                          COUNTRIES|HR
+           PRODUCT_INFORMATION|OE              ORDER_ITEMS|OE
+           INVENTORIES|OE                      WAREHOUSES|OE
+         5 PRINT_MEDIA|PM                      PRODUCT_INFORMATION|OE
+           PRODUCT_DESCRIPTIONS|OE             PRODUCT_INFORMATION|OE
+
+15 rows selected.
+
+Elapsed: 00:00:00.02
+Minimum Path Tree
+old   2:     SELECT &root_id_var, 0
+new   2:     SELECT         50, 0
+
+NODE_NAME                           NODE                                 LEV
+----------------------------------- ----------------------------------- ----
+JOB_HISTORY|HR                      50                                     0
+JOBS|HR                             ..185                                  1
+EMPLOYEES|HR                        ..222
+ORDERS|OE                           ....11                                 2
+ORDER_ITEMS|OE                      ......27                               3
+PRODUCT_INFORMATION|OE              ........255                            4
+PRINT_MEDIA|PM                      ..........28                           5
+PRODUCT_DESCRIPTIONS|OE             ..........143
+CUSTOMERS|OE                        ....192                                2
+DEPARTMENTS|HR                      ..267                                  1
+LOCATIONS|HR                        ....10                                 2
+WAREHOUSES|OE                       ......102                              3
+INVENTORIES|OE                      ........208                            4
+COUNTRIES|HR                        ......232                              3
+REGIONS|HR                          ........63                             4
+
+15 rows selected.
+
+Elapsed: 00:00:00.02
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:17
+

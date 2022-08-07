@@ -1,0 +1,26 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          07-AUG-2022 15:38:39 Version 21.3.0.0.0
+
+Network summary 1 - by subnetwork
+
+Network     #Links  #Nodes    Max Lev
+---------- ------- ------- ----------
+12               2       2          1
+1               13      11          4
+
+Elapsed: 00:00:00.00
+Network summary 2 - grouped by numbers of nodes
+
+ #Nodes  #Networks
+------- ----------
+      2          1
+     11          1
+
+Elapsed: 00:00:00.01
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 07-AUG-2022 15:38:39
+

@@ -1,0 +1,105 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 20:30:54 Version 21.3.0.0.0
+
+old   4:   l_n_nodes := SPS_Pre_Inserts.Ins_Isolated_Nodes_Links(p_node_vsn => &P1, p_link_vsn => &P2);
+new   4:   l_n_nodes := SPS_Pre_Inserts.Ins_Isolated_Nodes_Links(p_node_vsn => 3, p_link_vsn => 6);
+SQL_ID  57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 443257954
+------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |
+------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:00.34 |     150K|      5 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:00.34 |     150K|      5 |
+|   2 |   NESTED LOOPS ANTI      |              |      1 |     85 |   1489 |00:00:00.36 |     150K|      0 |
+|   3 |    NESTED LOOPS ANTI     |              |      1 |   8467 |  10215 |00:00:00.30 |     129K|      0 |
+|   4 |     INDEX FAST FULL SCAN | SYS_C0018382 |      1 |    134K|    134K|00:00:00.03 |     325 |      0 |
+|*  5 |     INDEX RANGE SCAN     | LINKS_FR_N1  |    134K|   7584K|    123K|00:00:00.23 |     129K|      0 |
+|*  6 |    INDEX RANGE SCAN      | LINKS_TO_N1  |  10215 |   8095K|   8726 |00:00:00.03 |   20281 |      0 |
+------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+6 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+SQL_ID  71jphqrrnbvwg, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ISOLATED_LINKS AS ( SELECT LNK.NODE_ID_FR,
+LNK.NODE_ID_TO FROM LINKS LNK WHERE NOT EXISTS ( SELECT 1 FROM LINKS
+LNK_2 WHERE LNK_2.NODE_ID_FR = LNK.NODE_ID_FR AND LNK_2.ROWID !=
+LNK.ROWID ) AND NOT EXISTS ( SELECT 1 FROM LINKS LNK_2 WHERE
+LNK_2.NODE_ID_TO = LNK.NODE_ID_TO AND LNK_2.ROWID != LNK.ROWID ) AND
+NOT EXISTS ( SELECT 1 FROM LINKS LNK_2 WHERE (LNK_2.NODE_ID_FR =
+LNK.NODE_ID_TO OR LNK_2.NODE_ID_TO = LNK.NODE_ID_FR) AND LNK_2.ROWID !=
+LNK.ROWID ) ) SELECT /*+ gather_plan_statistics XPLAN_ISO_L */
+NODE_ID_FR, NODE_ID_FR, 0 FROM ISOLATED_LINKS UNION SELECT NODE_ID_TO,
+NODE_ID_FR, 1 FROM ISOLATED_LINKS
+Plan hash value: 447223685
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  | Writes |  OMem |  1Mem | Used-Mem | Used-Tmp|
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:12.37 |   53620 |  82336 |  82336 |       |       |          |         |
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:12.37 |   53620 |  82336 |  82336 |       |       |          |         |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6C22_4F65443 |      1 |        |      0 |00:00:12.32 |   52133 |  82336 |  82336 |  1024 |  1024 |          |         |
+|*  3 |    FILTER                                |                            |      1 |        |    425 |00:00:13.17 |   52133 |  82336 |  82336 |       |       |          |         |
+|*  4 |     HASH JOIN RIGHT ANTI                 |                            |      1 |   8095K|    462 |00:00:12.00 |   50241 |  82336 |  82336 |   469M|    16M|   16M (1)|     211M|
+|   5 |      TABLE ACCESS FULL                   | LINKS                      |      1 |   8095K|   8095K|00:00:01.29 |   16747 |      0 |      0 |       |       |          |         |
+|*  6 |      HASH JOIN ANTI                      |                            |      1 |   8095K|   8402 |00:00:07.97 |   33494 |  56234 |  56823 |   522M|    29M|   23M (1)|     454M|
+|   7 |       TABLE ACCESS FULL                  | LINKS                      |      1 |   8095K|   8095K|00:00:01.04 |   16747 |      0 |      0 |       |       |          |         |
+|   8 |       TABLE ACCESS FULL                  | LINKS                      |      1 |   8095K|   8095K|00:00:00.88 |   16747 |      0 |      0 |       |       |          |         |
+|   9 |     TABLE ACCESS BY INDEX ROWID BATCHED  | LINKS                      |    462 |      2 |     37 |00:00:00.01 |    1892 |      0 |      0 |       |       |          |         |
+|* 10 |      BITMAP CONVERSION TO ROWIDS         |                            |    462 |        |     37 |00:00:00.01 |    1855 |      0 |      0 |       |       |          |         |
+|  11 |       BITMAP OR                          |                            |    462 |        |     37 |00:00:00.01 |    1855 |      0 |      0 |       |       |          |         |
+|* 12 |        BITMAP CONVERSION FROM ROWIDS     |                            |    462 |        |     20 |00:00:00.01 |     928 |      0 |      0 |       |       |          |         |
+|* 13 |         INDEX RANGE SCAN                 | LINKS_TO_N1                |    462 |        |     66 |00:00:00.01 |     928 |      0 |      0 |       |       |          |         |
+|* 14 |        BITMAP CONVERSION FROM ROWIDS     |                            |    462 |        |     17 |00:00:00.01 |     927 |      0 |      0 |       |       |          |         |
+|* 15 |         INDEX RANGE SCAN                 | LINKS_FR_N1                |    462 |        |     34 |00:00:00.01 |     927 |      0 |      0 |       |       |          |         |
+|  16 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.05 |    1487 |      0 |      0 |       |       |          |         |
+|  17 |    HASH UNIQUE                           |                            |      1 |     16M|    850 |00:00:00.05 |       0 |      0 |      0 |  1485K|  1485K|   81M (0)|         |
+|  18 |     UNION-ALL                            |                            |      1 |        |    850 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  19 |      VIEW                                |                            |      1 |   8095K|    425 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  20 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C22_4F65443 |      1 |   8095K|    425 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  21 |      VIEW                                |                            |      1 |   8095K|    425 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  22 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C22_4F65443 |      1 |   8095K|    425 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter( IS NULL)
+4 - access("LNK_2"."NODE_ID_FR"="LNK"."NODE_ID_FR")
+filter("LNK_2".ROWID<>"LNK".ROWID)
+6 - access("LNK_2"."NODE_ID_TO"="LNK"."NODE_ID_TO")
+filter("LNK_2".ROWID<>"LNK".ROWID)
+10 - filter("LNK_2".ROWID<>:B1)
+12 - filter("LNK_2".ROWID<>:B1)
+13 - access("LNK_2"."NODE_ID_TO"=:B1)
+filter("LNK_2".ROWID<>:B1)
+14 - filter("LNK_2".ROWID<>:B1)
+15 - access("LNK_2"."NODE_ID_FR"=:B1)
+filter("LNK_2".ROWID<>:B1)
+Timer Set: Ins_Isolated_Nodes_Links, Constructed at 30 Jul 2022 20:30:54, written at 20:31:08
+=============================================================================================
+Timer                             Elapsed         CPU       Calls       Ela/Call       CPU/Call
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 3: 1489        0.35        0.34           1        0.34700        0.34000
+Insert isolated links 6: 850        12.71       12.22           1       12.70800       12.22000
+(Other)                              0.24        0.24           1        0.23600        0.24000
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+Total                               13.29       12.80           3        4.43033        4.26667
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.02525, CPU: 0.02500]
+Processed: 2339
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:13.42
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 20:31:08
+

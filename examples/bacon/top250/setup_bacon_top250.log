@@ -1,0 +1,192 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 08:13:03 Version 21.3.0.0.0
+
+Drop links table
+
+Table dropped.
+
+Create nodes table
+
+Table dropped.
+
+
+Table created.
+
+Create node_roots table
+
+Table dropped.
+
+
+Table created.
+
+Create index node_roots_n1
+
+Index created.
+
+Create links table
+
+Table created.
+
+Create GTT min_tree_links
+
+Table dropped.
+
+
+Table created.
+
+DO NOT Create index min_tree_links_u1
+Create table log_lines
+
+Table dropped.
+
+
+Table created.
+
+Create links_v table
+
+Table dropped.
+
+
+Table created.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Create bacon_top250 tables...
+old   1: DROP TABLE bacon_&TP._ext
+new   1: DROP TABLE bacon_top250_ext
+
+Table dropped.
+
+Elapsed: 00:00:00.03
+old   1: CREATE TABLE bacon_&TP._ext (
+new   1: CREATE TABLE bacon_top250_ext (
+old  15:   LOCATION ('imdb.&TP..txt')
+new  15:   LOCATION ('imdb.top250.txt')
+
+Table created.
+
+Elapsed: 00:00:00.00
+VIEW links_load_v
+old   4: FROM bacon_&TP._ext src
+new   4: FROM bacon_top250_ext src
+old   5: JOIN bacon_&TP._ext dst
+new   5: JOIN bacon_top250_ext dst
+
+View created.
+
+Elapsed: 00:00:00.09
+VIEW nodes_load_v
+old   3: FROM bacon_&TP._ext
+new   3: FROM bacon_top250_ext
+
+View created.
+
+Elapsed: 00:00:00.00
+Insert nodes
+
+12466 rows created.
+
+Elapsed: 00:00:00.27
+Insert links
+
+583993 rows created.
+
+Elapsed: 00:00:00.94
+Count nodes
+
+  COUNT(*)
+----------
+     12466
+
+Elapsed: 00:00:00.05
+Count links
+
+  COUNT(*)
+----------
+    583993
+
+Elapsed: 00:00:00.01
+Non-unique index links (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:00.37
+Non-unique index on links(node_id_to)
+
+Index created.
+
+Elapsed: 00:00:00.41
+Foreign keys on links: node_id_fr and node_id_to
+
+Table altered.
+
+Elapsed: 00:00:00.59
+
+Table altered.
+
+Elapsed: 00:00:00.21
+Gather schema stats
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:42.26
+links_v based on links
+
+583993 rows created.
+
+Non-unique index ON links_v (node_id_fr)
+
+Index created.
+
+Non-unique index ON links_v (node_id_to)
+
+Index created.
+
+
+PL/SQL procedure successfully completed.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 08:14:35
+

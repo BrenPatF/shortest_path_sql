@@ -1,0 +1,403 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 18:57:32 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: Willie Allemang, Root id:          1
+SQL_ID  3mgh8qxnmmcmj, child number 0
+-------------------------------------
+INSERT INTO MIN_TREE_LINKS SELECT /*+ gather_plan_statistics XPLAN_MTL
+*/ CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE
+LNK.NODE_ID_FR END, MIN (MLP_CUR.NODE_ID), :B1 + 1 FROM MIN_TREE_LINKS
+MLP_CUR JOIN LINKS LNK ON (LNK.NODE_ID_FR = MLP_CUR.NODE_ID OR
+LNK.NODE_ID_TO = MLP_CUR.NODE_ID) LEFT JOIN MIN_TREE_LINKS MLP_PRI ON
+MLP_PRI.NODE_ID = CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN
+LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END WHERE MLP_PRI.NODE_ID IS NULL
+AND MLP_CUR.LEV = :B1 GROUP BY CASE WHEN LNK.NODE_ID_FR =
+MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END
+Plan hash value: 3414462724
+--------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name           | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |                |      1 |        |      0 |00:00:00.02 |    1777 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | MIN_TREE_LINKS |      1 |        |      0 |00:00:00.02 |    1777 |       |       |          |
+|   2 |   HASH GROUP BY          |                |      1 |      1 |      0 |00:00:00.02 |    1777 |   983K|   983K|          |
+|*  3 |    HASH JOIN ANTI        |                |      1 |      1 |      0 |00:00:00.02 |    1777 |  1569K|  1569K| 2174K (0)|
+|   4 |     NESTED LOOPS         |                |      1 |     45 |   6255 |00:00:00.01 |    1774 |       |       |          |
+|*  5 |      TABLE ACCESS FULL   | MIN_TREE_LINKS |      1 |      1 |    118 |00:00:00.01 |       4 |       |       |          |
+|*  6 |      TABLE ACCESS FULL   | LINKS          |    118 |     45 |   6255 |00:00:00.02 |    1770 |       |       |          |
+|   7 |     TABLE ACCESS FULL    | MIN_TREE_LINKS |      1 |      1 |    161 |00:00:00.01 |       3 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - access("MLP_PRI"."NODE_ID"=CASE "LNK"."NODE_ID_FR" WHEN "MLP_CUR"."NODE_ID" THEN "LNK"."NODE_ID_TO" ELSE
+"LNK"."NODE_ID_FR" END )
+5 - filter("MLP_CUR"."LEV"=:B1)
+6 - filter(("LNK"."NODE_ID_FR"="MLP_CUR"."NODE_ID" OR "LNK"."NODE_ID_TO"="MLP_CUR"."NODE_ID"))
+Note
+-----
+- dynamic statistics used: dynamic sampling (level=2)
+Timer Set: Ins_Min_Tree_Links: 1, Constructed at 30 Jul 2022 18:57:32, written at 18:57:32
+==========================================================================================
+Timer                    Elapsed         CPU       Calls       Ela/Call       CPU/Call
+--------------------  ----------  ----------  ----------  -------------  -------------
+Level: 0, nodes: 2          0.02        0.01           1        0.01900        0.01000
+Level: 1, nodes: 2          0.00        0.00           1        0.00100        0.00000
+Level: 2, nodes: 10         0.00        0.00           1        0.00100        0.00000
+Level: 3, nodes: 28         0.00        0.00           1        0.00100        0.00000
+Level: 4, nodes: 118        0.01        0.01           1        0.00500        0.01000
+Level: 5, nodes: 0          0.02        0.02           1        0.01700        0.02000
+(Other)                     0.21        0.20           1        0.20600        0.20000
+--------------------  ----------  ----------  ----------  -------------  -------------
+Total                       0.25        0.24           7        0.03571        0.03429
+--------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01031, CPU: 0.01042]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.35
+
+       LEV NODE_NAME                           NODE_NAME_PRIOR
+---------- ----------------------------------- -----------------------------------
+         0 Willie Allemang
+         1 Diane Fischer (II)                  Willie Allemang
+           Leonard Nimoy                       Willie Allemang
+         2 Carrie Fisher                       Leonard Nimoy
+           Christian Slater                    Leonard Nimoy
+         3 Alec Guinness                       Carrie Fisher
+           Bill Murray (I)                     Carrie Fisher
+           Billy Crystal                       Carrie Fisher
+           James Earl Jones                    Carrie Fisher
+           James Stewart (I)                   Carrie Fisher
+           Paul Reubens                        Carrie Fisher
+           Alan Rickman                        Christian Slater
+           Arnold Schwarzenegger               Christian Slater
+           Kevin Bacon (I)                     Christian Slater
+           Morgan Freeman (I)                  Christian Slater
+         4 Alyson Hannigan                     Arnold Schwarzenegger
+           Charles Grodin (I)                  Arnold Schwarzenegger
+           Cate Blanchett                      Bill Murray (I)
+           Adam Sandler (I)                    Billy Crystal
+           Anthony Michael Hall                Billy Crystal
+           Babe Ruth                           Billy Crystal
+           Barry Pepper                        Billy Crystal
+           Catherine Zeta-Jones                Billy Crystal
+           Denzel Washington                   Billy Crystal
+           Dinah Shore                         Billy Crystal
+           Jennifer Crystal                    Billy Crystal
+           John F. Kennedy                     Billy Crystal
+           Merlyn Mantle                       Billy Crystal
+           Mickey Mantle                       Billy Crystal
+           Paul Borghese                       Billy Crystal
+           Robert F. Colesberry                Billy Crystal
+           Roger Maris                         Billy Crystal
+           Thomas Jane                         Billy Crystal
+           Yogi Berra                          Billy Crystal
+           Al Pacino                           James Earl Jones
+           Christopher Lee (I)                 James Earl Jones
+           Danny Glover                        James Earl Jones
+           Brigitte Bardot                     James Stewart (I)
+           Cary Grant                          James Stewart (I)
+           Clark Gable                         James Stewart (I)
+           John Malkovich                      Kevin Bacon (I)
+           Billy Bob Thornton                  Morgan Freeman (I)
+           Christian Bale                      Morgan Freeman (I)
+         5 Allen Covert                        Adam Sandler (I)
+           Ann Pala                            Adam Sandler (I)
+           Betsy Asher Hall                    Adam Sandler (I)
+           Blake Clark                         Adam Sandler (I)
+           Craig A. Mumma                      Adam Sandler (I)
+           Dana Carvey                         Adam Sandler (I)
+           David Sosalla                       Adam Sandler (I)
+           Ellen Lutter                        Adam Sandler (I)
+           Erik Jan deBoer                     Adam Sandler (I)
+           Harvey Keitel                       Adam Sandler (I)
+           Howard Berger                       Adam Sandler (I)
+           John E. Sullivan (I)                Adam Sandler (I)
+           Kevin Nealon                        Adam Sandler (I)
+           Marc Kolbe                          Adam Sandler (I)
+           Ozzy Osbourne                       Adam Sandler (I)
+           Patricia Arquette                   Adam Sandler (I)
+           Perry Andelin Blake                 Adam Sandler (I)
+           Reese Witherspoon                   Adam Sandler (I)
+           Rhys Ifans                          Adam Sandler (I)
+           Robert Smigel                       Adam Sandler (I)
+           Rocco Passionino                    Adam Sandler (I)
+           Rodney Dangerfield                  Adam Sandler (I)
+           Steve Berens                        Adam Sandler (I)
+           Steven Brill (I)                    Adam Sandler (I)
+           Tom 'Tiny' Lister Jr.               Adam Sandler (I)
+           Christopher Nolan                   Al Pacino
+           Charisma Carpenter                  Alyson Hannigan
+           Dwight Yoakam                       Billy Bob Thornton
+           Warren Zevon                        Billy Bob Thornton
+           Christina Ricci                     Christopher Lee (I)
+           Peter Cushing                       Christopher Lee (I)
+           Courtney James Stewart              Denzel Washington
+           Alireza Shayegan                    John Malkovich
+           Amir Ashayeri                       John Malkovich
+           Andy Dick                           John Malkovich
+           Aredeshir Monazzam                  John Malkovich
+           Ata Emamian                         John Malkovich
+           Audrey Gelfund                      John Malkovich
+           Bill M. Ryusaki                     John Malkovich
+           Bill Wittman                        John Malkovich
+           Brad Pitt                           John Malkovich
+           Byrne Piven                         John Malkovich
+           Cameron Diaz                        John Malkovich
+           Carlos Jacott                       John Malkovich
+           Catherine Keener                    John Malkovich
+           Charlene Grimsley                   John Malkovich
+           Charlie Sheen                       John Malkovich
+           Chelsa Sjostrom                     John Malkovich
+           Christine D. Coleman                John Malkovich
+           Christine Krejer                    John Malkovich
+           Danial Hakimi                       John Malkovich
+           Daniel Hansen                       John Malkovich
+           David Fincher                       John Malkovich
+           David Wyler (I)                     John Malkovich
+           Denise Dabrowski                    John Malkovich
+           Dustin Hoffman                      John Malkovich
+           Eddie J. Low                        John Malkovich
+           Elizabeth Rivera                    John Malkovich
+           Eric Weinstein (I)                  John Malkovich
+           Erica Long                          John Malkovich
+           Flori Wyler                         John Malkovich
+           Gary Sinise                         John Malkovich
+           Gerald Emerick                      John Malkovich
+           Greg O'Neill                        John Malkovich
+           Gregory Sporleder                   John Malkovich
+           Hamed Rezai                         John Malkovich
+           Isaac Hanson                        John Malkovich
+           Jacqueline Benoit                   John Malkovich
+           James Murray (XIII)                 John Malkovich
+           Jayne Hess                          John Malkovich
+           Jeanne Diehl                        John Malkovich
+           Jennifer Canzoneri                  John Malkovich
+           Jessica Neuberger                   John Malkovich
+           Jester Hairston                     John Malkovich
+           John Cusack                         John Malkovich
+           Judith Wetzell                      John Malkovich
+           K.K. Dodds                          John Malkovich
+           Kacee DeMasi                        John Malkovich
+           Kave Deymar                         John Malkovich
+           Kelly Teacher                       John Malkovich
+           Kevin Carroll                       John Malkovich
+           Kevin Lee (IV)                      John Malkovich
+           Kristie Cordle                      John Malkovich
+           Kristin D'Andrea                    John Malkovich
+           Lance Bangs                         John Malkovich
+           Madison Lanc                        John Malkovich
+           Mariah O'Brien                      John Malkovich
+           Marlowe Bassett                     John Malkovich
+           Mary Kay Place                      John Malkovich
+           Matin Azizpour                      John Malkovich
+           Michelle Madden                     John Malkovich
+           Mohammad Reza Farhoudi              John Malkovich
+           Ned Bellamy                         John Malkovich
+           Neil Ross (I)                       John Malkovich
+           Octavia Spencer                     John Malkovich
+           Orson Bean                          John Malkovich
+           Pamela Hayden                       John Malkovich
+           Patti Tippo                         John Malkovich
+           Ralph W. Spaulding                  John Malkovich
+           Reginald C. Hayes                   John Malkovich
+           Richard Fancy                       John Malkovich
+           Roozbeh Zivari                      John Malkovich
+           Roy C. Johnson                      John Malkovich
+           Sara Rifkin                         John Malkovich
+           Sara Solati                         John Malkovich
+           Sean Penn                           John Malkovich
+           Spike Jonze                         John Malkovich
+           Sylvester Jenkins                   John Malkovich
+           Taylor Hanson                       John Malkovich
+           Victor Isaac                        John Malkovich
+           Vladimir Putin                      John Malkovich
+           W. Earl Brown                       John Malkovich
+           William Buck (II)                   John Malkovich
+           Willie Garson                       John Malkovich
+           Winona Ryder                        John Malkovich
+           Yetta Ginsburg                      John Malkovich
+           Yvonne Montelius                    John Malkovich
+           Zac Hanson                          John Malkovich
+
+161 rows selected.
+
+Elapsed: 00:00:00.00
+Minimum Path Tree
+old   2:     SELECT &root_id_var, 0
+new   2:     SELECT          1, 0
+
+NODE_NAME                           NODE                                 LEV
+----------------------------------- ----------------------------------- ----
+Willie Allemang                     1                                      0
+Leonard Nimoy                       ..73                                   1
+Christian Slater                    ....95                                 2
+Kevin Bacon (I)                     ......4                                3
+John Malkovich                      ........65                             4
+Amir Ashayeri                       ..........2                            5
+Matin Azizpour                      ..........3
+Lance Bangs                         ..........6
+Orson Bean                          ..........7
+Ned Bellamy                         ..........8
+W. Earl Brown                       ..........15
+William Buck (II)                   ..........16
+Kevin Carroll                       ..........17
+John Cusack                         ..........23
+Kave Deymar                         ..........27
+Andy Dick                           ..........28
+Ata Emamian                         ..........29
+Gerald Emerick                      ..........30
+Richard Fancy                       ..........31
+Mohammad Reza Farhoudi              ..........32
+David Fincher                       ..........33
+Willie Garson                       ..........36
+Jester Hairston                     ..........41
+Danial Hakimi                       ..........42
+Daniel Hansen                       ..........44
+Isaac Hanson                        ..........45
+Taylor Hanson                       ..........46
+Zac Hanson                          ..........47
+Reginald C. Hayes                   ..........48
+Dustin Hoffman                      ..........49
+Victor Isaac                        ..........51
+Carlos Jacott                       ..........52
+Sylvester Jenkins                   ..........54
+Roy C. Johnson                      ..........55
+Spike Jonze                         ..........57
+Kevin Lee (IV)                      ..........62
+Eddie J. Low                        ..........64
+Aredeshir Monazzam                  ..........68
+James Murray (XIII)                 ..........71
+Greg O'Neill                        ..........75
+Sean Penn                           ..........79
+Brad Pitt                           ..........81
+Byrne Piven                         ..........82
+Vladimir Putin                      ..........83
+Hamed Rezai                         ..........85
+Neil Ross (I)                       ..........87
+Bill M. Ryusaki                     ..........89
+Alireza Shayegan                    ..........92
+Charlie Sheen                       ..........93
+Gary Sinise                         ..........94
+Ralph W. Spaulding                  ..........98
+Gregory Sporleder                   ..........99
+Eric Weinstein (I)                  ..........105
+Bill Wittman                        ..........106
+David Wyler (I)                     ..........107
+Flori Wyler                         ..........108
+Roozbeh Zivari                      ..........111
+Marlowe Bassett                     ..........114
+Jacqueline Benoit                   ..........115
+Jennifer Canzoneri                  ..........117
+Christine D. Coleman                ..........119
+Kristie Cordle                      ..........120
+Kristin D'Andrea                    ..........122
+Denise Dabrowski                    ..........123
+Kacee DeMasi                        ..........124
+Cameron Diaz                        ..........125
+Jeanne Diehl                        ..........126
+K.K. Dodds                          ..........127
+Audrey Gelfund                      ..........130
+Yetta Ginsburg                      ..........131
+Charlene Grimsley                   ..........132
+Pamela Hayden                       ..........135
+Jayne Hess                          ..........136
+Catherine Keener                    ..........137
+Christine Krejer                    ..........138
+Madison Lanc                        ..........139
+Erica Long                          ..........140
+Michelle Madden                     ..........142
+Yvonne Montelius                    ..........144
+Jessica Neuberger                   ..........145
+Mariah O'Brien                      ..........146
+Mary Kay Place                      ..........148
+Sara Rifkin                         ..........150
+Elizabeth Rivera                    ..........151
+Winona Ryder                        ..........152
+Chelsa Sjostrom                     ..........154
+Sara Solati                         ..........155
+Octavia Spencer                     ..........156
+Kelly Teacher                       ..........157
+Patti Tippo                         ..........158
+Judith Wetzell                      ..........159
+Morgan Freeman (I)                  ......34                               3
+Christian Bale                      ........5                              4
+Billy Bob Thornton                  ........103
+Dwight Yoakam                       ..........109                          5
+Warren Zevon                        ..........110
+Alan Rickman                        ......86                               3
+Arnold Schwarzenegger               ......91
+Charles Grodin (I)                  ........39                             4
+Alyson Hannigan                     ........134
+Charisma Carpenter                  ..........118                          5
+Carrie Fisher                       ....129                                2
+Billy Crystal                       ......22                               3
+Yogi Berra                          ........11                             4
+Paul Borghese                       ........13
+Robert F. Colesberry                ........20
+Anthony Michael Hall                ........43
+Thomas Jane                         ........53
+John F. Kennedy                     ........59
+Mickey Mantle                       ........66
+Roger Maris                         ........67
+Barry Pepper                        ........80
+Babe Ruth                           ........88
+Adam Sandler (I)                    ........90
+Steve Berens                        ..........9                            5
+Howard Berger                       ..........10
+Perry Andelin Blake                 ..........12
+Steven Brill (I)                    ..........14
+Dana Carvey                         ..........18
+Blake Clark                         ..........19
+Allen Covert                        ..........21
+Rodney Dangerfield                  ..........25
+Erik Jan deBoer                     ..........26
+Rhys Ifans                          ..........50
+Harvey Keitel                       ..........58
+Marc Kolbe                          ..........60
+Tom 'Tiny' Lister Jr.               ..........63
+Craig A. Mumma                      ..........69
+Kevin Nealon                        ..........72
+Ozzy Osbourne                       ..........76
+Rocco Passionino                    ..........78
+Robert Smigel                       ..........96
+David Sosalla                       ..........97
+John E. Sullivan (I)                ..........102
+Patricia Arquette                   ..........112
+Betsy Asher Hall                    ..........133
+Ellen Lutter                        ..........141
+Ann Pala                            ..........147
+Reese Witherspoon                   ..........160
+Denzel Washington                   ........104                            4
+Courtney James Stewart              ..........100                          5
+Jennifer Crystal                    ........121                            4
+Merlyn Mantle                       ........143
+Dinah Shore                         ........153
+Catherine Zeta-Jones                ........161
+Alec Guinness                       ......40                               3
+James Earl Jones                    ......56
+Danny Glover                        ........37                             4
+Christopher Lee (I)                 ........61
+Peter Cushing                       ..........24                           5
+Christina Ricci                     ..........149
+Al Pacino                           ........77                             4
+Christopher Nolan                   ..........74                           5
+Bill Murray (I)                     ......70                               3
+Cate Blanchett                      ........116                            4
+Paul Reubens                        ......84                               3
+James Stewart (I)                   ......101
+Clark Gable                         ........35                             4
+Cary Grant                          ........38
+Brigitte Bardot                     ........113
+Diane Fischer (II)                  ..128                                  1
+
+161 rows selected.
+
+Elapsed: 00:00:00.01
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 18:57:32
+

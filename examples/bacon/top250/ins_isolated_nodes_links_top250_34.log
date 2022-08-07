@@ -1,0 +1,105 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 19:02:44 Version 21.3.0.0.0
+
+SQL_ID  57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 784009621
+---------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:00.02 |   13956 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:00.02 |   13956 |
+|   2 |   NESTED LOOPS ANTI      |              |      1 |      2 |      0 |00:00:00.02 |   13956 |
+|   3 |    NESTED LOOPS ANTI     |              |      1 |    187 |    187 |00:00:00.01 |   13580 |
+|   4 |     INDEX FAST FULL SCAN | SYS_C0018370 |      1 |  12466 |  12466 |00:00:00.01 |      33 |
+|*  5 |     INDEX RANGE SCAN     | LINKS_TO_N1  |  12466 |    575K|  12279 |00:00:00.02 |   13547 |
+|*  6 |    INDEX RANGE SCAN      | LINKS_FR_N1  |    187 |    583K|    187 |00:00:00.01 |     376 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+6 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+SQL_ID  6r4bascwtbk2h, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ISOLATED_LINKS AS ( SELECT /*+ USE_NL
+(lnk_2) USE_NL (lnk_3) USE_NL (lnk_4) */ LNK.NODE_ID_FR, LNK.NODE_ID_TO
+FROM LINKS LNK LEFT JOIN LINKS LNK_1 ON (LNK_1.NODE_ID_FR =
+LNK.NODE_ID_FR AND LNK_1.ROWID != LNK.ROWID) LEFT JOIN LINKS LNK_2 ON
+(LNK_2.NODE_ID_FR = LNK.NODE_ID_TO AND LNK_2.ROWID != LNK.ROWID) LEFT
+JOIN LINKS LNK_3 ON (LNK_3.NODE_ID_TO = LNK.NODE_ID_FR AND LNK_3.ROWID
+!= LNK.ROWID) LEFT JOIN LINKS LNK_4 ON (LNK_4.NODE_ID_TO =
+LNK.NODE_ID_TO AND LNK_4.ROWID != LNK.ROWID) WHERE LNK_1.NODE_ID_FR IS
+NULL AND LNK_2.NODE_ID_FR IS NULL AND LNK_3.NODE_ID_TO IS NULL AND
+LNK_4.NODE_ID_TO IS NULL ) SELECT /*+ gather_plan_statistics
+XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM ISOLATED_LINKS UNION
+SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM ISOLATED_LINKS
+Plan hash value: 2892651095
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:14.01 |    2963 |       |       |          |
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:14.01 |    2963 |       |       |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6C11_4F65443 |      1 |        |      0 |00:00:14.01 |    2962 |  1024 |  1024 |          |
+|*  3 |    FILTER                                |                            |      1 |        |      0 |00:00:14.01 |    2961 |       |       |          |
+|   4 |     NESTED LOOPS OUTER                   |                            |      1 |    583K|      0 |00:00:14.01 |    2961 |       |       |          |
+|*  5 |      FILTER                              |                            |      1 |        |      0 |00:00:14.01 |    2961 |       |       |          |
+|   6 |       NESTED LOOPS OUTER                 |                            |      1 |    583K|  10018 |00:00:13.98 |    2961 |       |       |          |
+|*  7 |        FILTER                            |                            |      1 |        |    163 |00:00:14.02 |    2612 |       |       |          |
+|   8 |         NESTED LOOPS OUTER               |                            |      1 |    583K|    294 |00:00:14.00 |    2612 |       |       |          |
+|*  9 |          FILTER                          |                            |      1 |        |    187 |00:00:14.01 |    2236 |       |       |          |
+|* 10 |           HASH JOIN OUTER                |                            |      1 |    583K|     54M|00:00:14.50 |    2236 |    39M|  7583K|   49M (0)|
+|  11 |            TABLE ACCESS FULL             | LINKS                      |      1 |    583K|    583K|00:00:00.06 |    1118 |       |       |          |
+|  12 |            TABLE ACCESS FULL             | LINKS                      |      1 |    583K|    583K|00:00:00.07 |    1118 |       |       |          |
+|* 13 |          INDEX RANGE SCAN                | LINKS_FR_N1                |    187 |      1 |    131 |00:00:00.01 |     376 |       |       |          |
+|* 14 |        INDEX RANGE SCAN                  | LINKS_TO_N1                |    163 |      1 |  10018 |00:00:00.01 |     349 |       |       |          |
+|* 15 |      INDEX RANGE SCAN                    | LINKS_TO_N1                |      0 |      1 |      0 |00:00:00.01 |       0 |       |       |          |
+|  16 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.01 |       0 |       |       |          |
+|  17 |    HASH UNIQUE                           |                            |      1 |   1167K|      0 |00:00:00.01 |       0 |    82M|  6123K|          |
+|  18 |     UNION-ALL                            |                            |      1 |        |      0 |00:00:00.01 |       0 |       |       |          |
+|  19 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |       |       |          |
+|  20 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C11_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |       |       |          |
+|  21 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |       |       |          |
+|  22 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C11_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter("LNK_4"."NODE_ID_TO" IS NULL)
+5 - filter("LNK_3"."NODE_ID_TO" IS NULL)
+7 - filter("LNK_2"."NODE_ID_FR" IS NULL)
+9 - filter("LNK_1"."NODE_ID_FR" IS NULL)
+10 - access("LNK_1"."NODE_ID_FR"="LNK"."NODE_ID_FR")
+filter("LNK_1".ROWID<>"LNK".ROWID)
+13 - access("LNK_2"."NODE_ID_FR"="LNK"."NODE_ID_TO")
+filter("LNK_2".ROWID<>"LNK".ROWID)
+14 - access("LNK_3"."NODE_ID_TO"="LNK"."NODE_ID_FR")
+filter("LNK_3".ROWID<>"LNK".ROWID)
+15 - access("LNK_4"."NODE_ID_TO"="LNK"."NODE_ID_TO")
+filter("LNK_4".ROWID<>"LNK".ROWID)
+Timer Set: Ins_Isolated_Nodes_Links, Constructed at 30 Jul 2022 19:02:44, written at 19:02:58
+=============================================================================================
+Timer                          Elapsed         CPU       Calls       Ela/Call       CPU/Call
+--------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 3: 0        0.03        0.02           1        0.02800        0.02000
+Insert isolated links 4: 0       14.28       14.19           1       14.27800       14.19000
+(Other)                           0.21        0.22           1        0.21300        0.22000
+--------------------------  ----------  ----------  ----------  -------------  -------------
+Total                            14.52       14.43           3        4.83967        4.81000
+--------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01087, CPU: 0.01087]
+Processed: 0
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:14.63
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 19:02:59
+

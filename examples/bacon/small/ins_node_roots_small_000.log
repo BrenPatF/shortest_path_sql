@@ -1,0 +1,52 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 18:57:32 Version 21.3.0.0.0
+
+Ins_Node_Roots: p_node_vsn = 0p_link_vsn = 0, p_order_type = 0
+Timer Set: Ins_Node_Roots, Constructed at 30 Jul 2022 18:57:32, written at 18:57:32
+===================================================================================
+Timer                                              Elapsed         CPU       Calls       Ela/Call       CPU/Call
+----------------------------------------------  ----------  ----------  ----------  -------------  -------------
+SELECT id INTO l_root_id                              0.01        0.01           2        0.00500        0.00500
+Insert min_tree_links (root node 1, size: 161)        0.03        0.02           1        0.02800        0.02000
+Insert node_roots (root node 1, size: 161)            0.01        0.01           1        0.00700        0.01000
+(Other)                                               0.00        0.01           1        0.00000        0.01000
+----------------------------------------------  ----------  ----------  ----------  -------------  -------------
+Total                                                 0.05        0.05           5        0.00900        0.01000
+----------------------------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.00943, CPU: 0.00943]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.14
+Node count by root node
+
+ROOT_NODE_ID NODE_NAME                                             N_NODES     MAXLEV
+------------ -------------------------------------------------- ---------- ----------
+           1 Willie Allemang                                           161          5
+                                                                ----------
+sum                                                                    161
+
+Elapsed: 00:00:00.00
+Subnet count by number of nodes
+
+   N_NODES  N_SUBNETS
+---------- ----------
+       161          1
+----------
+       161
+
+Elapsed: 00:00:00.00
+Subnet count by maximum level
+
+    MAXLEV  N_SUBNETS
+---------- ----------
+         5          1
+
+Elapsed: 00:00:00.00
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 18:57:32
+

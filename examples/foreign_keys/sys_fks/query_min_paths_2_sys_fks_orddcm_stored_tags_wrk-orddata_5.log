@@ -1,0 +1,125 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:25 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: ORDDCM_STORED_TAGS_WRK|ORDDATA, Root id:        227, LEVMAX: 5
+Two recursive subqueries - XPLAN_RSF_2
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+ORDDCM_STORED_TAGS_WRK|ORDDATA      227                               0
+ORDDCM_DOCS_WRK|ORDDATA             ..175                             1
+ORDDCM_CT_LOCATORPATHS_WRK|ORDDATA  ....13                            2
+ORDDCM_UID_DEFS_WRK|ORDDATA         ....20                            2
+ORDDCM_RT_PREF_PARAMS_WRK|ORDDATA   ....51                            2
+ORDDCM_MAPPING_DOCS_WRK|ORDDATA     ....86                            2
+ORDDCM_MAPPED_PATHS_WRK|ORDDATA     ......135                         3
+ORDDCM_DOC_TYPES|ORDDATA            ....109                           2
+ORDDCM_INSTALL_DOCS|ORDDATA         ......204                         3
+ORDDCM_DOCS|ORDDATA                 ......277                         3
+ORDDCM_PRV_ATTRS|ORDDATA            ........8                         4
+ORDDCM_ANON_RULES|ORDDATA           ........48                        4
+ORDDCM_CT_PRED_SET|ORDDATA          ........68                        4
+ORDDCM_CT_MACRO_DEP|ORDDATA         ..........19                      5
+ORDDCM_CT_MACRO_PAR|ORDDATA         ..........85                      5
+ORDDCM_CT_PRED|ORDDATA              ..........114                     5
+ORDDCM_CT_ACTION|ORDDATA            ............2                     6
+ORDDCM_CT_PRED_PAR|ORDDATA          ............46                    6
+ORDDCM_CT_PRED_OPRD|ORDDATA         ............260                   6
+ORDDCM_DOC_REFS|ORDDATA             ........72                        4
+ORDDCM_STORED_TAGS|ORDDATA          ........73                        4
+ORDDCM_ANON_ATTRS|ORDDATA           ........118                       4
+ORDDCM_RT_PREF_PARAMS|ORDDATA       ........119                       4
+ORDDCM_UID_DEFS|ORDDATA             ........161                       4
+ORDDCM_STD_ATTRS|ORDDATA            ........188                       4
+ORDDCM_CT_DAREFS|ORDDATA            ........189                       4
+ORDDCM_DICT_ATTRS|ORDDATA           ..........9                       5
+ORDDCM_MAPPING_DOCS|ORDDATA         ........261                       4
+ORDDCM_MAPPED_PATHS|ORDDATA         ..........176                     5
+ORDDCM_CT_LOCATORPATHS|ORDDATA      ........262                       4
+ORDDCM_ANON_ATTRS_WRK|ORDDATA       ....127                           2
+ORDDCM_ANON_ACTION_TYPES|ORDDATA    ......62                          3
+ORDDCM_ANON_RULES_WRK|ORDDATA       ....170                           2
+ORDDCM_ANON_RULE_TYPES|ORDDATA      ......65                          3
+ORDDCM_DOC_REFS_WRK|ORDDATA         ....197                           2
+ORDDCM_PRV_ATTRS_WRK|ORDDATA        ....198                           2
+ORDDCM_VR_DT_MAP|ORDDATA            ......151                         3
+ORDDCM_DICT_ATTRS_WRK|ORDDATA       ......215                         3
+ORDDCM_CT_DAREFS_WRK|ORDDATA        ....199                           2
+ORDDCM_CT_PRED_SET_WRK|ORDDATA      ....225                           2
+ORDDCM_CT_MACRO_PAR_WRK|ORDDATA     ......83                          3
+ORDDCM_CT_PRED_WRK|ORDDATA          ......174                         3
+ORDDCM_CT_PRED_OPRD_WRK|ORDDATA     ........92                        4
+ORDDCM_CT_PRED_PAR_WRK|ORDDATA      ........233                       4
+ORDDCM_CT_ACTION_WRK|ORDDATA        ........274                       4
+ORDDCM_CT_MACRO_DEP_WRK|ORDDATA     ......193                         3
+ORDDCM_STD_ATTRS_WRK|ORDDATA        ....270                           2
+
+47 rows selected.
+
+Elapsed: 00:00:00.06
+SQL_ID  16sw2dzspjr11, child number 0
+-------------------------------------
+WITH paths_truncated (node_id, lev, rn) /* XPLAN_RSF_2 */ AS (
+SELECT        227, 0, 1       FROM DUAL      UNION ALL     SELECT CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to ELSE l.node_id_fr END,
+p.lev + 1,            Row_Number () OVER (PARTITION BY CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to
+ELSE
+l.node_id_fr END                                ORDER BY p.node_id)
+FROM paths_truncated p       JOIN links l         ON p.node_id IN
+(l.node_id_fr, l.node_id_to)      WHERE p.rn = 1        AND p.lev < 5 )
+--  SEARCH DEPTH FIRST BY node SET line_noadded this to test
+performance CYCLE node_id SET lp TO '*' DEFAULT ' ' , approx_best_paths
+AS (     SELECT node_id,            Max (lev) KEEP (DENSE_RANK FIRST
+ORDER BY lev) lev       FROM paths_truncated      GROUP BY node_id ),
+paths (node_id, lev, rn) AS (     SELECT        227, 0, 1       FROM
+DUAL      UNION ALL     SELECT CAS
+Plan hash value: 2263278633
+----------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                             | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                      |       |      1 |        |     47 |00:00:00.01 |     665 |       |       |          |
+|   1 |  SORT ORDER BY                                        |       |      1 |    237P|     47 |00:00:00.01 |     665 |  4096 |  4096 | 4096  (0)|
+|*  2 |   HASH JOIN                                           |       |      1 |    237P|     47 |00:00:00.01 |     665 |  1298K|  1298K| 1688K (0)|
+|   3 |    TABLE ACCESS FULL                                  | NODES |      1 |    291 |    291 |00:00:00.01 |       7 |       |       |          |
+|   4 |    VIEW                                               |       |      1 |    237P|     47 |00:00:00.01 |     658 |       |       |          |
+|   5 |     SORT GROUP BY                                     |       |      1 |    237P|     47 |00:00:00.01 |     658 |  9216 |  9216 | 8192  (0)|
+|   6 |      VIEW                                             |       |      1 |    237P|     58 |00:00:00.01 |     658 |       |       |          |
+|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST          |       |      1 |        |     58 |00:00:00.01 |     658 |  6144 |  6144 | 6144  (0)|
+|   8 |        FAST DUAL                                      |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|   9 |        WINDOW SORT                                    |       |      7 |    237P|     57 |00:00:00.01 |     658 |  2048 |  2048 | 2048  (0)|
+|* 10 |         FILTER                                        |       |      7 |        |     57 |00:00:00.01 |     658 |       |       |          |
+|* 11 |          HASH JOIN RIGHT OUTER                        |       |      7 |    237P|    118 |00:00:00.01 |     658 |  2078K|  2078K| 1577K (0)|
+|  12 |           BUFFER SORT (REUSE)                         |       |      7 |        |    308 |00:00:00.01 |     329 | 73728 | 73728 |          |
+|  13 |            VIEW                                       |       |      1 |   8425 |     44 |00:00:00.01 |     329 |       |       |          |
+|  14 |             SORT GROUP BY                             |       |      1 |   8425 |     44 |00:00:00.01 |     329 |  6144 |  6144 | 6144  (0)|
+|  15 |              VIEW                                     |       |      1 |   8425 |    127 |00:00:00.01 |     329 |       |       |          |
+|  16 |               UNION ALL (RECURSIVE WITH) BREADTH FIRST|       |      1 |        |    127 |00:00:00.01 |     329 |  2048 |  2048 | 2048  (0)|
+|  17 |                FAST DUAL                              |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  18 |                WINDOW SORT                            |       |      6 |   8424 |    126 |00:00:00.01 |     329 |  4096 |  4096 | 4096  (0)|
+|  19 |                 NESTED LOOPS                          |       |      6 |   8424 |    126 |00:00:00.01 |     329 |       |       |          |
+|  20 |                  RECURSIVE WITH PUMP                  |       |      6 |        |     47 |00:00:00.01 |       0 |       |       |          |
+|* 21 |                  TABLE ACCESS FULL                    | LINKS |     47 |      4 |    126 |00:00:00.01 |     329 |       |       |          |
+|  22 |           NESTED LOOPS                                |       |      7 |   2823T|    118 |00:00:00.01 |     329 |       |       |          |
+|  23 |            RECURSIVE WITH PUMP                        |       |      7 |        |     47 |00:00:00.01 |       0 |       |       |          |
+|* 24 |            TABLE ACCESS FULL                          | LINKS |     47 |      4 |    118 |00:00:00.01 |     329 |       |       |          |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("N"."ID"="M"."NODE_ID")
+10 - filter("P"."LEV"<NVL("B"."LEV",1000000))
+11 - access("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+21 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+24 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.31
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:25
+

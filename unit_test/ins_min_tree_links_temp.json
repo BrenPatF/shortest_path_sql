@@ -1,0 +1,46 @@
+{
+    "meta":  {
+                 "title":  "title",
+                 "delimiter":  "|",
+                 "inp":  {
+                             "Links":  [
+                                           "Node Name From",
+                                           "Node Name To"
+                                       ],
+                             "Isolated Nodes":  [
+                                                    "Node Name"
+                                                ],
+                             "Root Node":  [
+                                               "Node Name"
+                                           ]
+                         },
+                 "out":  {
+                             "Node Roots ":  [
+                                                 "Node Name",
+                                                 "Node Level",
+                                                 "Prior Node"
+                                             ]
+                         }
+             },
+    "scenarios":  {
+                      "scenario 1":  {
+                                         "active_yn":  "Y",
+                                         "inp":  {
+                                                     "Links":  [
+                                                                   "|"
+                                                               ],
+                                                     "Isolated Nodes":  [
+                                                                            ""
+                                                                        ],
+                                                     "Root Node":  [
+                                                                       ""
+                                                                   ]
+                                                 },
+                                         "out":  {
+                                                     "Node Roots ":  [
+                                                                         "||"
+                                                                     ]
+                                                 }
+                                     }
+                  }
+}

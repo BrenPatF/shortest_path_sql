@@ -1,0 +1,57 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          28-JUL-2022 18:16:07 Version 21.3.0.0.0
+
+
+   ROOT_ID ROOT_FILE
+---------- ---------
+     10001 mike_ogas
+
+Elapsed: 00:00:00.01
+ Shortest_Path_SQL_Base.Ins_Tree_links(p_root_node_id => Mike);
+                                                         *
+ERROR at line 8:
+ORA-06550: line 8, column 58:
+PLS-00201: identifier 'MIKE' must be declared
+ORA-06550: line 8, column 2:
+PL/SQL: Statement ignored
+
+
+Elapsed: 00:00:00.00
+Run header (PLSQL_PROFILER_RUNS)
+
+no rows selected
+
+Elapsed: 00:00:00.00
+Profiler data overall summary (PLSQL_PROFILER_DATA)
+
+    Seconds    Microsecs    Calls
+----------- ------------ --------
+
+
+Elapsed: 00:00:00.00
+Profiler data summary by unit (PLSQL_PROFILER_DATA)
+
+no rows selected
+
+Elapsed: 00:00:00.00
+Profiler data by unit and line (PLSQL_PROFILER_DATA)
+
+no rows selected
+
+Elapsed: 00:00:00.00
+Profiler data by time (PLSQL_PROFILER_DATA)
+
+no rows selected
+
+Elapsed: 00:00:00.00
+
+no rows selected
+
+Elapsed: 00:00:00.00
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 28-JUL-2022 18:16:07
+

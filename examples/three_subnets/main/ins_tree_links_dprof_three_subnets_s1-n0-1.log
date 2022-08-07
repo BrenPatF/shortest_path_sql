@@ -1,0 +1,175 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          07-AUG-2022 15:38:36 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:01.02
+Run header (PLSQL_PROFILER_RUNS)
+
+ Run Id Time         Seconds    Microsecs
+------- -------- ----------- ------------
+      5 15:38:36       0.004         4388
+
+Elapsed: 00:00:00.00
+Profiler data overall summary (PLSQL_PROFILER_DATA)
+
+    Seconds    Microsecs    Calls
+----------- ------------ --------
+      0.003         2605       37
+
+Elapsed: 00:00:00.00
+Profiler data summary by unit (PLSQL_PROFILER_DATA, PLSQL_PROFILER_UNITS)
+
+Unit                        Unit#     Seconds    Microsecs    Calls
+------------------------- ------- ----------- ------------ --------
+<anonymous>                     1       0.000           24        2
+<anonymous>                     3       0.000          135        2
+SHORTEST_PATH_SQL_BASE          2       0.002         2446       33
+
+Elapsed: 00:00:00.00
+Profiler data by unit and line (PLSQL_PROFILER_DATA, PLSQL_PROFILER_UNITS, ALL_SOURCE)
+
+    Seconds    Microsecs       Min S       Max S    Calls Unit                        Unit# Type              Line# Line Text
+----------- ------------ ----------- ----------- -------- ------------------------- ------- --------------- ------- --------------------------------------------------------------------------------------------------------------
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       5
+      0.000           19       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK       8
+      0.000            2       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK      11
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       1
+      0.000          128       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      12
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         37 FUNCTION Ins_Min_Tree_Links(
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         41 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         43 l_ins_tot     PLS_INTEGER := 0;
+      0.001          986       0.001       0.001        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         45 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000          204       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         46 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         47 LOOP
+      0.001         1041       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         49 INSERT INTO min_tree_links
+      0.000            6       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         64 l_ins := SQL%ROWCOUNT;
+      0.000          201       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         65 COMMIT;
+      0.000            0       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         66 l_ins_tot := l_ins_tot + l_ins;
+      0.000            2       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         67 EXIT WHEN l_ins = 0;
+      0.000            2       0.000       0.000        3 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         68 l_lev := l_lev + 1;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         71 RETURN l_ins_tot;
+      0.000            2       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         73 END Ins_Min_Tree_Links;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         81 PROCEDURE Ins_All_Min_Path_Links(
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         84 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         86 l_ins_tot     PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         88 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         89 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         90 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         92 INSERT INTO min_tree_links
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        105 l_ins := SQL%ROWCOUNT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        106 COMMIT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        107 l_ins_tot := l_ins_tot + l_ins;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        108 EXIT WHEN l_ins = 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        109 l_lev := l_lev + 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        113 END Ins_All_Min_Path_Links;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        121 PROCEDURE Ins_Node_Roots IS
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        127 EXECUTE IMMEDIATE 'TRUNCATE TABLE node_roots';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        128 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        131 SELECT id INTO l_root_id FROM nodes WHERE id NOT IN (SELECT node_id FROM node_roots) AND ROWNUM = 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        133 WHEN NO_DATA_FOUND THEN
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        134 l_root_id := NULL;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        135 END;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        136 EXIT WHEN l_root_id IS NULL;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        137 l_ins_tot := Ins_Min_Tree_Links(l_root_id);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        139 INSERT INTO node_roots tgt
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        144 END Ins_Node_Roots;
+
+51 rows selected.
+
+Elapsed: 00:00:00.53
+Profiler data by time (PLSQL_PROFILER_DATA, PLSQL_PROFILER_UNITS, ALL_SOURCE)
+
+    Seconds    Microsecs       Min S       Max S    Calls Unit                        Unit# Type              Line# Line Text
+----------- ------------ ----------- ----------- -------- ------------------------- ------- --------------- ------- --------------------------------------------------------------------------------------------------------------
+      0.001         1041       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         49 INSERT INTO min_tree_links
+      0.001          986       0.001       0.001        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         45 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000          204       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         46 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000          201       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         65 COMMIT;
+      0.000          128       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       3
+      0.000           19       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK       8
+      0.000            6       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         64 l_ins := SQL%ROWCOUNT;
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK      10
+      0.000            2       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         73 END Ins_Min_Tree_Links;
+      0.000            2       0.000       0.000        3 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         68 l_lev := l_lev + 1;
+      0.000            2       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         67 EXIT WHEN l_ins = 0;
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         37 FUNCTION Ins_Min_Tree_Links(
+      0.000            1       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       1
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK      11
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         81 PROCEDURE Ins_All_Min_Path_Links(
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         84 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         86 l_ins_tot     PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         88 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         89 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         90 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         92 INSERT INTO min_tree_links
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        105 l_ins := SQL%ROWCOUNT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        106 COMMIT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        107 l_ins_tot := l_ins_tot + l_ins;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        108 EXIT WHEN l_ins = 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        109 l_lev := l_lev + 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        113 END Ins_All_Min_Path_Links;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        121 PROCEDURE Ins_Node_Roots IS
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        127 EXECUTE IMMEDIATE 'TRUNCATE TABLE node_roots';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        128 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        131 SELECT id INTO l_root_id FROM nodes WHERE id NOT IN (SELECT node_id FROM node_roots) AND ROWNUM = 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        133 WHEN NO_DATA_FOUND THEN
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        134 l_root_id := NULL;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        135 END;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        136 EXIT WHEN l_root_id IS NULL;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        137 l_ins_tot := Ins_Min_Tree_Links(l_root_id);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        139 INSERT INTO node_roots tgt
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY        144 END Ins_Node_Roots;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         41 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         43 l_ins_tot     PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         71 RETURN l_ins_tot;
+      0.000            0       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         47 LOOP
+      0.000            0       0.000       0.000        4 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         66 l_ins_tot := l_ins_tot + l_ins;
+
+51 rows selected.
+
+Elapsed: 00:00:00.21
+Minimum Path Tree
+
+NODE_NAME                           NODE                                 LEV
+----------------------------------- ----------------------------------- ----
+S1-N0-1                             1                                      0
+S1-N1-1                             ..2                                    1
+S1-N2-1                             ....7                                  2
+S1-N3-1                             ......10                               3
+S1-N1-2                             ..3                                    1
+S1-N2-2                             ....8                                  2
+S1-N1-3                             ..4                                    1
+S1-N1-4                             ..5
+S1-N2-3                             ....9                                  2
+S1-N3-2                             ......11                               3
+S1-N1-5                             ..6                                    1
+
+11 rows selected.
+
+Elapsed: 00:00:00.01
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 07-AUG-2022 15:38:38
+

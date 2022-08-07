@@ -1,0 +1,1 @@
+Powershell .\Run-AllBig  > .\Run-AllBig.oAllBig 2> .\Run-AllBig.err

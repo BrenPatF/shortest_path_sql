@@ -1,0 +1,1 @@
+Powershell .\Run-All  > .\Run-All.out 2> .\Run-All.err

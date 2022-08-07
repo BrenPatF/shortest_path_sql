@@ -1,0 +1,185 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:14 Version 21.3.0.0.0
+
+Drop links table
+
+Table dropped.
+
+Create nodes table
+
+Table dropped.
+
+
+Table created.
+
+Create node_roots table
+
+Table dropped.
+
+
+Table created.
+
+Create index node_roots_n1
+
+Index created.
+
+Create links table
+
+Table created.
+
+Create GTT min_tree_links
+
+Table dropped.
+
+
+Table created.
+
+DO NOT Create index min_tree_links_u1
+Create table log_lines
+
+Table dropped.
+
+
+Table created.
+
+Create links_v table
+
+Table dropped.
+
+
+Table created.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+CREATE OR REPLACE PACKAGE Net_Pipe AUTHID CURRENT_USER AS
+*
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+No errors.
+
+Warning: Package Body created with compilation errors.
+
+Errors for PACKAGE BODY NET_PIPE:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+0/0      PL/SQL: Compilation unit analysis terminated
+1/14     PLS-00304: cannot compile body of 'NET_PIPE' without its
+         specification
+
+VIEW links_load_v
+
+View created.
+
+Elapsed: 00:00:00.01
+VIEW nodes_load_v
+
+View created.
+
+Elapsed: 00:00:00.00
+Insert nodes
+
+291 rows created.
+
+Elapsed: 00:00:00.03
+Insert links
+
+308 rows created.
+
+Elapsed: 00:00:00.03
+Count nodes
+
+  COUNT(*)
+----------
+       291
+
+Elapsed: 00:00:00.00
+Count links
+
+  COUNT(*)
+----------
+       308
+
+Elapsed: 00:00:00.00
+Non-unique index links (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:00.01
+Non-unique index on links(node_id_to)
+
+Index created.
+
+Elapsed: 00:00:00.01
+Foreign keys on links: node_id_fr and node_id_to
+
+Table altered.
+
+Elapsed: 00:00:00.01
+
+Table altered.
+
+Elapsed: 00:00:00.01
+Gather schema stats
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.67
+links_v based on links
+
+308 rows created.
+
+Elapsed: 00:00:00.01
+Non-unique index ON links_v (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:00.01
+Non-unique index ON links_v (node_id_to)
+
+Index created.
+
+Elapsed: 00:00:00.01
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.81
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:17
+

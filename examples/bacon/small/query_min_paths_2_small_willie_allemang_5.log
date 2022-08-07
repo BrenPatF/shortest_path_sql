@@ -1,0 +1,241 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 18:57:43 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: Willie Allemang, Root id:          1, LEVMAX: 5
+Two recursive subqueries - XPLAN_RSF_2
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+Willie Allemang                     1                                 0
+Leonard Nimoy                       ..73                              1
+Christian Slater                    ....95                            2
+Kevin Bacon (I)                     ......4                           3
+John Malkovich                      ........65                        4
+Amir Ashayeri                       ..........2                       5
+Matin Azizpour                      ..........3                       5
+Lance Bangs                         ..........6                       5
+Orson Bean                          ..........7                       5
+Ned Bellamy                         ..........8                       5
+W. Earl Brown                       ..........15                      5
+William Buck (II)                   ..........16                      5
+Kevin Carroll                       ..........17                      5
+John Cusack                         ..........23                      5
+Kave Deymar                         ..........27                      5
+Andy Dick                           ..........28                      5
+Ata Emamian                         ..........29                      5
+Gerald Emerick                      ..........30                      5
+Richard Fancy                       ..........31                      5
+Mohammad Reza Farhoudi              ..........32                      5
+David Fincher                       ..........33                      5
+Willie Garson                       ..........36                      5
+Jester Hairston                     ..........41                      5
+Danial Hakimi                       ..........42                      5
+Daniel Hansen                       ..........44                      5
+Isaac Hanson                        ..........45                      5
+Taylor Hanson                       ..........46                      5
+Zac Hanson                          ..........47                      5
+Reginald C. Hayes                   ..........48                      5
+Dustin Hoffman                      ..........49                      5
+Victor Isaac                        ..........51                      5
+Carlos Jacott                       ..........52                      5
+Sylvester Jenkins                   ..........54                      5
+Roy C. Johnson                      ..........55                      5
+Spike Jonze                         ..........57                      5
+Kevin Lee (IV)                      ..........62                      5
+Eddie J. Low                        ..........64                      5
+Aredeshir Monazzam                  ..........68                      5
+James Murray (XIII)                 ..........71                      5
+Greg O'Neill                        ..........75                      5
+Sean Penn                           ..........79                      5
+Brad Pitt                           ..........81                      5
+Byrne Piven                         ..........82                      5
+Vladimir Putin                      ..........83                      5
+Hamed Rezai                         ..........85                      5
+Neil Ross (I)                       ..........87                      5
+Bill M. Ryusaki                     ..........89                      5
+Alireza Shayegan                    ..........92                      5
+Charlie Sheen                       ..........93                      5
+Gary Sinise                         ..........94                      5
+Ralph W. Spaulding                  ..........98                      5
+Gregory Sporleder                   ..........99                      5
+Eric Weinstein (I)                  ..........105                     5
+Bill Wittman                        ..........106                     5
+David Wyler (I)                     ..........107                     5
+Flori Wyler                         ..........108                     5
+Roozbeh Zivari                      ..........111                     5
+Marlowe Bassett                     ..........114                     5
+Jacqueline Benoit                   ..........115                     5
+Jennifer Canzoneri                  ..........117                     5
+Christine D. Coleman                ..........119                     5
+Kristie Cordle                      ..........120                     5
+Kristin D'Andrea                    ..........122                     5
+Denise Dabrowski                    ..........123                     5
+Kacee DeMasi                        ..........124                     5
+Cameron Diaz                        ..........125                     5
+Jeanne Diehl                        ..........126                     5
+K.K. Dodds                          ..........127                     5
+Audrey Gelfund                      ..........130                     5
+Yetta Ginsburg                      ..........131                     5
+Charlene Grimsley                   ..........132                     5
+Pamela Hayden                       ..........135                     5
+Jayne Hess                          ..........136                     5
+Catherine Keener                    ..........137                     5
+Christine Krejer                    ..........138                     5
+Madison Lanc                        ..........139                     5
+Erica Long                          ..........140                     5
+Michelle Madden                     ..........142                     5
+Yvonne Montelius                    ..........144                     5
+Jessica Neuberger                   ..........145                     5
+Mariah O'Brien                      ..........146                     5
+Mary Kay Place                      ..........148                     5
+Sara Rifkin                         ..........150                     5
+Elizabeth Rivera                    ..........151                     5
+Winona Ryder                        ..........152                     5
+Chelsa Sjostrom                     ..........154                     5
+Sara Solati                         ..........155                     5
+Octavia Spencer                     ..........156                     5
+Kelly Teacher                       ..........157                     5
+Patti Tippo                         ..........158                     5
+Judith Wetzell                      ..........159                     5
+Morgan Freeman (I)                  ......34                          3
+Christian Bale                      ........5                         4
+Billy Bob Thornton                  ........103                       4
+Dwight Yoakam                       ..........109                     5
+Warren Zevon                        ..........110                     5
+Denzel Washington                   ........104                       4
+Alan Rickman                        ......86                          3
+Arnold Schwarzenegger               ......91                          3
+Charles Grodin (I)                  ........39                        4
+Christopher Lee (I)                 ........61                        4
+Alyson Hannigan                     ........134                       4
+Charisma Carpenter                  ..........118                     5
+Carrie Fisher                       ....129                           2
+Billy Crystal                       ......22                          3
+Yogi Berra                          ........11                        4
+Paul Borghese                       ........13                        4
+Robert F. Colesberry                ........20                        4
+Anthony Michael Hall                ........43                        4
+Thomas Jane                         ........53                        4
+John F. Kennedy                     ........59                        4
+Mickey Mantle                       ........66                        4
+Roger Maris                         ........67                        4
+Barry Pepper                        ........80                        4
+Babe Ruth                           ........88                        4
+Adam Sandler (I)                    ........90                        4
+Steve Berens                        ..........9                       5
+Howard Berger                       ..........10                      5
+Perry Andelin Blake                 ..........12                      5
+Steven Brill (I)                    ..........14                      5
+Dana Carvey                         ..........18                      5
+Blake Clark                         ..........19                      5
+Allen Covert                        ..........21                      5
+Rodney Dangerfield                  ..........25                      5
+Erik Jan deBoer                     ..........26                      5
+Rhys Ifans                          ..........50                      5
+Harvey Keitel                       ..........58                      5
+Marc Kolbe                          ..........60                      5
+Tom 'Tiny' Lister Jr.               ..........63                      5
+Craig A. Mumma                      ..........69                      5
+Kevin Nealon                        ..........72                      5
+Ozzy Osbourne                       ..........76                      5
+Rocco Passionino                    ..........78                      5
+Robert Smigel                       ..........96                      5
+David Sosalla                       ..........97                      5
+John E. Sullivan (I)                ..........102                     5
+Patricia Arquette                   ..........112                     5
+Betsy Asher Hall                    ..........133                     5
+Ellen Lutter                        ..........141                     5
+Ann Pala                            ..........147                     5
+Reese Witherspoon                   ..........160                     5
+Courtney James Stewart              ..........100                     5
+Jennifer Crystal                    ........121                       4
+Merlyn Mantle                       ........143                       4
+Dinah Shore                         ........153                       4
+Catherine Zeta-Jones                ........161                       4
+Alec Guinness                       ......40                          3
+James Earl Jones                    ......56                          3
+Danny Glover                        ........37                        4
+Peter Cushing                       ..........24                      5
+Christina Ricci                     ..........149                     5
+Al Pacino                           ........77                        4
+Christopher Nolan                   ..........74                      5
+Bill Murray (I)                     ......70                          3
+Cate Blanchett                      ........116                       4
+Paul Reubens                        ......84                          3
+James Stewart (I)                   ......101                         3
+Clark Gable                         ........35                        4
+Cary Grant                          ........38                        4
+Brigitte Bardot                     ........113                       4
+Diane Fischer (II)                  ..128                             1
+
+161 rows selected.
+
+Elapsed: 00:00:00.08
+SQL_ID  0qyy4t3utz8jz, child number 0
+-------------------------------------
+WITH paths_truncated (node_id, lev, rn) /* XPLAN_RSF_2 */ AS (
+SELECT          1, 0, 1       FROM DUAL      UNION ALL     SELECT CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to ELSE l.node_id_fr END,
+p.lev + 1,            Row_Number () OVER (PARTITION BY CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to
+ELSE
+l.node_id_fr END                                ORDER BY p.node_id)
+FROM paths_truncated p       JOIN links l         ON p.node_id IN
+(l.node_id_fr, l.node_id_to)      WHERE p.rn = 1        AND p.lev < 5 )
+--  SEARCH DEPTH FIRST BY node SET line_noadded this to test
+performance CYCLE node_id SET lp TO '*' DEFAULT ' ' , approx_best_paths
+AS (     SELECT node_id,            Max (lev) KEEP (DENSE_RANK FIRST
+ORDER BY lev) lev       FROM paths_truncated      GROUP BY node_id ),
+paths (node_id, lev, rn) AS (     SELECT          1, 0, 1       FROM
+DUAL      UNION ALL     SELECT CAS
+Plan hash value: 4026357035
+----------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                             | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                      |       |      1 |        |    161 |00:00:00.07 |     935 |       |       |          |
+|   1 |  SORT ORDER BY                                        |       |      1 |     18E|    161 |00:00:00.07 |     935 | 15360 | 15360 |14336  (0)|
+|*  2 |   HASH JOIN                                           |       |      1 |     18E|    161 |00:00:00.07 |     935 |  1449K|  1449K| 1658K (0)|
+|   3 |    TABLE ACCESS FULL                                  | NODES |      1 |    161 |    161 |00:00:00.01 |       7 |       |       |          |
+|   4 |    VIEW                                               |       |      1 |     18E|    161 |00:00:00.07 |     928 |       |       |          |
+|   5 |     SORT GROUP BY                                     |       |      1 |     18E|    161 |00:00:00.07 |     928 | 29696 | 29696 |26624  (0)|
+|   6 |      VIEW                                             |       |      1 |     18E|    172 |00:00:00.07 |     928 |       |       |          |
+|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST          |       |      1 |        |    172 |00:00:00.07 |     928 | 18432 | 18432 |16384  (0)|
+|   8 |        FAST DUAL                                      |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|   9 |        WINDOW SORT                                    |       |      6 |     18E|    171 |00:00:00.07 |     928 | 13312 | 13312 |12288  (0)|
+|* 10 |         FILTER                                        |       |      6 |        |    171 |00:00:00.07 |     928 |       |       |          |
+|  11 |          MERGE JOIN OUTER                             |       |      6 |     18E|   6684 |00:00:00.07 |     928 |       |       |          |
+|  12 |           SORT JOIN                                   |       |      6 |     18E|   6684 |00:00:00.05 |      16 |   407K|   407K|  361K (0)|
+|  13 |            NESTED LOOPS                               |       |      6 |     18E|   6684 |00:00:00.18 |      16 |       |       |          |
+|  14 |             BUFFER SORT (REUSE)                       |       |      6 |        |  20052 |00:00:00.01 |      16 |   142K|   142K|  126K (0)|
+|  15 |              TABLE ACCESS FULL                        | LINKS |      1 |   3342 |   3342 |00:00:00.01 |      16 |       |       |          |
+|  16 |             RECURSIVE WITH PUMP                       |       |  20052 |        |   6684 |00:00:00.04 |       0 |       |       |          |
+|* 17 |           SORT JOIN (REUSE)                           |       |   6684 |    381G|   6684 |00:00:00.01 |     912 | 99328 | 99328 |88064  (0)|
+|  18 |            VIEW                                       |       |      1 |    381G|    161 |00:00:00.01 |     912 |       |       |          |
+|  19 |             SORT GROUP BY                             |       |      1 |    381G|    161 |00:00:00.01 |     912 | 20480 | 20480 |18432  (0)|
+|  20 |              VIEW                                     |       |      1 |    381G|    524 |00:00:00.02 |     912 |       |       |          |
+|  21 |               UNION ALL (RECURSIVE WITH) BREADTH FIRST|       |      1 |        |    524 |00:00:00.02 |     912 | 20480 | 20480 |18432  (0)|
+|  22 |                FAST DUAL                              |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  23 |                WINDOW SORT                            |       |      6 |    381G|    523 |00:00:00.01 |     912 | 99328 | 99328 |88064  (0)|
+|  24 |                 NESTED LOOPS                          |       |      6 |    381G|    523 |00:00:00.01 |     912 |       |       |          |
+|  25 |                  RECURSIVE WITH PUMP                  |       |      6 |        |     57 |00:00:00.01 |       0 |       |       |          |
+|* 26 |                  TABLE ACCESS FULL                    | LINKS |     57 |     45 |    523 |00:00:00.01 |     912 |       |       |          |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("N"."ID"="M"."NODE_ID")
+10 - filter("P"."LEV"<NVL("B"."LEV",1000000))
+17 - access("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+filter("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+26 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.21
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 18:57:44
+

@@ -1,0 +1,190 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 08:02:22 Version 21.3.0.0.0
+
+Drop links table
+
+Table dropped.
+
+Create nodes table
+
+Table dropped.
+
+
+Table created.
+
+Create node_roots table
+
+Table dropped.
+
+
+Table created.
+
+Create index node_roots_n1
+
+Index created.
+
+Create links table
+
+Table created.
+
+Create GTT min_tree_links
+
+Table dropped.
+
+
+Table created.
+
+DO NOT Create index min_tree_links_u1
+Create table log_lines
+
+Table dropped.
+
+
+Table created.
+
+Create links_v table
+
+Table dropped.
+
+
+Table created.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Table dropped.
+
+Elapsed: 00:00:00.05
+
+Table created.
+
+Elapsed: 00:00:00.02
+Count links on file
+
+  COUNT(*)
+----------
+    428156
+
+Elapsed: 00:00:00.28
+VIEW links_load_v with from node < to node to avoid inclusion of reverse links
+
+View created.
+
+Elapsed: 00:00:00.01
+VIEW nodes_load_v
+
+View created.
+
+Elapsed: 00:00:00.01
+Insert nodes
+
+58228 rows created.
+
+Elapsed: 00:00:00.83
+Insert links
+
+214078 rows created.
+
+Elapsed: 00:00:00.68
+Count nodes
+
+  COUNT(*)
+----------
+     58228
+
+Elapsed: 00:00:00.01
+Count links
+
+  COUNT(*)
+----------
+    214078
+
+Elapsed: 00:00:00.01
+Non-unique index links (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:00.24
+Non-unique index on links(node_id_to)
+
+Index created.
+
+Elapsed: 00:00:00.15
+Foreign keys on links: node_id_fr and node_id_to
+
+Table altered.
+
+Elapsed: 00:00:00.23
+
+Table altered.
+
+Elapsed: 00:00:00.13
+Gather schema stats
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:47.63
+links_v based on links
+
+214078 rows created.
+
+Elapsed: 00:00:00.29
+Non-unique index ON links_v (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:00.19
+Non-unique index ON links_v (node_id_to)
+
+Index created.
+
+Elapsed: 00:00:00.22
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:49.01
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 08:04:03
+

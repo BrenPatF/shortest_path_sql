@@ -1,0 +1,6 @@
+@install_utils shortest_path_sql
+@install_trapit shortest_path_sql
+@install_timer_set shortest_path_sql
+@install_net_pipe shortest_path_sql
+@install_hprof shortest_path_sql
+@install_dprof shortest_path_sql

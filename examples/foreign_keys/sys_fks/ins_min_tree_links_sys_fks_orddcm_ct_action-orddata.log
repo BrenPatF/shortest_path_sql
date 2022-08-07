@@ -1,0 +1,178 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:18 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: ORDDCM_CT_ACTION|ORDDATA, Root id:          2
+SQL_ID  3mgh8qxnmmcmj, child number 0
+-------------------------------------
+INSERT INTO MIN_TREE_LINKS SELECT /*+ gather_plan_statistics XPLAN_MTL
+*/ CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE
+LNK.NODE_ID_FR END, MIN (MLP_CUR.NODE_ID), :B1 + 1 FROM MIN_TREE_LINKS
+MLP_CUR JOIN LINKS LNK ON (LNK.NODE_ID_FR = MLP_CUR.NODE_ID OR
+LNK.NODE_ID_TO = MLP_CUR.NODE_ID) LEFT JOIN MIN_TREE_LINKS MLP_PRI ON
+MLP_PRI.NODE_ID = CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN
+LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END WHERE MLP_PRI.NODE_ID IS NULL
+AND MLP_CUR.LEV = :B1 GROUP BY CASE WHEN LNK.NODE_ID_FR =
+MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END
+Plan hash value: 3414462724
+--------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name           | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |                |      1 |        |      0 |00:00:00.01 |      25 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | MIN_TREE_LINKS |      1 |        |      0 |00:00:00.01 |      25 |       |       |          |
+|   2 |   HASH GROUP BY          |                |      1 |      1 |      0 |00:00:00.01 |      25 |   974K|   974K|          |
+|*  3 |    HASH JOIN ANTI        |                |      1 |      1 |      0 |00:00:00.01 |      25 |  1399K|  1399K|  693K (0)|
+|   4 |     NESTED LOOPS         |                |      1 |      4 |      3 |00:00:00.01 |      22 |       |       |          |
+|*  5 |      TABLE ACCESS FULL   | MIN_TREE_LINKS |      1 |      1 |      3 |00:00:00.01 |       4 |       |       |          |
+|*  6 |      TABLE ACCESS FULL   | LINKS          |      3 |      4 |      3 |00:00:00.01 |      18 |       |       |          |
+|   7 |     TABLE ACCESS FULL    | MIN_TREE_LINKS |      1 |      1 |     47 |00:00:00.01 |       3 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - access("MLP_PRI"."NODE_ID"=CASE "LNK"."NODE_ID_FR" WHEN "MLP_CUR"."NODE_ID" THEN "LNK"."NODE_ID_TO" ELSE
+"LNK"."NODE_ID_FR" END )
+5 - filter("MLP_CUR"."LEV"=:B1)
+6 - filter(("LNK"."NODE_ID_FR"="MLP_CUR"."NODE_ID" OR "LNK"."NODE_ID_TO"="MLP_CUR"."NODE_ID"))
+Note
+-----
+- dynamic statistics used: dynamic sampling (level=2)
+Timer Set: Ins_Min_Tree_Links: 2, Constructed at 06 Aug 2022 14:46:18, written at 14:46:18
+==========================================================================================
+Timer                   Elapsed         CPU       Calls       Ela/Call       CPU/Call
+-------------------  ----------  ----------  ----------  -------------  -------------
+Level: 0, nodes: 1         0.01        0.00           1        0.00600        0.00000
+Level: 1, nodes: 3         0.00        0.01           1        0.00200        0.01000
+Level: 2, nodes: 4         0.00        0.00           1        0.00200        0.00000
+Level: 3, nodes: 11        0.00        0.00           1        0.00100        0.00000
+Level: 4, nodes: 7         0.00        0.00           1        0.00100        0.00000
+Level: 5, nodes: 12        0.00        0.00           1        0.00100        0.00000
+Level: 6, nodes: 5         0.00        0.00           1        0.00100        0.00000
+Level: 7, nodes: 3         0.00        0.00           1        0.00100        0.00000
+Level: 8, nodes: 0         0.00        0.00           1        0.00100        0.00000
+(Other)                    0.26        0.25           1        0.25500        0.25000
+-------------------  ----------  ----------  ----------  -------------  -------------
+Total                      0.27        0.26          10        0.02710        0.02600
+-------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.02273, CPU: 0.02500]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.41
+
+ LEV NODE_NAME                           NODE_NAME_PRIOR
+---- ----------------------------------- -----------------------------------
+   0 ORDDCM_CT_ACTION|ORDDATA
+   1 ORDDCM_CT_PRED|ORDDATA              ORDDCM_CT_ACTION|ORDDATA
+   2 ORDDCM_CT_PRED_OPRD|ORDDATA         ORDDCM_CT_PRED|ORDDATA
+     ORDDCM_CT_PRED_PAR|ORDDATA          ORDDCM_CT_PRED|ORDDATA
+     ORDDCM_CT_PRED_SET|ORDDATA          ORDDCM_CT_PRED|ORDDATA
+   3 ORDDCM_CT_LOCATORPATHS|ORDDATA      ORDDCM_CT_PRED_SET|ORDDATA
+     ORDDCM_CT_MACRO_DEP|ORDDATA         ORDDCM_CT_PRED_SET|ORDDATA
+     ORDDCM_CT_MACRO_PAR|ORDDATA         ORDDCM_CT_PRED_SET|ORDDATA
+     ORDDCM_DOCS|ORDDATA                 ORDDCM_CT_PRED_SET|ORDDATA
+   4 ORDDCM_ANON_ATTRS|ORDDATA           ORDDCM_DOCS|ORDDATA
+     ORDDCM_ANON_RULES|ORDDATA           ORDDCM_DOCS|ORDDATA
+     ORDDCM_CT_DAREFS|ORDDATA            ORDDCM_DOCS|ORDDATA
+     ORDDCM_DOC_REFS|ORDDATA             ORDDCM_DOCS|ORDDATA
+     ORDDCM_DOC_TYPES|ORDDATA            ORDDCM_DOCS|ORDDATA
+     ORDDCM_MAPPING_DOCS|ORDDATA         ORDDCM_DOCS|ORDDATA
+     ORDDCM_PRV_ATTRS|ORDDATA            ORDDCM_DOCS|ORDDATA
+     ORDDCM_RT_PREF_PARAMS|ORDDATA       ORDDCM_DOCS|ORDDATA
+     ORDDCM_STD_ATTRS|ORDDATA            ORDDCM_DOCS|ORDDATA
+     ORDDCM_STORED_TAGS|ORDDATA          ORDDCM_DOCS|ORDDATA
+     ORDDCM_UID_DEFS|ORDDATA             ORDDCM_DOCS|ORDDATA
+   5 ORDDCM_ANON_ACTION_TYPES|ORDDATA    ORDDCM_ANON_RULES|ORDDATA
+     ORDDCM_ANON_RULE_TYPES|ORDDATA      ORDDCM_ANON_RULES|ORDDATA
+     ORDDCM_DOCS_WRK|ORDDATA             ORDDCM_DOC_TYPES|ORDDATA
+     ORDDCM_INSTALL_DOCS|ORDDATA         ORDDCM_DOC_TYPES|ORDDATA
+     ORDDCM_MAPPED_PATHS|ORDDATA         ORDDCM_MAPPING_DOCS|ORDDATA
+     ORDDCM_DICT_ATTRS|ORDDATA           ORDDCM_PRV_ATTRS|ORDDATA
+     ORDDCM_VR_DT_MAP|ORDDATA            ORDDCM_PRV_ATTRS|ORDDATA
+   6 ORDDCM_ANON_ATTRS_WRK|ORDDATA       ORDDCM_ANON_ACTION_TYPES|ORDDATA
+     ORDDCM_ANON_RULES_WRK|ORDDATA       ORDDCM_ANON_ACTION_TYPES|ORDDATA
+     ORDDCM_CT_DAREFS_WRK|ORDDATA        ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_CT_LOCATORPATHS_WRK|ORDDATA  ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_CT_PRED_SET_WRK|ORDDATA      ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_DOC_REFS_WRK|ORDDATA         ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_MAPPING_DOCS_WRK|ORDDATA     ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_RT_PREF_PARAMS_WRK|ORDDATA   ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_STORED_TAGS_WRK|ORDDATA      ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_UID_DEFS_WRK|ORDDATA         ORDDCM_DOCS_WRK|ORDDATA
+     ORDDCM_PRV_ATTRS_WRK|ORDDATA        ORDDCM_VR_DT_MAP|ORDDATA
+     ORDDCM_STD_ATTRS_WRK|ORDDATA        ORDDCM_VR_DT_MAP|ORDDATA
+   7 ORDDCM_CT_MACRO_DEP_WRK|ORDDATA     ORDDCM_CT_PRED_SET_WRK|ORDDATA
+     ORDDCM_CT_MACRO_PAR_WRK|ORDDATA     ORDDCM_CT_PRED_SET_WRK|ORDDATA
+     ORDDCM_CT_PRED_WRK|ORDDATA          ORDDCM_CT_PRED_SET_WRK|ORDDATA
+     ORDDCM_MAPPED_PATHS_WRK|ORDDATA     ORDDCM_MAPPING_DOCS_WRK|ORDDATA
+     ORDDCM_DICT_ATTRS_WRK|ORDDATA       ORDDCM_PRV_ATTRS_WRK|ORDDATA
+   8 ORDDCM_CT_ACTION_WRK|ORDDATA        ORDDCM_CT_PRED_WRK|ORDDATA
+     ORDDCM_CT_PRED_OPRD_WRK|ORDDATA     ORDDCM_CT_PRED_WRK|ORDDATA
+     ORDDCM_CT_PRED_PAR_WRK|ORDDATA      ORDDCM_CT_PRED_WRK|ORDDATA
+
+47 rows selected.
+
+Elapsed: 00:00:00.04
+Minimum Path Tree
+old   2:     SELECT &root_id_var, 0
+new   2:     SELECT          2, 0
+
+NODE_NAME                           NODE                                 LEV
+----------------------------------- ----------------------------------- ----
+ORDDCM_CT_ACTION|ORDDATA            2                                      0
+ORDDCM_CT_PRED|ORDDATA              ..114                                  1
+ORDDCM_CT_PRED_PAR|ORDDATA          ....46                                 2
+ORDDCM_CT_PRED_SET|ORDDATA          ....68
+ORDDCM_CT_MACRO_DEP|ORDDATA         ......19                               3
+ORDDCM_CT_MACRO_PAR|ORDDATA         ......85
+ORDDCM_CT_LOCATORPATHS|ORDDATA      ......262
+ORDDCM_DOCS|ORDDATA                 ......277
+ORDDCM_PRV_ATTRS|ORDDATA            ........8                              4
+ORDDCM_DICT_ATTRS|ORDDATA           ..........9                            5
+ORDDCM_VR_DT_MAP|ORDDATA            ..........151
+ORDDCM_PRV_ATTRS_WRK|ORDDATA        ............198                        6
+ORDDCM_DICT_ATTRS_WRK|ORDDATA       ..............215                      7
+ORDDCM_STD_ATTRS_WRK|ORDDATA        ............270                        6
+ORDDCM_ANON_RULES|ORDDATA           ........48                             4
+ORDDCM_ANON_ACTION_TYPES|ORDDATA    ..........62                           5
+ORDDCM_ANON_ATTRS_WRK|ORDDATA       ............127                        6
+ORDDCM_ANON_RULES_WRK|ORDDATA       ............170
+ORDDCM_ANON_RULE_TYPES|ORDDATA      ..........65                           5
+ORDDCM_DOC_REFS|ORDDATA             ........72                             4
+ORDDCM_STORED_TAGS|ORDDATA          ........73
+ORDDCM_DOC_TYPES|ORDDATA            ........109
+ORDDCM_DOCS_WRK|ORDDATA             ..........175                          5
+ORDDCM_CT_LOCATORPATHS_WRK|ORDDATA  ............13                         6
+ORDDCM_UID_DEFS_WRK|ORDDATA         ............20
+ORDDCM_RT_PREF_PARAMS_WRK|ORDDATA   ............51
+ORDDCM_MAPPING_DOCS_WRK|ORDDATA     ............86
+ORDDCM_MAPPED_PATHS_WRK|ORDDATA     ..............135                      7
+ORDDCM_DOC_REFS_WRK|ORDDATA         ............197                        6
+ORDDCM_CT_DAREFS_WRK|ORDDATA        ............199
+ORDDCM_CT_PRED_SET_WRK|ORDDATA      ............225
+ORDDCM_CT_MACRO_PAR_WRK|ORDDATA     ..............83                       7
+ORDDCM_CT_PRED_WRK|ORDDATA          ..............174
+ORDDCM_CT_PRED_OPRD_WRK|ORDDATA     ................92                     8
+ORDDCM_CT_PRED_PAR_WRK|ORDDATA      ................233
+ORDDCM_CT_ACTION_WRK|ORDDATA        ................274
+ORDDCM_CT_MACRO_DEP_WRK|ORDDATA     ..............193                      7
+ORDDCM_STORED_TAGS_WRK|ORDDATA      ............227                        6
+ORDDCM_INSTALL_DOCS|ORDDATA         ..........204                          5
+ORDDCM_ANON_ATTRS|ORDDATA           ........118                            4
+ORDDCM_RT_PREF_PARAMS|ORDDATA       ........119
+ORDDCM_UID_DEFS|ORDDATA             ........161
+ORDDCM_STD_ATTRS|ORDDATA            ........188
+ORDDCM_CT_DAREFS|ORDDATA            ........189
+ORDDCM_MAPPING_DOCS|ORDDATA         ........261
+ORDDCM_MAPPED_PATHS|ORDDATA         ..........176                          5
+ORDDCM_CT_PRED_OPRD|ORDDATA         ....260                                2
+
+47 rows selected.
+
+Elapsed: 00:00:00.04
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:18
+

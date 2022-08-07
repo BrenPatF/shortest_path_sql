@@ -1,0 +1,201 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          02-AUG-2022 06:52:15 Version 21.3.0.0.0
+
+Drop links table
+
+Table dropped.
+
+Create nodes table
+
+Table dropped.
+
+
+Table created.
+
+Create node_roots table
+DROP TABLE node_roots
+           *
+ERROR at line 1:
+ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired
+
+
+CREATE TABLE node_roots(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+Create index node_roots_n1
+CREATE UNIQUE INDEX node_roots_n1 ON node_roots(node_id)
+                                     *
+ERROR at line 1:
+ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired
+
+
+Create links table
+
+Table created.
+
+Create GTT min_tree_links
+
+Table dropped.
+
+
+Table created.
+
+DO NOT Create index min_tree_links_u1
+Create table log_lines
+
+Table dropped.
+
+
+Table created.
+
+Create links_v table
+
+Table dropped.
+
+
+Table created.
+
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Create bacon_pre1950 tables...
+old   1: DROP TABLE bacon_&TP._ext
+new   1: DROP TABLE bacon_pre1950_ext
+
+Table dropped.
+
+Elapsed: 00:00:00.02
+old   1: CREATE TABLE bacon_&TP._ext (
+new   1: CREATE TABLE bacon_pre1950_ext (
+old  15:   LOCATION ('imdb.&TP..txt')
+new  15:   LOCATION ('imdb.pre1950.txt')
+
+Table created.
+
+Elapsed: 00:00:00.01
+VIEW links_load_v
+old   4: FROM bacon_&TP._ext src
+new   4: FROM bacon_pre1950_ext src
+old   5: JOIN bacon_&TP._ext dst
+new   5: JOIN bacon_pre1950_ext dst
+
+View created.
+
+Elapsed: 00:00:00.20
+VIEW nodes_load_v
+old   3: FROM bacon_&TP._ext
+new   3: FROM bacon_pre1950_ext
+
+View created.
+
+Elapsed: 00:00:00.00
+Insert nodes
+
+134131 rows created.
+
+Elapsed: 00:00:01.86
+Insert links
+
+8095294 rows created.
+
+Elapsed: 00:00:45.59
+Count nodes
+
+  COUNT(*)
+----------
+    134131
+
+Elapsed: 00:00:00.01
+Count links
+
+  COUNT(*)
+----------
+   8095294
+
+Elapsed: 00:00:00.07
+Non-unique index links (node_id_fr)
+
+Index created.
+
+Elapsed: 00:00:06.11
+Non-unique index on links(node_id_to)
+
+Index created.
+
+Elapsed: 00:00:05.17
+Foreign keys on links: node_id_fr and node_id_to
+
+Table altered.
+
+Elapsed: 00:00:08.90
+
+Table altered.
+
+Elapsed: 00:00:07.65
+Gather schema stats
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:01:19.70
+links_v based on links
+
+8095294 rows created.
+
+Non-unique index ON links_v (node_id_fr)
+
+Index created.
+
+Non-unique index ON links_v (node_id_to)
+
+Index created.
+
+
+PL/SQL procedure successfully completed.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 02-AUG-2022 06:56:41
+

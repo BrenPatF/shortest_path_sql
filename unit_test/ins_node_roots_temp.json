@@ -1,0 +1,40 @@
+{
+    "meta":  {
+                 "title":  "title",
+                 "delimiter":  "|",
+                 "inp":  {
+                             "Links":  [
+                                           "Node Name From",
+                                           "Node Name To"
+                                       ],
+                             "Isolated Nodes":  [
+                                                    "Node Name"
+                                                ]
+                         },
+                 "out":  {
+                             "Node Roots ":  [
+                                                 "Node Name",
+                                                 "Node Root",
+                                                 "Node Level"
+                                             ]
+                         }
+             },
+    "scenarios":  {
+                      "scenario 1":  {
+                                         "active_yn":  "Y",
+                                         "inp":  {
+                                                     "Links":  [
+                                                                   "|"
+                                                               ],
+                                                     "Isolated Nodes":  [
+                                                                            ""
+                                                                        ]
+                                                 },
+                                         "out":  {
+                                                     "Node Roots ":  [
+                                                                         "||"
+                                                                     ]
+                                                 }
+                                     }
+                  }
+}

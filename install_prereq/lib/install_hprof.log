@@ -1,0 +1,58 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:23:31 Version 21.3.0.0.0
+
+
+PL/SQL procedure successfully completed.
+
+Create package HProf_Utils
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Granting dbmshp components to shortest_path_sql..
+old   1: GRANT ALL ON dbmshp_runs TO &APP
+new   1: GRANT ALL ON dbmshp_runs TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT ALL ON dbmshp_function_info TO &APP
+new   1: GRANT ALL ON dbmshp_function_info TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT ALL ON dbmshp_parent_child_info TO &APP
+new   1: GRANT ALL ON dbmshp_parent_child_info TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT ALL ON dbmshp_trace_data TO &APP
+new   1: GRANT ALL ON dbmshp_trace_data TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON dbmshp_runnumber TO &APP
+new   1: GRANT SELECT ON dbmshp_runnumber TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON dbmshp_tracenumber TO &APP
+new   1: GRANT SELECT ON dbmshp_tracenumber TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON HProf_Utils TO &APP
+new   1: GRANT EXECUTE ON HProf_Utils TO shortest_path_sql
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:23:31
+

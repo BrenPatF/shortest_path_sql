@@ -1,0 +1,100 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          07-AUG-2022 15:38:34 Version 21.3.0.0.0
+
+old   8:     p_filename    => 'hp_ins_node_roots_&SUB..html');
+new   8:     p_filename    => 'hp_ins_node_roots_three_subnets.html');
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.08
+Run header (DBMSHP_RUNS)
+
+ Run Id Run Time                          Microsecs   Seconds Comment
+------- ---------------------------- -------------- --------- ------------------------------------------------------------
+      4 07-AUG-22 03.38.34.754000 PM          22530     0.020 Profile for Ins_Node_Roots
+
+Elapsed: 00:00:00.00
+Functions called (DBMSHP_FUNCTION_INFO)
+
+Owner              Module                     Sy Function                            Line# Subtree MicroS Function MicroS   Calls
+------------------ ------------------------- --- ----------------------------------- ----- -------------- --------------- -------
+LIB                HPROF_UTILS                 3 STOP_PROFILING                         61             11              11       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                     37           6539             248       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      5 INS_NODE_ROOTS                        121          22407             197       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     10 __dyn_sql_exec_line127                127           9358            8757       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     11 __dyn_sql_exec_line45                  45           3413            1486       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     12 __static_sql_exec_line131             131           3049            3049       4
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     13 __static_sql_exec_line139             139           3264            3264       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     14 __static_sql_exec_line46               46            632             632       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     15 __static_sql_exec_line49               49           1850            1850       7
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     16 __static_sql_exec_line65               65            396             396       7
+SYS                DBMS_HPROF                  6 STOP_PROFILING                        747              0               0       1
+SYS                DBMS_HPROF                 17 __static_sql_exec_line700             700            112             112       1
+SYS                DICTIONARY_OBJ_NAME         7 DICTIONARY_OBJ_NAME                     1             11              11       8
+SYS                DICTIONARY_OBJ_OWNER        8 DICTIONARY_OBJ_OWNER                    1            209             209       8
+SYS                IS_VPD_ENABLED              9 IS_VPD_ENABLED                          1           1613              85       8
+SYS                IS_VPD_ENABLED             18 __static_sql_exec_line22               22           1528            1528       8
+                                               1 __anonymous_block                       0           2515             682       4
+                                               2 __plsql_vm                              0           2528              13       4
+
+18 rows selected.
+
+Elapsed: 00:00:00.02
+Function call parent-child links (DBMSHP_PARENT_CHILD_INFO)
+
+Parent:            Module                     Sy Function                            Child:             Module                     Sy Function                            Subtree MicroS Function MicroS   Calls
+------------------ ------------------------- --- ----------------------------------- ------------------ ------------------------- --- ----------------------------------- -------------- --------------- -------
+LIB                HPROF_UTILS                 3 STOP_PROFILING                      SYS                DBMS_HPROF                  6 STOP_PROFILING                                   0               0       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                  SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     15 __static_sql_exec_line49                      1850            1850       7
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     10 __dyn_sql_exec_line127                                                             2 __plsql_vm                                     601               3       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      5 INS_NODE_ROOTS                      SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     13 __static_sql_exec_line139                     3264            3264       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      5 INS_NODE_ROOTS                      SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     12 __static_sql_exec_line131                     3049            3049       4
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      5 INS_NODE_ROOTS                      SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     10 __dyn_sql_exec_line127                        9358            8757       1
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                  SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     11 __dyn_sql_exec_line45                         3413            1486       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                  SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     14 __static_sql_exec_line46                       632             632       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     11 __dyn_sql_exec_line45                                                              2 __plsql_vm                                    1927              10       3
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                  SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE     16 __static_sql_exec_line65                       396             396       7
+SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      5 INS_NODE_ROOTS                      SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE      4 INS_MIN_TREE_LINKS                            6539             248       3
+SYS                IS_VPD_ENABLED              9 IS_VPD_ENABLED                      SYS                IS_VPD_ENABLED             18 __static_sql_exec_line22                      1528            1528       8
+                                               1 __anonymous_block                   SYS                DICTIONARY_OBJ_NAME         7 DICTIONARY_OBJ_NAME                             11              11       8
+                                               2 __plsql_vm                                                                         1 __anonymous_block                             2515             682       4
+                                               1 __anonymous_block                   SYS                IS_VPD_ENABLED              9 IS_VPD_ENABLED                                1613              85       8
+                                               1 __anonymous_block                   SYS                DICTIONARY_OBJ_OWNER        8 DICTIONARY_OBJ_OWNER                           209             209       8
+
+16 rows selected.
+
+Elapsed: 00:00:00.02
+BPF Recursive Subquery Factor Tree Query
+
+Function tree                                                 Sy Owner              Module                    Inst.  Subtree MicroS Function MicroS   Calls Row
+------------------------------------------------------------ --- ------------------ ------------------------- ------ -------------- --------------- ------- ---
+INS_NODE_ROOTS                                                 5 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                    22407             197       1   1
+  __dyn_sql_exec_line127                                      10 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     9358            8757       1   2
+    __plsql_vm                                                 2                                              1 of 2            601               3       1   3
+      __anonymous_block                                        1                                              1 of 2           2515             682       4   4
+        IS_VPD_ENABLED                                         9 SYS                IS_VPD_ENABLED            1 of 2           1613              85       8   5
+          __static_sql_exec_line22                            18 SYS                IS_VPD_ENABLED            1 of 2           1528            1528       8   6
+        DICTIONARY_OBJ_OWNER                                   8 SYS                DICTIONARY_OBJ_OWNER      1 of 2            209             209       8   7
+        DICTIONARY_OBJ_NAME                                    7 SYS                DICTIONARY_OBJ_NAME       1 of 2             11              11       8   8
+  INS_MIN_TREE_LINKS                                           4 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     6539             248       3   9
+    __dyn_sql_exec_line45                                     11 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     3413            1486       3  10
+      __plsql_vm                                               2                                              2 of 2           1927              10       3  11
+    __static_sql_exec_line49                                  15 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     1850            1850       7  17
+    __static_sql_exec_line46                                  14 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                      632             632       3  18
+    __static_sql_exec_line65                                  16 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                      396             396       7  19
+  __static_sql_exec_line139                                   13 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     3264            3264       3  20
+  __static_sql_exec_line131                                   12 SHORTEST_PATH_SQL  SHORTEST_PATH_SQL_BASE                     3049            3049       4  21
+__static_sql_exec_line700                                     17 SYS                DBMS_HPROF                                  112             112       1  22
+STOP_PROFILING                                                 3 LIB                HPROF_UTILS                                  11              11       1  23
+  STOP_PROFILING                                               6 SYS                DBMS_HPROF                                    0               0       1  24
+
+19 rows selected.
+
+Elapsed: 00:00:00.03
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 07-AUG-2022 15:38:34
+

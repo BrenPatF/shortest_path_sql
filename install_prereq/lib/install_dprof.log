@@ -1,0 +1,76 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:23:31 Version 21.3.0.0.0
+
+drop table plsql_profiler_data cascade constraints
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+drop table plsql_profiler_units cascade constraints
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+drop table plsql_profiler_runs cascade constraints
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+drop sequence plsql_profiler_runnumber
+              *
+ERROR at line 1:
+ORA-02289: sequence does not exist
+
+
+
+Table created.
+
+
+Comment created.
+
+
+Table created.
+
+
+Comment created.
+
+
+Table created.
+
+
+Comment created.
+
+
+Sequence created.
+
+Granting plsql_profiler components to shortest_path_sql..
+old   1: GRANT ALL ON plsql_profiler_runs TO &APP
+new   1: GRANT ALL ON plsql_profiler_runs TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT ALL ON plsql_profiler_units TO &APP
+new   1: GRANT ALL ON plsql_profiler_units TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT ALL ON plsql_profiler_data TO &APP
+new   1: GRANT ALL ON plsql_profiler_data TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT SELECT ON plsql_profiler_runnumber TO &APP
+new   1: GRANT SELECT ON plsql_profiler_runnumber TO shortest_path_sql
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:23:31
+

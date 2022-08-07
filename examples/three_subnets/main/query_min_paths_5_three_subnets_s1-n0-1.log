@@ -1,0 +1,43 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          28-JUL-2022 09:05:17 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: S1-N0-1, Root id:          1
+Two recursive subqueries - XPLAN_RSF_2
+old   2:     SELECT &root_id_var, 0, 1
+new   2:     SELECT          1, 0, 1
+old  17:     SELECT &root_id_var, 0, 1
+new  17:     SELECT          1, 0, 1
+old  36:     SELECT &root_id_var, 0, 1
+new  36:     SELECT          1, 0, 1
+old  55:     SELECT &root_id_var, 0, 1
+new  55:     SELECT          1, 0, 1
+old  74:     SELECT &root_id_var, 0, 1
+new  74:     SELECT          1, 0, 1
+old  99:     SELECT &root_id_var, 0, 1
+new  99:     SELECT          1, 0, 1
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+S1-N0-1                             1                                 0
+S1-N1-1                             ..2                               1
+S1-N2-1                             ....7                             2
+S1-N3-1                             ......10                          3
+S1-N1-2                             ..3                               1
+S1-N2-2                             ....8                             2
+S1-N1-3                             ..4                               1
+S1-N1-4                             ..5                               1
+S1-N2-3                             ....9                             2
+S1-N3-2                             ......11                          3
+S1-N1-5                             ..6                               1
+
+11 rows selected.
+
+Elapsed: 00:00:00.21
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 28-JUL-2022 09:05:18
+

@@ -1,0 +1,29 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:23:30 Version 21.3.0.0.0
+
+Create package Timer_Set
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Grant access to shortest_path_sql (skip if none passed)
+
+PL/SQL procedure successfully completed.
+
+Granting Timer_Set components to shortest_path_sql..
+old   1: GRANT EXECUTE ON Timer_Set TO &app
+new   1: GRANT EXECUTE ON Timer_Set TO shortest_path_sql
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:23:30
+

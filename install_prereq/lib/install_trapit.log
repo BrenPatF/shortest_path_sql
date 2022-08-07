@@ -1,0 +1,104 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:23:30 Version 21.3.0.0.0
+
+Drop table tt_units
+DROP TABLE tt_units
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+Common type creation
+====================
+DROP TYPE L4_chr_arr
+*
+ERROR at line 1:
+ORA-04043: object L4_CHR_ARR does not exist
+
+
+DROP TYPE L3_chr_arr
+*
+ERROR at line 1:
+ORA-04043: object L3_CHR_ARR does not exist
+
+
+Create type L2_chr_arr
+
+Type created.
+
+Create type L3_chr_arr
+
+Type created.
+
+Create type L4_chr_arr
+
+Type created.
+
+Table creation
+==============
+Create table tt_units
+tt_units
+
+Table created.
+
+
+Comment created.
+
+
+Context created.
+
+Create package Trapit
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Create package Trapit_Run
+
+Package created.
+
+No errors.
+
+Package body created.
+
+No errors.
+Grant access to shortest_path_sql (skip if none passed)
+
+PL/SQL procedure successfully completed.
+
+Granting Trapit components to shortest_path_sql..
+old   1: GRANT EXECUTE ON L2_chr_arr TO &app
+new   1: GRANT EXECUTE ON L2_chr_arr TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L3_chr_arr TO &app
+new   1: GRANT EXECUTE ON L3_chr_arr TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON L4_chr_arr TO &app
+new   1: GRANT EXECUTE ON L4_chr_arr TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Trapit TO &app
+new   1: GRANT EXECUTE ON Trapit TO shortest_path_sql
+
+Grant succeeded.
+
+old   1: GRANT EXECUTE ON Trapit_Run TO &app
+new   1: GRANT EXECUTE ON Trapit_Run TO shortest_path_sql
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:23:30
+

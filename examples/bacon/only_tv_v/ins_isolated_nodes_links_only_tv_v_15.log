@@ -1,0 +1,96 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 18:44:47 Version 21.3.0.0.0
+
+SQL_ID  8fsnz2s9ugb87, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+*/ NOD.ID, NOD.ID, 0 FROM NODES NOD WHERE NOT EXISTS (SELECT 1 FROM
+LINKS LNK WHERE LNK.NODE_ID_FR = NOD.ID OR LNK.NODE_ID_TO = NOD.ID)
+Plan hash value: 2226278136
+---------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |  OMem |  1Mem | Used-Mem |
+---------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:25.78 |     191K|  93127 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:25.78 |     191K|  93127 |       |       |          |
+|*  2 |   HASH JOIN ANTI         |              |      1 |  53174 |   8659 |00:00:25.73 |     176K|  93122 |    37M|  6400K|   30M (0)|
+|   3 |    INDEX FAST FULL SCAN  | SYS_C0018310 |      1 |    744K|    744K|00:00:00.08 |    1461 |      0 |       |       |          |
+|   4 |    VIEW                  | VW_SQ_1      |      1 |     45M|     45M|00:00:22.86 |     174K|  93122 |       |       |          |
+|   5 |     UNION-ALL            |              |      1 |        |     45M|00:00:15.93 |     174K|  93122 |       |       |          |
+|   6 |      TABLE ACCESS FULL   | LINKS        |      1 |     22M|     22M|00:00:02.61 |   87315 |  46561 |       |       |          |
+|   7 |      TABLE ACCESS FULL   | LINKS        |      1 |     22M|     22M|00:00:02.19 |   87315 |  46561 |       |       |          |
+---------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("VW_COL_1"="NOD"."ID")
+SQL_ID  871d882v4pnu9, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ALL_NODES AS ( SELECT NODE_ID_FR NODE_ID,
+'F' TP FROM LINKS UNION ALL SELECT NODE_ID_TO, 'T' FROM LINKS ),
+UNIQUE_NODES AS ( SELECT NODE_ID, MAX(TP) TP FROM ALL_NODES GROUP BY
+NODE_ID HAVING COUNT(*) = 1 ), ISOLATED_LINKS AS ( SELECT
+LNK.NODE_ID_FR, LNK.NODE_ID_TO FROM LINKS LNK JOIN UNIQUE_NODES FRN ON
+FRN.NODE_ID = LNK.NODE_ID_FR AND FRN.TP = 'F' JOIN UNIQUE_NODES TON ON
+TON.NODE_ID = LNK.NODE_ID_TO AND TON.TP = 'T' ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION ALL SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 1684232699
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |  OMem |  1Mem | Used-Mem |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:06.78 |     206K|  93122 |       |       |          |
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:06.78 |     206K|  93122 |       |       |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6BF5_4F65443 |      1 |        |      0 |00:00:06.68 |     174K|  93122 |  1024 |  1024 |          |
+|*  3 |    FILTER                                |                            |      1 |        |  11401 |00:00:06.83 |     174K|  93122 |       |       |          |
+|   4 |     HASH GROUP BY                        |                            |      1 |    138 |    735K|00:00:06.68 |     174K|  93122 |    43M|  7433K|   40M (0)|
+|   5 |      VIEW                                |                            |      1 |     45M|     45M|00:00:01.39 |     174K|  93122 |       |       |          |
+|   6 |       UNION-ALL                          |                            |      1 |        |     45M|00:00:01.34 |     174K|  93122 |       |       |          |
+|   7 |        TABLE ACCESS FULL                 | LINKS                      |      1 |     22M|     22M|00:00:00.58 |   87315 |  46561 |       |       |          |
+|   8 |        TABLE ACCESS FULL                 | LINKS                      |      1 |     22M|     22M|00:00:00.66 |   87315 |  46561 |       |       |          |
+|   9 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6BF6_4F65443 |      1 |        |      0 |00:00:00.05 |   17075 |      0 |  1024 |  1024 |          |
+|* 10 |    HASH JOIN                             |                            |      1 |      1 |   3539 |00:00:00.04 |   17075 |      0 |  2078K|  2078K| 1687K (0)|
+|* 11 |     VIEW                                 |                            |      1 |    138 |   5707 |00:00:00.01 |       0 |      0 |       |       |          |
+|  12 |      TABLE ACCESS FULL                   | SYS_TEMP_0FD9D6BF5_4F65443 |      1 |    138 |  11401 |00:00:00.01 |       0 |      0 |       |       |          |
+|  13 |     NESTED LOOPS                         |                            |      1 |   4510 |   5694 |00:00:00.05 |   17075 |      0 |       |       |          |
+|  14 |      NESTED LOOPS                        |                            |      1 |   4554 |   5694 |00:00:00.03 |   11402 |      0 |       |       |          |
+|* 15 |       VIEW                               |                            |      1 |    138 |   5694 |00:00:00.01 |       0 |      0 |       |       |          |
+|  16 |        TABLE ACCESS FULL                 | SYS_TEMP_0FD9D6BF5_4F65443 |      1 |    138 |  11401 |00:00:00.01 |       0 |      0 |       |       |          |
+|* 17 |       INDEX RANGE SCAN                   | LINKS_TO_N1                |   5694 |     33 |   5694 |00:00:00.02 |   11402 |      0 |       |       |          |
+|  18 |      TABLE ACCESS BY INDEX ROWID         | LINKS                      |   5694 |     33 |   5694 |00:00:00.01 |    5673 |      0 |       |       |          |
+|  19 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.04 |   14458 |      0 |       |       |          |
+|  20 |    UNION-ALL                             |                            |      1 |        |   7078 |00:00:00.01 |       0 |      0 |       |       |          |
+|  21 |     VIEW                                 |                            |      1 |      1 |   3539 |00:00:00.01 |       0 |      0 |       |       |          |
+|  22 |      TABLE ACCESS FULL                   | SYS_TEMP_0FD9D6BF6_4F65443 |      1 |      1 |   3539 |00:00:00.01 |       0 |      0 |       |       |          |
+|  23 |     VIEW                                 |                            |      1 |      1 |   3539 |00:00:00.01 |       0 |      0 |       |       |          |
+|  24 |      TABLE ACCESS FULL                   | SYS_TEMP_0FD9D6BF6_4F65443 |      1 |      1 |   3539 |00:00:00.01 |       0 |      0 |       |       |          |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter((COUNT(*)=1 AND (MAX("TP")='F' OR MAX("TP")='T')))
+10 - access("FRN"."NODE_ID"="LNK"."NODE_ID_FR")
+11 - filter("FRN"."TP"='F')
+15 - filter("TON"."TP"='T')
+17 - access("TON"."NODE_ID"="LNK"."NODE_ID_TO")
+Timer Set: Ins_Isolated_Nodes_Links, Constructed at 30 Jul 2022 18:44:47, written at 18:45:20
+=============================================================================================
+Timer                             Elapsed         CPU       Calls       Ela/Call       CPU/Call
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 1: 8659       25.79       25.62           1       25.79000       25.62000
+Insert isolated links 5: 7078        7.05        6.88           1        7.05400        6.88000
+(Other)                              0.24        0.25           1        0.24400        0.25000
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+Total                               33.09       32.75           3       11.02933       10.91667
+-----------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01099, CPU: 0.01099]
+Processed: 15737
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:33.22
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 18:45:20
+

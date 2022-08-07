@@ -1,0 +1,15 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:21:49 Version 21.3.0.0.0
+
+old   1: GRANT EXECUTE ON DBMS_Hprof TO &APP, &LIB
+new   1: GRANT EXECUTE ON DBMS_Hprof TO shortest_path_sql, lib
+
+Grant succeeded.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:21:49
+

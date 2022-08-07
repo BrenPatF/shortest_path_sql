@@ -1,0 +1,185 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          29-JUL-2022 18:47:44 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: Mike Ogas, Root id:    2513527
+SQL_ID  3mgh8qxnmmcmj, child number 0
+-------------------------------------
+INSERT INTO MIN_TREE_LINKS SELECT /*+ gather_plan_statistics XPLAN_MTL
+*/ CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE
+LNK.NODE_ID_FR END, MIN (MLP_CUR.NODE_ID), :B1 + 1 FROM MIN_TREE_LINKS
+MLP_CUR JOIN LINKS LNK ON (LNK.NODE_ID_FR = MLP_CUR.NODE_ID OR
+LNK.NODE_ID_TO = MLP_CUR.NODE_ID) LEFT JOIN MIN_TREE_LINKS MLP_PRI ON
+MLP_PRI.NODE_ID = CASE WHEN LNK.NODE_ID_FR = MLP_CUR.NODE_ID THEN
+LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END WHERE MLP_PRI.NODE_ID IS NULL
+AND MLP_CUR.LEV = :B1 GROUP BY CASE WHEN LNK.NODE_ID_FR =
+MLP_CUR.NODE_ID THEN LNK.NODE_ID_TO ELSE LNK.NODE_ID_FR END
+Plan hash value: 3686015499
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                         | Name            | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |  OMem |  1Mem | Used-Mem | Used-Tmp|
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                  |                 |      1 |        |      0 |00:00:00.18 |   20469 |      1 |       |       |          |         |
+|   1 |  LOAD TABLE CONVENTIONAL          | MIN_TREE_LINKS  |      1 |        |      0 |00:00:00.18 |   20469 |      1 |       |       |          |         |
+|   2 |   HASH GROUP BY                   |                 |      1 |      2 |      0 |00:00:00.18 |   20469 |      1 |  1149K|  1149K| 1442K (0)|         |
+|   3 |    VIEW                           | VW_ORE_BC29D05C |      1 |      2 |      0 |00:00:00.18 |   20469 |      1 |       |       |          |         |
+|   4 |     UNION-ALL                     |                 |      1 |        |      0 |00:00:00.18 |   20469 |      1 |       |       |          |         |
+|*  5 |      HASH JOIN ANTI               |                 |      1 |      1 |      0 |00:00:00.13 |   13645 |      1 |  1075K|  1075K|  456K (0)|         |
+|   6 |       NESTED LOOPS                |                 |      1 |     42 |      1 |00:00:00.05 |    6826 |      1 |       |       |          |         |
+|   7 |        NESTED LOOPS               |                 |      1 |     42 |      1 |00:00:00.05 |    6825 |      1 |       |       |          |         |
+|*  8 |         TABLE ACCESS FULL         | MIN_TREE_LINKS  |      1 |      1 |      1 |00:00:00.05 |    6822 |      0 |       |       |          |         |
+|*  9 |         INDEX RANGE SCAN          | LINKS_FR_N1     |      1 |     42 |      1 |00:00:00.01 |       3 |      1 |       |       |          |         |
+|  10 |        TABLE ACCESS BY INDEX ROWID| LINKS           |      1 |     42 |      1 |00:00:00.01 |       1 |      0 |       |       |          |         |
+|  11 |       TABLE ACCESS FULL           | MIN_TREE_LINKS  |      1 |      1 |   2623K|00:00:00.05 |    6819 |      0 |       |       |          |         |
+|* 12 |      HASH JOIN ANTI               |                 |      1 |      1 |      0 |00:00:00.05 |    6824 |      0 |  1090K|  1090K|  229K (0)|         |
+|  13 |       NESTED LOOPS                |                 |      1 |     42 |      0 |00:00:00.05 |    6824 |      0 |       |       |          |         |
+|  14 |        NESTED LOOPS               |                 |      1 |     42 |      0 |00:00:00.05 |    6824 |      0 |       |       |          |         |
+|* 15 |         TABLE ACCESS FULL         | MIN_TREE_LINKS  |      1 |      1 |      1 |00:00:00.05 |    6821 |      0 |       |       |          |         |
+|* 16 |         INDEX RANGE SCAN          | LINKS_TO_N1     |      1 |     42 |      0 |00:00:00.01 |       3 |      0 |       |       |          |         |
+|* 17 |        TABLE ACCESS BY INDEX ROWID| LINKS           |      0 |     42 |      0 |00:00:00.01 |       0 |      0 |       |       |          |         |
+|  18 |       TABLE ACCESS FULL           | MIN_TREE_LINKS  |      0 |      1 |      0 |00:00:00.01 |       0 |      0 |       |       |          |         |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("MLP_PRI"."NODE_ID"=CASE "LNK"."NODE_ID_FR" WHEN "MLP_CUR"."NODE_ID" THEN "LNK"."NODE_ID_TO" ELSE "LNK"."NODE_ID_FR" END )
+8 - filter("MLP_CUR"."LEV"=:B1)
+9 - access("LNK"."NODE_ID_FR"="MLP_CUR"."NODE_ID")
+12 - access("MLP_PRI"."NODE_ID"=CASE "LNK"."NODE_ID_FR" WHEN "MLP_CUR"."NODE_ID" THEN "LNK"."NODE_ID_TO" ELSE "LNK"."NODE_ID_FR" END )
+15 - filter("MLP_CUR"."LEV"=:B1)
+16 - access("LNK"."NODE_ID_TO"="MLP_CUR"."NODE_ID")
+17 - filter(LNNVL("LNK"."NODE_ID_FR"="MLP_CUR"."NODE_ID"))
+Note
+-----
+- dynamic statistics used: dynamic sampling (level=2)
+- this is an adaptive plan
+Timer Set: Ins_Min_Tree_Links: 2513527, Constructed at 29 Jul 2022 18:47:44, written at 19:50:11
+================================================================================================
+Timer                        Elapsed         CPU       Calls       Ela/Call       CPU/Call
+------------------------  ----------  ----------  ----------  -------------  -------------
+Level: 0, nodes: 127            0.05        0.05           1        0.05400        0.05000
+Level: 1, nodes: 62879         10.23        4.08           1       10.22900        4.08000
+Level: 2, nodes: 1316680      206.73      116.58           1      206.72900      116.58000
+Level: 3, nodes: 1110129     2139.33      825.13           1     2139.32500      825.13000
+Level: 4, nodes: 122030      1286.96      377.75           1     1286.96200      377.75000
+Level: 5, nodes: 10224         94.89       22.43           1       94.89100       22.43000
+Level: 6, nodes: 1134           6.44        1.77           1        6.43800        1.77000
+Level: 7, nodes: 230            0.80        0.49           1        0.79700        0.49000
+Level: 8, nodes: 15             0.36        0.26           1        0.35900        0.26000
+Level: 9, nodes: 1              0.27        0.23           1        0.26900        0.23000
+Level: 10, nodes: 0             0.18        0.19           1        0.18200        0.19000
+(Other)                         0.27        0.22           1        0.26600        0.22000
+------------------------  ----------  ----------  ----------  -------------  -------------
+Total                        3746.50     1349.18          12      312.20842      112.43167
+------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01000, CPU: 0.01078]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 01:02:26.63
+
+       LEV NODE_NAME                           NODE_NAME_PRIOR
+---------- ----------------------------------- -----------------------------------
+         0 Mike Ogas
+         1 Adam Alfaro                         Mike Ogas
+           Alexander Garcia (VII)              Mike Ogas
+           Alexis Arquette                     Mike Ogas
+           Allie McCulloch                     Mike Ogas
+           America Ferrera                     Mike Ogas
+           Anthony Rodriguez (I)               Mike Ogas
+           Arnold Chun                         Mike Ogas
+           Bai Ling                            Mike Ogas
+           Benjamin Anderson (II)              Mike Ogas
+           Benjamin Nurick                     Mike Ogas
+           Bill Cusack                         Mike Ogas
+           Bob Biniak                          Mike Ogas
+           Brian Zarate                        Mike Ogas
+           Bridgetta Tomarchio                 Mike Ogas
+           Camilla Rantsen                     Mike Ogas
+           Catherine Hardwicke                 Mike Ogas
+...
+           Rosa (XXVII)                        Yu Ogawa
+         9 Kozo Onoe                           Kourainosuke Ichikawa
+           Asit Sau                            Koushik Manna
+           Sumanta Banerjee (I)                Koushik Manna
+           Chloe Burgos                        Olivia Yagy
+           Emily Watrobsky                     Olivia Yagy
+           Georgia Jones (V)                   Olivia Yagy
+           Hannah Ott (II)                     Olivia Yagy
+           Victoria Poplawski (II)             Olivia Yagy
+           Barbara Xavier                      Radi Oliveria
+           Francirene Lima                     Radi Oliveria
+           Gabriel Deodato                     Radi Oliveria
+           Joao Vitor Souza                    Radi Oliveria
+           Jonathan Santos (VI)                Radi Oliveria
+           Rafael Silva (VIII)                 Radi Oliveria
+           Lorenzo (VI)                        Sam (X)
+        10 Hangoro Ichiza Sakata               Kozo Onoe
+
+2623450 rows selected.
+
+Elapsed: 00:00:55.06
+Minimum Path Tree
+old   2:     SELECT &root_id_var, 0
+new   2:     SELECT    2513527, 0
+
+NODE_NAME                           NODE                                 LEV
+----------------------------------- ----------------------------------- ----
+Mike Ogas                           2513527                                0
+Tony Hawk                           ..10723                                1
+Barry Brandt                        ....2977                               2
+Chris Ashby (I)                     ......1066                             3
+David S. Bookbinder                 ......2703
+Randall Core (I)                    ......5258
+Blaze Powers                        ........1614171                        4
+James Curatola                      ......5635                             3
+Skip Dumas                          ......7061
+Scott Christopher Kelly             ......13039
+Wesley Leong                        ......14623
+Juan Nieves                         ......18375
+Heikki Paadre                       ......19061
+Munchkin the Rabbit                 ......20611
+William Sherak                      ......23221
+Kevin R. Wood                       ......27575
+Marissa Ade                         ......28361
+Juliette Long                       ......36332
+Matthew Jinks (II)                  ........186567                         4
+Laura Regan (II)                    ..........739131                       5
+Lisa Wondzinski (I)                 ........349119                         4
+Charlotte Ryan (III)                ........1001749
+Gareth Fient (I)                    ........1231858
+Sue Jackson (III)                   ........1565788
+Cameron Holt (I)                    ........2418383
+Christine Mone                      ......37643                            3
+Tara G. Wise                        ......43079
+Seiji Inouye                        ......55177
+Thomas Jordan (II)                  ......55894
+Natasha Rocca Devine                ........1124467                        4
+James E. Nownes                     ......61951                            3
+Robert Thompson (XIII)              ......68539
+Lisa Mena                           ......80788
+Deborah Offner                      ......81914
+Ann Woodward (III)                  ......86659
+...
+Amanda Salazar                      ......2228387
+Esther Jimenez (I)                  ......2266335
+Psicosis Gonzalez                   ......2284524
+Alduccio                            ......2407636
+Douglas Vasquez                     ......2433384
+Alejandra Estrada (III)             ........750559                         4
+Roberto Diaz (XIV)                  ........967984
+Joam Solo                           ........1467462
+Jose Losa (III)                     ......2640352                          3
+Jara Granged Molleda                ......2790071
+Ty Sharp                            ....2474044                            2
+Luis Racer                          ....2689417
+Theresa Barrera                     ....2697960
+
+2623450 rows selected.
+
+Elapsed: 00:02:18.05
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 29-JUL-2022 19:53:24
+

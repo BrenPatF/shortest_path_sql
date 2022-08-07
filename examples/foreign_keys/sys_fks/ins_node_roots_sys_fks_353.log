@@ -1,0 +1,205 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:19 Version 21.3.0.0.0
+
+Ins_Node_Roots: p_node_vsn = 3p_link_vsn = 5, p_order_type = 3
+SQL_ID  57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 1452760060
+---------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:00.01 |       7 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:00.01 |       7 |
+|   2 |   NESTED LOOPS ANTI      |              |      1 |      1 |      0 |00:00:00.01 |       7 |
+|   3 |    NESTED LOOPS ANTI     |              |      1 |     68 |     68 |00:00:00.01 |       4 |
+|   4 |     INDEX FULL SCAN      | SYS_C0018873 |      1 |    291 |    291 |00:00:00.01 |       1 |
+|*  5 |     INDEX RANGE SCAN     | LINKS_FR_N1  |    291 |    236 |    223 |00:00:00.01 |       3 |
+|*  6 |    INDEX RANGE SCAN      | LINKS_TO_N1  |     68 |    308 |     68 |00:00:00.01 |       3 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+6 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+SQL_ID  871d882v4pnu9, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ALL_NODES AS ( SELECT NODE_ID_FR NODE_ID,
+'F' TP FROM LINKS UNION ALL SELECT NODE_ID_TO, 'T' FROM LINKS ),
+UNIQUE_NODES AS ( SELECT NODE_ID, MAX(TP) TP FROM ALL_NODES GROUP BY
+NODE_ID HAVING COUNT(*) = 1 ), ISOLATED_LINKS AS ( SELECT
+LNK.NODE_ID_FR, LNK.NODE_ID_TO FROM LINKS LNK JOIN UNIQUE_NODES FRN ON
+FRN.NODE_ID = LNK.NODE_ID_FR AND FRN.TP = 'F' JOIN UNIQUE_NODES TON ON
+TON.NODE_ID = LNK.NODE_ID_TO AND TON.TP = 'T' ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION ALL SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 3674309219
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |  OMem |  1Mem | Used-Mem |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:00.01 |      50 |      4 |       |       |          |
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:00.01 |      50 |      4 |       |       |          |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D665E_68B03DA |      1 |        |      0 |00:00:00.01 |       3 |      0 |  1024 |  1024 |          |
+|*  3 |    FILTER                                |                            |      1 |        |    138 |00:00:00.01 |       2 |      0 |       |       |          |
+|   4 |     HASH GROUP BY                        |                            |      1 |      1 |    291 |00:00:00.01 |       2 |      0 |  1452K|  1452K|          |
+|   5 |      VIEW                                |                            |      1 |    616 |    616 |00:00:00.01 |       2 |      0 |       |       |          |
+|   6 |       UNION-ALL                          |                            |      1 |        |    616 |00:00:00.01 |       2 |      0 |       |       |          |
+|   7 |        INDEX FULL SCAN                   | LINKS_FR_N1                |      1 |    308 |    308 |00:00:00.01 |       1 |      0 |       |       |          |
+|   8 |        INDEX FULL SCAN                   | LINKS_TO_N1                |      1 |    308 |    308 |00:00:00.01 |       1 |      0 |       |       |          |
+|   9 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D665F_68B03DA |      1 |        |      0 |00:00:00.01 |       4 |      0 |  1024 |  1024 |          |
+|  10 |    NESTED LOOPS                          |                            |      1 |      1 |     20 |00:00:00.01 |       4 |      0 |       |       |          |
+|  11 |     NESTED LOOPS                         |                            |      1 |      1 |   3392 |00:00:00.01 |       3 |      0 |       |       |          |
+|  12 |      MERGE JOIN CARTESIAN                |                            |      1 |      1 |   3392 |00:00:00.01 |       0 |      0 |       |       |          |
+|* 13 |       VIEW                               |                            |      1 |      1 |    106 |00:00:00.01 |       0 |      0 |       |       |          |
+|  14 |        TABLE ACCESS FULL                 | SYS_TEMP_0FD9D665E_68B03DA |      1 |      1 |    138 |00:00:00.01 |       0 |      0 |       |       |          |
+|  15 |       BUFFER SORT                        |                            |    106 |      1 |   3392 |00:00:00.01 |       0 |      0 |  2048 |  2048 | 2048  (0)|
+|* 16 |        VIEW                              |                            |      1 |      1 |     32 |00:00:00.01 |       0 |      0 |       |       |          |
+|  17 |         TABLE ACCESS FULL                | SYS_TEMP_0FD9D665E_68B03DA |      1 |      1 |    138 |00:00:00.01 |       0 |      0 |       |       |          |
+|* 18 |      INDEX RANGE SCAN                    | LINKS_FR_N1                |   3392 |      1 |   3392 |00:00:00.01 |       3 |      0 |       |       |          |
+|* 19 |     TABLE ACCESS BY INDEX ROWID          | LINKS                      |   3392 |      1 |     20 |00:00:00.01 |       1 |      0 |       |       |          |
+|  20 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.01 |      42 |      4 |       |       |          |
+|  21 |    UNION-ALL                             |                            |      1 |        |     40 |00:00:00.01 |       0 |      0 |       |       |          |
+|  22 |     VIEW                                 |                            |      1 |      1 |     20 |00:00:00.01 |       0 |      0 |       |       |          |
+|  23 |      TABLE ACCESS FULL                   | SYS_TEMP_0FD9D665F_68B03DA |      1 |      1 |     20 |00:00:00.01 |       0 |      0 |       |       |          |
+|  24 |     VIEW                                 |                            |      1 |      1 |     20 |00:00:00.01 |       0 |      0 |       |       |          |
+|  25 |      TABLE ACCESS FULL                   | SYS_TEMP_0FD9D665F_68B03DA |      1 |      1 |     20 |00:00:00.01 |       0 |      0 |       |       |          |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter((COUNT(*)=1 AND (MAX("TP")='F' OR MAX("TP")='T')))
+13 - filter("FRN"."TP"='F')
+16 - filter("TON"."TP"='T')
+18 - access("FRN"."NODE_ID"="LNK"."NODE_ID_FR")
+19 - filter("TON"."NODE_ID"="LNK"."NODE_ID_TO")
+Terminating loop with all nodes processed: 291
+Timer Set: Ins_Node_Roots, Constructed at 06 Aug 2022 14:46:19, written at 14:46:20
+===================================================================================
+Timer                                             Elapsed         CPU       Calls       Ela/Call       CPU/Call
+---------------------------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 3: 0                           0.02        0.00           1        0.02200        0.00000
+Insert isolated links 5: 40                          0.30        0.29           1        0.29600        0.29000
+OPEN c_roots                                         0.25        0.26           1        0.25300        0.26000
+Count nodes                                          0.00        0.00           1        0.00200        0.00000
+FETCH c_roots  (first)                               0.00        0.00           1        0.00000        0.00000
+SELECT 1 INTO l_dummy: Not found                     0.01        0.00          24        0.00021        0.00000
+Insert min_tree_links (4-39 nodes)                   0.11        0.12          17        0.00629        0.00706
+Insert node_roots (4-39 nodes)                       0.01        0.01          17        0.00053        0.00059
+FETCH c_roots  (remaining)                           0.01        0.00         229        0.00003        0.00000
+Insert min_tree_links (root node 2, size: 47)        0.01        0.00           1        0.00900        0.00000
+Insert node_roots (root node 2, size: 47)            0.00        0.01           1        0.00100        0.01000
+Insert min_tree_links (3 nodes)                      0.03        0.03           6        0.00550        0.00500
+Insert node_roots (3 nodes)                          0.00        0.01           6        0.00033        0.00167
+SELECT 1 INTO l_dummy: Found                         0.02        0.02         206        0.00009        0.00010
+(Other)                                              0.00        0.00           1        0.00000        0.00000
+---------------------------------------------  ----------  ----------  ----------  -------------  -------------
+Total                                                0.76        0.75         513        0.00149        0.00146
+---------------------------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.02128, CPU: 0.01915]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.95
+Node count by root node
+
+ROOT_NODE_ID NODE_NAME                                             N_NODES     MAXLEV
+------------ -------------------------------------------------- ---------- ----------
+          34 WRM$_SNAPSHOT|SYS                                           2          1
+          49 SDO_NFE_MODEL_FTLAYER_REL|MDSYS                                        1
+          29 SCHEDULER$_JOB_OUTPUT|SYS                                              1
+         283 DBFS_SFS$_FSTP|SYS                                                     1
+         281 SDO_WS_CONFERENCE_PARTICIPANTS|MDSYS                                   1
+         245 DBMS_PARALLEL_EXECUTE_CHUNKS$|SYS                                      1
+         236 RADM_MC$|SYS                                                           1
+          55 SESSION_TEMPLATE$|SYS                                                  1
+          75 IM_DOMAIN$|SYS                                                         1
+          89 AQ$_INTERNET_AGENT_PRIVS|SYSTEM                                        1
+         122 ATTRIBUTE_TRANSFORMATIONS$|SYS                                         1
+         131 DBMS_SQLPATCH_FILES|SYS                                                1
+         138 LOG_LINES|BREN                                                         1
+         140 LINK_LOGONS$|SYS                                                       1
+         142 OGIS_GEOMETRY_COLUMNS|MDSYS                                            1
+         172 MVIEW$_ADV_BASETABLE|SYSTEM                                            1
+         173 DBFS$_MOUNTS|SYS                                                       1
+         196 DAM_CONFIG_PARAM$|SYS                                                  1
+         203 LINKS|SYS                                                              1
+         207 OLS_DIR_BUSINESSES|MDSYS                                               1
+          60 POLICY$|DVSYS                                               3          1
+         230 JSON$USER_CREDENTIALS|XDB                                              2
+          33 CONS_PEER$|SYS                                                         2
+          59 BSLN_THRESHOLD_PARAMS|DBSNMP                                           2
+           3 OLS_DIR_CATEGORIES|MDSYS                                               1
+          17 SYSDBIMFS$|SYS                                                         1
+         165 REGISTRY$|SYS                                               4          1
+          56 DBFS_SFS$_VOL|SYS                                                      1
+          40 BC$|SYS                                                                1
+          24 DR$THS_PHRASE|CTXSYS                                                   1
+          21 ILM_DEP_EXECUTIONDETAILS$|SYS                               6          2
+          74 WFS_FEATURETYPEATTRS$|MDSYS                                 7          2
+          36 COUNTRIES|SH                                                8          4
+           6 TSDP_ASSOCIATION$|SYS                                       9          4
+          41 WI$_JOB|SYS                                                            2
+          18 HS$_INST_DD|SYS                                            10          3
+          14 MVIEW$_ADV_FJG|SYSTEM                                      13          3
+          47 OLS$USER_LEVELS|LBACSYS                                    14          2
+          10 LOCATIONS|HR                                               15          4
+          26 SDO_COORD_OP_PARAM_USE|MDSYS                                           5
+           4 ROLE$|DVSYS                                                17          4
+           7 TABLESPACE_SET|GSMADMIN_INTERNAL                           22          5
+           1 XS$ATTR_SEC|SYS                                            25          4
+           2 ORDDCM_CT_ACTION|ORDDATA                                   47          8
+                                                                ----------
+sum                                                                    291
+
+44 rows selected.
+
+Elapsed: 00:00:00.04
+Subnet count by number of nodes
+
+   N_NODES  N_SUBNETS
+---------- ----------
+         2         20
+         3          6
+         4          4
+         6          1
+         7          1
+         8          1
+         9          2
+        10          1
+        13          1
+        14          1
+        15          2
+        17          1
+        22          1
+        25          1
+        47          1
+----------
+       202
+
+15 rows selected.
+
+Elapsed: 00:00:00.02
+Subnet count by maximum level
+
+    MAXLEV  N_SUBNETS
+---------- ----------
+         1         27
+         2          7
+         3          2
+         4          5
+         5          2
+         8          1
+
+6 rows selected.
+
+Elapsed: 00:00:00.01
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:20
+

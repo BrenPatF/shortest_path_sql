@@ -1,0 +1,89 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          07-AUG-2022 15:38:39 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: S1-N0-1, Root id:          1, LEVMAX: 3
+Two recursive subqueries - XPLAN_RSF_2
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+S1-N0-1                             1                                 0
+S1-N1-1                             ..2                               1
+S1-N2-1                             ....7                             2
+S1-N3-1                             ......10                          3
+S1-N1-2                             ..3                               1
+S1-N2-2                             ....8                             2
+S1-N1-3                             ..4                               1
+S1-N1-4                             ..5
+S1-N2-3                             ....9                             2
+S1-N3-2                             ......11                          3
+S1-N1-5                             ..6                               1
+
+11 rows selected.
+
+Elapsed: 00:00:00.02
+SQL_ID  afppfn9hm0zuj, child number 0
+-------------------------------------
+WITH paths_truncated (node_id, lev, rn) /* XPLAN_RSF_2 */ AS (
+SELECT          1, 0, 1       FROM DUAL      UNION ALL     SELECT CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to ELSE l.node_id_fr END,
+p.lev + 1,            Row_Number () OVER (PARTITION BY CASE
+WHEN l.node_id_fr = p.node_id THEN l.node_id_to
+ELSE
+l.node_id_fr END                                ORDER BY p.node_id)
+FROM paths_truncated p       JOIN links l         ON p.node_id IN
+(l.node_id_fr, l.node_id_to)      WHERE p.rn = 1        AND p.lev < 3 )
+--  SEARCH DEPTH FIRST BY node SET line_noadded this to test
+performance CYCLE node_id SET lp TO '*' DEFAULT ' ' , approx_best_paths
+AS (     SELECT node_id,            Max (lev) KEEP (DENSE_RANK FIRST
+ORDER BY lev) lev       FROM paths_truncated      GROUP BY node_id ),
+paths (node_id, lev, rn) AS (     SELECT          1, 0, 1       FROM
+DUAL      UNION ALL     SELECT CAS
+Plan hash value: 2263278633
+----------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                             | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                      |       |      1 |        |     11 |00:00:00.01 |     161 |       |       |          |
+|   1 |  SORT ORDER BY                                        |       |      1 |     13G|     11 |00:00:00.01 |     161 |  2048 |  2048 | 2048  (0)|
+|*  2 |   HASH JOIN                                           |       |      1 |     13G|     11 |00:00:00.01 |     161 |  1695K|  1695K| 1260K (0)|
+|   3 |    TABLE ACCESS FULL                                  | NODES |      1 |     14 |     14 |00:00:00.01 |       7 |       |       |          |
+|   4 |    VIEW                                               |       |      1 |     13G|     11 |00:00:00.01 |     154 |       |       |          |
+|   5 |     SORT GROUP BY                                     |       |      1 |     13G|     11 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
+|   6 |      VIEW                                             |       |      1 |     13G|     12 |00:00:00.01 |     154 |       |       |          |
+|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST          |       |      1 |        |     12 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
+|   8 |        FAST DUAL                                      |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|   9 |        WINDOW SORT                                    |       |      4 |     13G|     11 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
+|* 10 |         FILTER                                        |       |      4 |        |     11 |00:00:00.01 |     154 |       |       |          |
+|* 11 |          HASH JOIN RIGHT OUTER                        |       |      4 |     13G|     24 |00:00:00.01 |     154 |  2171K|  2171K| 1178K (0)|
+|  12 |           BUFFER SORT (REUSE)                         |       |      4 |        |     44 |00:00:00.01 |      77 | 73728 | 73728 |          |
+|  13 |            VIEW                                       |       |      1 |   1054 |     11 |00:00:00.01 |      77 |       |       |          |
+|  14 |             SORT GROUP BY                             |       |      1 |   1054 |     11 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
+|  15 |              VIEW                                     |       |      1 |   1054 |     28 |00:00:00.01 |      77 |       |       |          |
+|  16 |               UNION ALL (RECURSIVE WITH) BREADTH FIRST|       |      1 |        |     28 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
+|  17 |                FAST DUAL                              |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  18 |                WINDOW SORT                            |       |      4 |   1053 |     27 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
+|  19 |                 NESTED LOOPS                          |       |      4 |   1053 |     27 |00:00:00.01 |      77 |       |       |          |
+|  20 |                  RECURSIVE WITH PUMP                  |       |      4 |        |     11 |00:00:00.01 |       0 |       |       |          |
+|* 21 |                  TABLE ACCESS FULL                    | LINKS |     11 |      3 |     27 |00:00:00.01 |      77 |       |       |          |
+|  22 |           NESTED LOOPS                                |       |      4 |   1287M|     24 |00:00:00.01 |      77 |       |       |          |
+|  23 |            RECURSIVE WITH PUMP                        |       |      4 |        |     11 |00:00:00.01 |       0 |       |       |          |
+|* 24 |            TABLE ACCESS FULL                          | LINKS |     11 |      3 |     24 |00:00:00.01 |      77 |       |       |          |
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("N"."ID"="M"."NODE_ID")
+10 - filter("P"."LEV"<NVL("B"."LEV",1000000))
+11 - access("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+21 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+24 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.29
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 07-AUG-2022 15:38:39
+

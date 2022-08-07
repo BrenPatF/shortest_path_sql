@@ -1,0 +1,101 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 19:01:35 Version 21.3.0.0.0
+
+SQL_ID  8fsnz2s9ugb87, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+*/ NOD.ID, NOD.ID, 0 FROM NODES NOD WHERE NOT EXISTS (SELECT 1 FROM
+LINKS LNK WHERE LNK.NODE_ID_FR = NOD.ID OR LNK.NODE_ID_TO = NOD.ID)
+Plan hash value: 1991568011
+------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:00.44 |    1624 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:00.44 |    1624 |       |       |          |
+|*  2 |   HASH JOIN ANTI         |              |      1 |    187 |      0 |00:00:00.44 |    1624 |  2402K|  2402K| 2070K (0)|
+|   3 |    INDEX FAST FULL SCAN  | SYS_C0018370 |      1 |  12466 |  12466 |00:00:00.01 |      33 |       |       |          |
+|   4 |    VIEW                  | VW_SQ_1      |      1 |   1167K|    839K|00:00:00.51 |    1591 |       |       |          |
+|   5 |     UNION-ALL            |              |      1 |        |    839K|00:00:00.35 |    1591 |       |       |          |
+|   6 |      TABLE ACCESS FULL   | LINKS        |      1 |    583K|    583K|00:00:00.07 |    1118 |       |       |          |
+|   7 |      TABLE ACCESS FULL   | LINKS        |      1 |    583K|    255K|00:00:00.03 |     473 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("VW_COL_1"="NOD"."ID")
+SQL_ID  2q4n5736jykj2, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ISOLATED_LINKS AS ( SELECT LNK.NODE_ID_FR,
+LNK.NODE_ID_TO FROM LINKS LNK WHERE NOT EXISTS ( SELECT 1 FROM LINKS
+LNK_1 WHERE (LNK_1.NODE_ID_FR = LNK.NODE_ID_TO OR LNK_1.NODE_ID_TO =
+LNK.NODE_ID_FR OR LNK_1.NODE_ID_FR = LNK.NODE_ID_FR OR LNK_1.NODE_ID_TO
+= LNK.NODE_ID_TO) AND LNK_1.ROWID != LNK.ROWID ) ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 1442004323
+---------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:52.87 |    4646K|
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:52.87 |    4646K|
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6C0E_4F65443 |      1 |        |      0 |00:00:52.87 |    4646K|
+|*  3 |    FILTER                                |                            |      1 |        |      0 |00:00:52.87 |    4646K|
+|   4 |     TABLE ACCESS FULL                    | LINKS                      |      1 |    583K|    583K|00:00:00.10 |    1119 |
+|   5 |     TABLE ACCESS BY INDEX ROWID BATCHED  | LINKS                      |    583K|      1 |    583K|00:00:52.13 |    4645K|
+|*  6 |      BITMAP CONVERSION TO ROWIDS         |                            |    583K|        |    583K|00:00:50.87 |    4061K|
+|   7 |       BITMAP OR                          |                            |    583K|        |    583K|00:00:50.12 |    4061K|
+|*  8 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    571K|00:00:07.76 |     743K|
+|*  9 |         INDEX RANGE SCAN                 | LINKS_FR_N1                |    583K|        |     27M|00:00:07.03 |     743K|
+|* 10 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    583K|00:00:14.94 |    1286K|
+|* 11 |         INDEX RANGE SCAN                 | LINKS_FR_N1                |    583K|        |     54M|00:00:14.61 |    1286K|
+|* 12 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    572K|00:00:08.52 |    1227K|
+|* 13 |         INDEX RANGE SCAN                 | LINKS_TO_N1                |    583K|        |     27M|00:00:08.14 |    1227K|
+|* 14 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    583K|00:00:11.92 |     803K|
+|* 15 |         INDEX RANGE SCAN                 | LINKS_TO_N1                |    583K|        |     53M|00:00:12.66 |     803K|
+|  16 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.01 |       0 |
+|  17 |    HASH UNIQUE                           |                            |      1 |   1167K|      0 |00:00:00.01 |       0 |
+|  18 |     UNION-ALL                            |                            |      1 |        |      0 |00:00:00.01 |       0 |
+|  19 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  20 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C0E_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  21 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  22 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C0E_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |
+---------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter( IS NULL)
+6 - filter("LNK_1".ROWID<>:B1)
+8 - filter("LNK_1".ROWID<>:B1)
+9 - access("LNK_1"."NODE_ID_FR"=:B1)
+filter("LNK_1".ROWID<>:B1)
+10 - filter("LNK_1".ROWID<>:B1)
+11 - access("LNK_1"."NODE_ID_FR"=:B1)
+filter("LNK_1".ROWID<>:B1)
+12 - filter("LNK_1".ROWID<>:B1)
+13 - access("LNK_1"."NODE_ID_TO"=:B1)
+filter("LNK_1".ROWID<>:B1)
+14 - filter("LNK_1".ROWID<>:B1)
+15 - access("LNK_1"."NODE_ID_TO"=:B1)
+filter("LNK_1".ROWID<>:B1)
+Timer Set: Ins_Isolated_Nodes_Links, Constructed at 30 Jul 2022 19:01:35, written at 19:02:28
+=============================================================================================
+Timer                          Elapsed         CPU       Calls       Ela/Call       CPU/Call
+--------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 1: 0        0.44        0.44           1        0.44300        0.44000
+Insert isolated links 1: 0       53.16       53.08           1       53.15900       53.08000
+(Other)                           0.23        0.23           1        0.23300        0.23000
+--------------------------  ----------  ----------  ----------  -------------  -------------
+Total                            53.84       53.75           3       17.94500       17.91667
+--------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01786, CPU: 0.01786]
+Processed: 0
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:53.96
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 19:02:28
+

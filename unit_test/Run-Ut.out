@@ -1,0 +1,341 @@
+06-Aug-22 15:08:09
+Executing: @./r_tests at 06-Aug-22 15:08:09
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Sat Aug 6 15:08:09 2022
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Last Successful login time: Sat Aug 06 2022 14:46:04 +01:00
+
+Connected to:
+Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+
+Database	     Time		  Version
+-------------------- -------------------- ------------------------------
+Start: ORCL	     06-AUG-2022 15:08:09 Version 21.3.0.0.0
+
+Create package TT_Shortest_Path_SQL
+
+Package created.
+
+
+Package body created.
+
+No errors.
+Add the tt_units record, reading in JSON file from INPUT_DIR
+
+PL/SQL procedure successfully completed.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 15:08:10
+
+
+Database	     Time		  Version
+-------------------- -------------------- ------------------------------
+Start: ORCL	     06-AUG-2022 15:08:10 Version 21.3.0.0.0
+
+Ins_Node_Roots: p_node_vsn = 3p_link_vsn = 5, p_order_type = 3
+SQL_ID	57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 1452760060
+---------------------------------------------------------------------------------------------------
+| Id  | Operation		 | Name 	| Starts | E-Rows | A-Rows |   A-Time	| Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT	 |		|      1 |	  |	 0 |00:00:00.01 |	4 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS	|      1 |	  |	 0 |00:00:00.01 |	4 |
+|   2 |   NESTED LOOPS ANTI	 |		|      1 |	1 |	 0 |00:00:00.01 |	4 |
+|   3 |    NESTED LOOPS ANTI	 |		|      1 |     68 |	 1 |00:00:00.01 |	3 |
+|   4 |     INDEX FULL SCAN	 | SYS_C0018873 |      1 |    291 |	 2 |00:00:00.01 |	1 |
+|*  5 |     INDEX RANGE SCAN	 | LINKS_FR_N1	|      2 |    236 |	 1 |00:00:00.01 |	2 |
+|*  6 |    INDEX RANGE SCAN	 | LINKS_TO_N1	|      1 |    308 |	 1 |00:00:00.01 |	1 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+6 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+SQL_ID	871d882v4pnu9, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ALL_NODES AS ( SELECT NODE_ID_FR NODE_ID,
+'F' TP FROM LINKS UNION ALL SELECT NODE_ID_TO, 'T' FROM LINKS ),
+UNIQUE_NODES AS ( SELECT NODE_ID, MAX(TP) TP FROM ALL_NODES GROUP BY
+NODE_ID HAVING COUNT(*) = 1 ), ISOLATED_LINKS AS ( SELECT
+LNK.NODE_ID_FR, LNK.NODE_ID_TO FROM LINKS LNK JOIN UNIQUE_NODES FRN ON
+FRN.NODE_ID = LNK.NODE_ID_FR AND FRN.TP = 'F' JOIN UNIQUE_NODES TON ON
+TON.NODE_ID = LNK.NODE_ID_TO AND TON.TP = 'T' ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION ALL SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 3674309219
+------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation				 | Name 		      | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  |
+------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT			 |			      |      1 |	|      0 |00:00:00.01 |      48 |      4 |
+|   1 |  TEMP TABLE TRANSFORMATION		 |			      |      1 |	|      0 |00:00:00.01 |      48 |      4 |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6663_68B03DA |      1 |	|      0 |00:00:00.01 |       3 |      0 |
+|*  3 |    FILTER				 |			      |      1 |	|      2 |00:00:00.01 |       2 |      0 |
+|   4 |     HASH GROUP BY			 |			      |      1 |      1 |      2 |00:00:00.01 |       2 |      0 |
+|   5 |      VIEW				 |			      |      1 |    616 |      2 |00:00:00.01 |       2 |      0 |
+|   6 |       UNION-ALL 			 |			      |      1 |	|      2 |00:00:00.01 |       2 |      0 |
+|   7 |        INDEX FULL SCAN			 | LINKS_FR_N1		      |      1 |    308 |      1 |00:00:00.01 |       1 |      0 |
+|   8 |        INDEX FULL SCAN			 | LINKS_TO_N1		      |      1 |    308 |      1 |00:00:00.01 |       1 |      0 |
+|   9 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6664_68B03DA |      1 |	|      0 |00:00:00.01 |       2 |      0 |
+|  10 |    NESTED LOOPS 			 |			      |      1 |      1 |      1 |00:00:00.01 |       2 |      0 |
+|  11 |     NESTED LOOPS			 |			      |      1 |      1 |      1 |00:00:00.01 |       1 |      0 |
+|  12 |      MERGE JOIN CARTESIAN		 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|* 13 |       VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|  14 |        TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6663_68B03DA |      1 |      1 |      2 |00:00:00.01 |       0 |      0 |
+|  15 |       BUFFER SORT			 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|* 16 |        VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|  17 | 	TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6663_68B03DA |      1 |      1 |      2 |00:00:00.01 |       0 |      0 |
+|* 18 |      INDEX RANGE SCAN			 | LINKS_FR_N1		      |      1 |      1 |      1 |00:00:00.01 |       1 |      0 |
+|* 19 |     TABLE ACCESS BY INDEX ROWID 	 | LINKS		      |      1 |      1 |      1 |00:00:00.01 |       1 |      0 |
+|  20 |   LOAD TABLE CONVENTIONAL		 | NODE_ROOTS		      |      1 |	|      0 |00:00:00.01 |      42 |      4 |
+|  21 |    UNION-ALL				 |			      |      1 |	|      2 |00:00:00.01 |       0 |      0 |
+|  22 |     VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|  23 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6664_68B03DA |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|  24 |     VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+|  25 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6664_68B03DA |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |
+------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter((COUNT(*)=1 AND (MAX("TP")='F' OR MAX("TP")='T')))
+13 - filter("FRN"."TP"='F')
+16 - filter("TON"."TP"='T')
+18 - access("FRN"."NODE_ID"="LNK"."NODE_ID_FR")
+19 - filter("TON"."NODE_ID"="LNK"."NODE_ID_TO")
+No more root nodes to fetch, processed: 2/2
+Timer Set: Ins_Node_Roots, Constructed at 06 Aug 2022 15:08:12, written at 15:08:13
+===================================================================================
+Timer				 Elapsed	 CPU	   Calls       Ela/Call       CPU/Call
+----------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 3: 0	    0.06	0.01	       1	0.06400        0.01000
+Insert isolated links 5: 2	    0.65	0.55	       1	0.64900        0.55000
+OPEN c_roots			    0.52	0.42	       1	0.52400        0.42000
+Count nodes			    0.00	0.00	       1	0.00300        0.00000
+FETCH c_roots  (first)		    0.00	0.00	       1	0.00000        0.00000
+SELECT 1 INTO l_dummy: Found	    0.00	0.01	       2	0.00150        0.00500
+FETCH c_roots  (remaining)	    0.00	0.00	       2	0.00000        0.00000
+(Other) 			    0.00	0.00	       1	0.00100        0.00000
+----------------------------  ----------  ----------  ----------  -------------  -------------
+Total				    1.24	0.99	      10	0.12440        0.09900
+----------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.04522, CPU: 0.04348]
+Ins_Node_Roots: p_node_vsn = 3p_link_vsn = 5, p_order_type = 3
+SQL_ID	57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 1452760060
+---------------------------------------------------------------------------------------------------
+| Id  | Operation		 | Name 	| Starts | E-Rows | A-Rows |   A-Time	| Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT	 |		|      1 |	  |	 0 |00:00:00.01 |	2 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS	|      1 |	  |	 0 |00:00:00.01 |	2 |
+|   2 |   NESTED LOOPS ANTI	 |		|      1 |	1 |	 0 |00:00:00.01 |	2 |
+|   3 |    NESTED LOOPS ANTI	 |		|      1 |     68 |	 0 |00:00:00.01 |	2 |
+|   4 |     INDEX FULL SCAN	 | SYS_C0018873 |      1 |    291 |	 1 |00:00:00.01 |	1 |
+|*  5 |     INDEX RANGE SCAN	 | LINKS_FR_N1	|      1 |    236 |	 1 |00:00:00.01 |	1 |
+|*  6 |    INDEX RANGE SCAN	 | LINKS_TO_N1	|      0 |    308 |	 0 |00:00:00.01 |	0 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+6 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+SQL_ID	871d882v4pnu9, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ALL_NODES AS ( SELECT NODE_ID_FR NODE_ID,
+'F' TP FROM LINKS UNION ALL SELECT NODE_ID_TO, 'T' FROM LINKS ),
+UNIQUE_NODES AS ( SELECT NODE_ID, MAX(TP) TP FROM ALL_NODES GROUP BY
+NODE_ID HAVING COUNT(*) = 1 ), ISOLATED_LINKS AS ( SELECT
+LNK.NODE_ID_FR, LNK.NODE_ID_TO FROM LINKS LNK JOIN UNIQUE_NODES FRN ON
+FRN.NODE_ID = LNK.NODE_ID_FR AND FRN.TP = 'F' JOIN UNIQUE_NODES TON ON
+TON.NODE_ID = LNK.NODE_ID_TO AND TON.TP = 'T' ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION ALL SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 3674309219
+---------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation				 | Name 		      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT			 |			      |      1 |	|      0 |00:00:00.01 |       4 |
+|   1 |  TEMP TABLE TRANSFORMATION		 |			      |      1 |	|      0 |00:00:00.01 |       4 |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6665_68B03DA |      1 |	|      0 |00:00:00.01 |       3 |
+|*  3 |    FILTER				 |			      |      1 |	|      0 |00:00:00.01 |       2 |
+|   4 |     HASH GROUP BY			 |			      |      1 |      1 |      1 |00:00:00.01 |       2 |
+|   5 |      VIEW				 |			      |      1 |    616 |      2 |00:00:00.01 |       2 |
+|   6 |       UNION-ALL 			 |			      |      1 |	|      2 |00:00:00.01 |       2 |
+|   7 |        INDEX FULL SCAN			 | LINKS_FR_N1		      |      1 |    308 |      1 |00:00:00.01 |       1 |
+|   8 |        INDEX FULL SCAN			 | LINKS_TO_N1		      |      1 |    308 |      1 |00:00:00.01 |       1 |
+|   9 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6666_68B03DA |      1 |	|      0 |00:00:00.01 |       0 |
+|  10 |    NESTED LOOPS 			 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  11 |     NESTED LOOPS			 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  12 |      MERGE JOIN CARTESIAN		 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|* 13 |       VIEW				 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  14 |        TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6665_68B03DA |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  15 |       BUFFER SORT			 |			      |      0 |      1 |      0 |00:00:00.01 |       0 |
+|* 16 |        VIEW				 |			      |      0 |      1 |      0 |00:00:00.01 |       0 |
+|  17 | 	TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6665_68B03DA |      0 |      1 |      0 |00:00:00.01 |       0 |
+|* 18 |      INDEX RANGE SCAN			 | LINKS_FR_N1		      |      0 |      1 |      0 |00:00:00.01 |       0 |
+|* 19 |     TABLE ACCESS BY INDEX ROWID 	 | LINKS		      |      0 |      1 |      0 |00:00:00.01 |       0 |
+|  20 |   LOAD TABLE CONVENTIONAL		 | NODE_ROOTS		      |      1 |	|      0 |00:00:00.01 |       0 |
+|  21 |    UNION-ALL				 |			      |      1 |	|      0 |00:00:00.01 |       0 |
+|  22 |     VIEW				 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  23 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6666_68B03DA |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  24 |     VIEW				 |			      |      1 |      1 |      0 |00:00:00.01 |       0 |
+|  25 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6666_68B03DA |      1 |      1 |      0 |00:00:00.01 |       0 |
+---------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter((COUNT(*)=1 AND (MAX("TP")='F' OR MAX("TP")='T')))
+13 - filter("FRN"."TP"='F')
+16 - filter("TON"."TP"='T')
+18 - access("FRN"."NODE_ID"="LNK"."NODE_ID_FR")
+19 - filter("TON"."NODE_ID"="LNK"."NODE_ID_TO")
+Terminating loop with all nodes processed: 1
+Timer Set: Ins_Node_Roots, Constructed at 06 Aug 2022 15:08:13, written at 15:08:14
+===================================================================================
+Timer				     Elapsed	     CPU       Calls	   Ela/Call	  CPU/Call
+--------------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 3: 0		0.02	    0.02	   1	    0.01900	   0.02000
+Insert isolated links 5: 0		0.34	    0.34	   1	    0.33700	   0.34000
+OPEN c_roots				0.39	    0.38	   1	    0.39200	   0.38000
+Count nodes				0.00	    0.00	   1	    0.00400	   0.00000
+FETCH c_roots  (first)			0.00	    0.00	   1	    0.00000	   0.00000
+SELECT 1 INTO l_dummy: Not found	0.00	    0.01	   1	    0.00300	   0.01000
+Insert min_tree_links (1 node)		0.03	    0.03	   1	    0.03000	   0.03000
+Insert node_roots (1 node)		0.01	    0.00	   1	    0.00700	   0.00000
+(Other) 				0.00	    0.00	   1	    0.00000	   0.00000
+--------------------------------  ----------  ----------  ----------  -------------  -------------
+Total					0.79	    0.78	   9	    0.08800	   0.08667
+--------------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.04080, CPU: 0.04400]
+Ins_Node_Roots: p_node_vsn = 3p_link_vsn = 5, p_order_type = 3
+SQL_ID	57wf6f2bfhwpx, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+USE_NL (lnk_f) USE_NL (lnk_t) */ NOD.ID, NOD.ID, 0 FROM NODES NOD LEFT
+JOIN LINKS LNK_F ON LNK_F.NODE_ID_FR = NOD.ID LEFT JOIN LINKS LNK_T ON
+LNK_T.NODE_ID_TO = NOD.ID WHERE LNK_F.NODE_ID_FR IS NULL AND
+LNK_T.NODE_ID_TO IS NULL
+Plan hash value: 1452760060
+------------------------------------------------------------------------------------------------------------
+| Id  | Operation		 | Name 	| Starts | E-Rows | A-Rows |   A-Time	| Buffers | Reads  |
+------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT	 |		|      1 |	  |	 0 |00:00:00.01 |      48 |	 2 |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS	|      1 |	  |	 0 |00:00:00.01 |      48 |	 2 |
+|   2 |   NESTED LOOPS ANTI	 |		|      1 |	1 |	 1 |00:00:00.01 |	6 |	 0 |
+|   3 |    NESTED LOOPS ANTI	 |		|      1 |     68 |	 5 |00:00:00.01 |	4 |	 0 |
+|   4 |     INDEX FULL SCAN	 | SYS_C0018873 |      1 |    291 |	13 |00:00:00.01 |	1 |	 0 |
+|*  5 |     INDEX RANGE SCAN	 | LINKS_FR_N1	|     13 |    236 |	 8 |00:00:00.01 |	3 |	 0 |
+|*  6 |    INDEX RANGE SCAN	 | LINKS_TO_N1	|      5 |    308 |	 4 |00:00:00.01 |	2 |	 0 |
+------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("LNK_F"."NODE_ID_FR"="NOD"."ID")
+6 - access("LNK_T"."NODE_ID_TO"="NOD"."ID")
+SQL_ID	871d882v4pnu9, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ALL_NODES AS ( SELECT NODE_ID_FR NODE_ID,
+'F' TP FROM LINKS UNION ALL SELECT NODE_ID_TO, 'T' FROM LINKS ),
+UNIQUE_NODES AS ( SELECT NODE_ID, MAX(TP) TP FROM ALL_NODES GROUP BY
+NODE_ID HAVING COUNT(*) = 1 ), ISOLATED_LINKS AS ( SELECT
+LNK.NODE_ID_FR, LNK.NODE_ID_TO FROM LINKS LNK JOIN UNIQUE_NODES FRN ON
+FRN.NODE_ID = LNK.NODE_ID_FR AND FRN.TP = 'F' JOIN UNIQUE_NODES TON ON
+TON.NODE_ID = LNK.NODE_ID_TO AND TON.TP = 'T' ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION ALL SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 3674309219
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation				 | Name 		      | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT			 |			      |      1 |	|      0 |00:00:00.01 |      10 |	|	|	   |
+|   1 |  TEMP TABLE TRANSFORMATION		 |			      |      1 |	|      0 |00:00:00.01 |      10 |	|	|	   |
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6667_68B03DA |      1 |	|      0 |00:00:00.01 |       2 |  1024 |  1024 |	   |
+|*  3 |    FILTER				 |			      |      1 |	|      7 |00:00:00.01 |       2 |	|	|	   |
+|   4 |     HASH GROUP BY			 |			      |      1 |      1 |     12 |00:00:00.01 |       2 |  1452K|  1452K|	   |
+|   5 |      VIEW				 |			      |      1 |    616 |     18 |00:00:00.01 |       2 |	|	|	   |
+|   6 |       UNION-ALL 			 |			      |      1 |	|     18 |00:00:00.01 |       2 |	|	|	   |
+|   7 |        INDEX FULL SCAN			 | LINKS_FR_N1		      |      1 |    308 |      9 |00:00:00.01 |       1 |	|	|	   |
+|   8 |        INDEX FULL SCAN			 | LINKS_TO_N1		      |      1 |    308 |      9 |00:00:00.01 |       1 |	|	|	   |
+|   9 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6668_68B03DA |      1 |	|      0 |00:00:00.01 |       4 |  1024 |  1024 |	   |
+|  10 |    NESTED LOOPS 			 |			      |      1 |      1 |      1 |00:00:00.01 |       4 |	|	|	   |
+|  11 |     NESTED LOOPS			 |			      |      1 |      1 |     12 |00:00:00.01 |       3 |	|	|	   |
+|  12 |      MERGE JOIN CARTESIAN		 |			      |      1 |      1 |     12 |00:00:00.01 |       0 |	|	|	   |
+|* 13 |       VIEW				 |			      |      1 |      1 |      3 |00:00:00.01 |       0 |	|	|	   |
+|  14 |        TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6667_68B03DA |      1 |      1 |      7 |00:00:00.01 |       0 |	|	|	   |
+|  15 |       BUFFER SORT			 |			      |      3 |      1 |     12 |00:00:00.01 |       0 |  2048 |  2048 | 2048	(0)|
+|* 16 |        VIEW				 |			      |      1 |      1 |      4 |00:00:00.01 |       0 |	|	|	   |
+|  17 | 	TABLE ACCESS FULL		 | SYS_TEMP_0FD9D6667_68B03DA |      1 |      1 |      7 |00:00:00.01 |       0 |	|	|	   |
+|* 18 |      INDEX RANGE SCAN			 | LINKS_FR_N1		      |     12 |      1 |     12 |00:00:00.01 |       3 |	|	|	   |
+|* 19 |     TABLE ACCESS BY INDEX ROWID 	 | LINKS		      |     12 |      1 |      1 |00:00:00.01 |       1 |	|	|	   |
+|  20 |   LOAD TABLE CONVENTIONAL		 | NODE_ROOTS		      |      1 |	|      0 |00:00:00.01 |       4 |	|	|	   |
+|  21 |    UNION-ALL				 |			      |      1 |	|      2 |00:00:00.01 |       0 |	|	|	   |
+|  22 |     VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |	|	|	   |
+|  23 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6668_68B03DA |      1 |      1 |      1 |00:00:00.01 |       0 |	|	|	   |
+|  24 |     VIEW				 |			      |      1 |      1 |      1 |00:00:00.01 |       0 |	|	|	   |
+|  25 |      TABLE ACCESS FULL			 | SYS_TEMP_0FD9D6668_68B03DA |      1 |      1 |      1 |00:00:00.01 |       0 |	|	|	   |
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter((COUNT(*)=1 AND (MAX("TP")='F' OR MAX("TP")='T')))
+13 - filter("FRN"."TP"='F')
+16 - filter("TON"."TP"='T')
+18 - access("FRN"."NODE_ID"="LNK"."NODE_ID_FR")
+19 - filter("TON"."NODE_ID"="LNK"."NODE_ID_TO")
+Terminating loop with all nodes processed: 13
+Timer Set: Ins_Node_Roots, Constructed at 06 Aug 2022 15:08:14, written at 15:08:16
+===================================================================================
+Timer				       Elapsed	       CPU	 Calls	     Ela/Call	    CPU/Call
+----------------------------------  ----------	----------  ----------	-------------  -------------
+Insert isolated nodes 3: 1		  0.03	      0.01	     1	      0.02900	     0.01000
+Insert isolated links 5: 2		  0.65	      0.40	     1	      0.64700	     0.40000
+OPEN c_roots				  0.41	      0.35	     1	      0.41200	     0.35000
+Count nodes				  0.00	      0.00	     1	      0.00400	     0.00000
+FETCH c_roots  (first)			  0.00	      0.00	     1	      0.00000	     0.00000
+SELECT 1 INTO l_dummy: Not found	  0.00	      0.00	     3	      0.00133	     0.00000
+Insert min_tree_links (3 nodes) 	  0.04	      0.05	     2	      0.02150	     0.02500
+Insert node_roots (3 nodes)		  0.01	      0.01	     2	      0.00250	     0.00500
+FETCH c_roots  (remaining)		  0.00	      0.00	     7	      0.00000	     0.00000
+SELECT 1 INTO l_dummy: Found		  0.00	      0.00	     5	      0.00020	     0.00000
+Insert min_tree_links (4-39 nodes)	  0.01	      0.00	     1	      0.00800	     0.00000
+Insert node_roots (4-39 nodes)		  0.00	      0.00	     1	      0.00100	     0.00000
+(Other) 				  0.00	      0.00	     1	      0.00000	     0.00000
+----------------------------------  ----------	----------  ----------	-------------  -------------
+Total					  1.15	      0.82	    27	      0.04274	     0.03037
+----------------------------------  ----------	----------  ----------	-------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.04250, CPU: 0.04167]
+
+PL/SQL procedure successfully completed.
+
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 15:08:16
+
+Disconnected from Oracle Database 21c Enterprise Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+Copying C:\input\tt_shortest_path_sql.purely_wrap_ins_node_roots_out.json to .\externals\shortest_path_sql
+Copying C:\input\tt_shortest_path_sql.purely_wrap_ins_min_tree_links_out.json to .\externals\shortest_path_sql
+
+Unit Test Results Summary for Folder ./externals/shortest_path_sql
+==================================================================
+ File                                                          Title                                  Inp Groups  Out Groups  Tests  Fails  Folder                               
+-------------------------------------------------------------  -------------------------------------  ----------  ----------  -----  -----  -------------------------------------
+ tt_shortest_path_sql.purely_wrap_ins_min_tree_links_out.json  Oracle SQL Shortest Paths: Node Tree            3           2      7      0  oracle-sql-shortest-paths_-node-tree 
+ tt_shortest_path_sql.purely_wrap_ins_node_roots_out.json      Oracle SQL Shortest Paths: Node Roots           2           2      3      0  oracle-sql-shortest-paths_-node-roots
+
+0 externals failed, see ./externals/shortest_path_sql for scenario listings

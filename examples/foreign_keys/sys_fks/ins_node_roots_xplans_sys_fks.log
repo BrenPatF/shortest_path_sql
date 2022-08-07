@@ -1,0 +1,118 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          06-AUG-2022 14:46:20 Version 21.3.0.0.0
+
+SQL_ID  2r026mk55rcsn, child number 0
+-------------------------------------
+SELECT /*+ gather_plan_statistics XPLAN_TYPE_0 */ ID FROM NODES WHERE
+ID NOT IN (SELECT NODE_ID FROM NODE_ROOTS) AND ROWNUM = 1
+Plan hash value: 3437314501
+---------------------------------------------------------------------------------------------------
+| Id  | Operation               | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT        |               |      1 |        |      0 |00:00:00.01 |      12 |
+|*  1 |  COUNT STOPKEY          |               |      1 |        |      0 |00:00:00.01 |      12 |
+|*  2 |   FILTER                |               |      1 |        |      0 |00:00:00.01 |      12 |
+|   3 |    NESTED LOOPS ANTI SNA|               |      1 |     20 |      0 |00:00:00.01 |       5 |
+|   4 |     INDEX FULL SCAN     | SYS_C0018873  |      1 |     20 |    291 |00:00:00.01 |       1 |
+|*  5 |     INDEX UNIQUE SCAN   | NODE_ROOTS_N1 |    291 |      1 |    291 |00:00:00.01 |       4 |
+|*  6 |    TABLE ACCESS FULL    | NODE_ROOTS    |      1 |      1 |      0 |00:00:00.01 |       7 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+1 - filter(ROWNUM=1)
+2 - filter( IS NULL)
+5 - access("ID"="NODE_ID")
+6 - filter("NODE_ID" IS NULL)
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.22
+SQL_ID  31qxu0kbcf46f, child number 0
+-------------------------------------
+SELECT /*+ gather_plan_statistics XPLAN_TYPE_1 */ MIN(ID) FROM NODES
+WHERE ID NOT IN (SELECT NODE_ID FROM NODE_ROOTS)
+Plan hash value: 3373456389
+---------------------------------------------------------------------------------------------------
+| Id  | Operation               | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT        |               |      1 |        |      1 |00:00:00.01 |      12 |
+|   1 |  SORT AGGREGATE         |               |      1 |      1 |      1 |00:00:00.01 |      12 |
+|*  2 |   FILTER                |               |      1 |        |      0 |00:00:00.01 |      12 |
+|   3 |    NESTED LOOPS ANTI SNA|               |      1 |    291 |      0 |00:00:00.01 |       5 |
+|   4 |     INDEX FULL SCAN     | SYS_C0018873  |      1 |    291 |    291 |00:00:00.01 |       1 |
+|*  5 |     INDEX UNIQUE SCAN   | NODE_ROOTS_N1 |    291 |      1 |    291 |00:00:00.01 |       4 |
+|*  6 |    TABLE ACCESS FULL    | NODE_ROOTS    |      1 |      1 |      0 |00:00:00.01 |       7 |
+---------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - filter( IS NULL)
+5 - access("ID"="NODE_ID")
+6 - filter("NODE_ID" IS NULL)
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.24
+SQL_ID  dgwtth0yypt5w, child number 0
+-------------------------------------
+SELECT /*+ gather_plan_statistics XPLAN_TYPE_2 */ ID FROM (SELECT ID
+FROM NODES WHERE ID NOT IN ( SELECT NODE_ID FROM NODE_ROOTS) ORDER BY 1
+) WHERE ROWNUM = 1
+Plan hash value: 2935090627
+----------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+----------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT         |               |      1 |        |      0 |00:00:00.01 |      12 |
+|*  1 |  COUNT STOPKEY           |               |      1 |        |      0 |00:00:00.01 |      12 |
+|   2 |   VIEW                   |               |      1 |      1 |      0 |00:00:00.01 |      12 |
+|*  3 |    FILTER                |               |      1 |        |      0 |00:00:00.01 |      12 |
+|   4 |     NESTED LOOPS ANTI SNA|               |      1 |     20 |      0 |00:00:00.01 |       5 |
+|   5 |      INDEX FULL SCAN     | SYS_C0018873  |      1 |     20 |    291 |00:00:00.01 |       1 |
+|*  6 |      INDEX UNIQUE SCAN   | NODE_ROOTS_N1 |    291 |      1 |    291 |00:00:00.01 |       4 |
+|*  7 |     TABLE ACCESS FULL    | NODE_ROOTS    |      1 |      1 |      0 |00:00:00.01 |       7 |
+----------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+1 - filter(ROWNUM=1)
+3 - filter( IS NULL)
+6 - access("ID"="NODE_ID")
+7 - filter("NODE_ID" IS NULL)
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.24
+SQL_ID  ctusk0f7nf8jh, child number 0
+-------------------------------------
+SELECT /*+ gather_plan_statistics XPLAN_TYPE_3_1 */ ID FROM NODES ORDER
+BY 1
+Plan hash value: 578340612
+-------------------------------------------------------------------------------------------
+| Id  | Operation        | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+-------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT |              |      1 |        |      1 |00:00:00.01 |       1 |
+|   1 |  INDEX FULL SCAN | SYS_C0018873 |      1 |    291 |      1 |00:00:00.01 |       1 |
+-------------------------------------------------------------------------------------------
+SQL_ID  00yfcvpmuh784, child number 0
+-------------------------------------
+SELECT /*+ gather_plan_statistics XPLAN_TYPE_3_2 */ 1 FROM NODE_ROOTS
+WHERE NODE_ID = :B1
+Plan hash value: 2193988880
+---------------------------------------------------------------------------------------------
+| Id  | Operation         | Name          | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |               |      1 |        |      1 |00:00:00.01 |       1 |
+|*  1 |  INDEX UNIQUE SCAN| NODE_ROOTS_N1 |      1 |      1 |      1 |00:00:00.01 |       1 |
+---------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+1 - access("NODE_ID"=:B1)
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:00.48
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 06-AUG-2022 14:46:22
+

@@ -1,0 +1,412 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 19:01:24 Version 21.3.0.0.0
+
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:02.48
+Run header (PLSQL_PROFILER_RUNS)
+
+ Run Id Time         Seconds    Microsecs
+------- -------- ----------- ------------
+     43 19:01:24       2.469      2469000
+
+Elapsed: 00:00:00.00
+Profiler data overall summary (PLSQL_PROFILER_DATA)
+
+    Seconds    Microsecs    Calls
+----------- ------------ --------
+      2.439      2439190      458
+
+Elapsed: 00:00:00.00
+Profiler data summary by unit (PLSQL_PROFILER_DATA)
+
+Unit                        Unit#     Seconds    Microsecs    Calls
+------------------------- ------- ----------- ------------ --------
+<anonymous>                     1       0.000           29        3
+<anonymous>                     3       0.000          174        2
+<anonymous>                     4       0.000          173        2
+<anonymous>                     5       0.000          176        2
+<anonymous>                     6       0.000          173        2
+<anonymous>                     7       0.000          145        2
+<anonymous>                     8       0.000          206        2
+<anonymous>                     9       0.000          195        2
+<anonymous>                    10       0.000          167        2
+<anonymous>                    11       0.000          166        2
+<anonymous>                    12       0.000          167        2
+<anonymous>                    13       0.000          171        2
+<anonymous>                    14       0.000          164        2
+<anonymous>                    15       0.000          190        2
+<anonymous>                    16       0.000          188        2
+<anonymous>                    17       0.000          190        2
+<anonymous>                    18       0.000          194        2
+SHORTEST_PATH_SQL_BASE          2       2.436      2436316      423
+
+18 rows selected.
+
+Elapsed: 00:00:00.00
+Profiler data by unit and line (PLSQL_PROFILER_DATA)
+
+    Seconds    Microsecs       Min S       Max S    Calls Unit                        Unit# Type              Line# Line Text
+----------- ------------ ----------- ----------- -------- ------------------------- ------- --------------- ------- --------------------------------------------------------------------------------------------------------------
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       5
+      0.000           23       0.000       0.000        2 <anonymous>                     1 ANONYMOUS BLOCK       9
+      0.000            3       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK      11
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       1
+      0.000          164       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       4
+      0.000            3       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       1
+      0.000          165       0.000       0.000        1 <anonymous>                     4 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                     4 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       1
+      0.000          168       0.000       0.000        1 <anonymous>                     5 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                     5 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       1
+      0.000          165       0.000       0.000        1 <anonymous>                     6 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                     6 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       1
+      0.000          139       0.000       0.000        1 <anonymous>                     7 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                     7 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       1
+      0.000          195       0.000       0.000        1 <anonymous>                     8 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       4
+      0.000            3       0.000       0.000        1 <anonymous>                     8 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       1
+      0.000          187       0.000       0.000        1 <anonymous>                     9 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                     9 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       1
+      0.000          160       0.000       0.000        1 <anonymous>                    10 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                    10 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       1
+      0.000          157       0.000       0.000        1 <anonymous>                    11 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                    11 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       1
+      0.000          158       0.000       0.000        1 <anonymous>                    12 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       4
+      0.000            3       0.000       0.000        1 <anonymous>                    12 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       1
+      0.000          166       0.000       0.000        1 <anonymous>                    13 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        1 <anonymous>                    13 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       1
+      0.000          157       0.000       0.000        1 <anonymous>                    14 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                    14 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK      10
+      0.000            3       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       1
+      0.000          181       0.000       0.000        1 <anonymous>                    15 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                    15 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       1
+      0.000          180       0.000       0.000        1 <anonymous>                    16 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       4
+      0.000            1       0.000       0.000        1 <anonymous>                    16 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       1
+      0.000          181       0.000       0.000        1 <anonymous>                    17 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       4
+      0.000            2       0.000       0.000        1 <anonymous>                    17 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK      12
+      0.000            2       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       1
+      0.000          185       0.000       0.000        1 <anonymous>                    18 ANONYMOUS BLOCK       3
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       4
+      0.000            3       0.000       0.000        1 <anonymous>                    18 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK      10
+      0.000            4       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK      12
+      0.000           37       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          3 FUNCTION Ins_Min_Tree_Links(
+      0.000            2       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          7 l_lev         PLS_INTEGER := 0;
+      0.000            2       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          9 l_ins_tot     PLS_INTEGER := 0;
+      0.020        19939       0.001       0.001       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         11 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.004         3792       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         12 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         13 LOOP
+      2.298      2297672       0.000       1.053       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         15 INSERT INTO min_tree_links
+      0.000          103       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         30 l_ins := SQL%ROWCOUNT;
+      0.004         3640       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         31 COMMIT;
+      0.000           11       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         32 l_ins_tot := l_ins_tot + l_ins;
+      0.000           27       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         33 EXIT WHEN l_ins = 0;
+      0.000           16       0.000       0.000       23 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         34 l_lev := l_lev + 1;
+      0.000            4       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         37 RETURN l_ins_tot;
+      0.000           27       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         39 END Ins_Min_Tree_Links;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         41 PROCEDURE Ins_All_Min_Path_Links(
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         44 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         46 l_ins_tot     PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         48 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         49 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         50 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         52 INSERT INTO min_tree_links
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         65 l_ins := SQL%ROWCOUNT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         66 COMMIT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         67 l_ins_tot := l_ins_tot + l_ins;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         68 EXIT WHEN l_ins = 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         69 l_lev := l_lev + 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         73 END Ins_All_Min_Path_Links;
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         75 PROCEDURE Ins_Node_Roots IS
+      0.002         1910       0.000       0.002        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         81 EXECUTE IMMEDIATE 'TRUNCATE TABLE node_roots';
+      0.000            0       0.000       0.000       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         82 LOOP
+      0.016        15997       0.000       0.005       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         85 SELECT id INTO l_root_id FROM nodes WHERE id NOT IN (SELECT node_id FROM node_roots) AND ROWNUM = 1;
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         87 WHEN NO_DATA_FOUND THEN
+      0.000            1       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         88 l_root_id := NULL;
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         89 END;
+      0.000            0       0.000       0.000       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         90 EXIT WHEN l_root_id IS NULL;
+      0.000            7       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         91 l_ins_tot := Ins_Min_Tree_Links(l_root_id);
+      0.093        93124       0.000       0.086       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         93 INSERT INTO node_roots tgt
+      0.000            2       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         98 END Ins_Node_Roots;
+
+171 rows selected.
+
+Elapsed: 00:00:00.75
+Profiler data by time (PLSQL_PROFILER_DATA)
+
+    Seconds    Microsecs       Min S       Max S    Calls Unit                        Unit# Type              Line# Line Text
+----------- ------------ ----------- ----------- -------- ------------------------- ------- --------------- ------- --------------------------------------------------------------------------------------------------------------
+      2.298      2297672       0.000       1.053       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         15 INSERT INTO min_tree_links
+      0.093        93124       0.000       0.086       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         93 INSERT INTO node_roots tgt
+      0.020        19939       0.001       0.001       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         11 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.016        15997       0.000       0.005       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         85 SELECT id INTO l_root_id FROM nodes WHERE id NOT IN (SELECT node_id FROM node_roots) AND ROWNUM = 1;
+      0.004         3792       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         12 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.004         3640       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         31 COMMIT;
+      0.002         1910       0.000       0.002        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         81 EXECUTE IMMEDIATE 'TRUNCATE TABLE node_roots';
+      0.000          195       0.000       0.000        1 <anonymous>                     8 ANONYMOUS BLOCK       3
+      0.000          187       0.000       0.000        1 <anonymous>                     9 ANONYMOUS BLOCK       3
+      0.000          185       0.000       0.000        1 <anonymous>                    18 ANONYMOUS BLOCK       3
+      0.000          181       0.000       0.000        1 <anonymous>                    17 ANONYMOUS BLOCK       3
+      0.000          181       0.000       0.000        1 <anonymous>                    15 ANONYMOUS BLOCK       3
+      0.000          180       0.000       0.000        1 <anonymous>                    16 ANONYMOUS BLOCK       3
+      0.000          168       0.000       0.000        1 <anonymous>                     5 ANONYMOUS BLOCK       3
+      0.000          166       0.000       0.000        1 <anonymous>                    13 ANONYMOUS BLOCK       3
+      0.000          165       0.000       0.000        1 <anonymous>                     6 ANONYMOUS BLOCK       3
+      0.000          165       0.000       0.000        1 <anonymous>                     4 ANONYMOUS BLOCK       3
+      0.000          164       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       3
+      0.000          160       0.000       0.000        1 <anonymous>                    10 ANONYMOUS BLOCK       3
+      0.000          158       0.000       0.000        1 <anonymous>                    12 ANONYMOUS BLOCK       3
+      0.000          157       0.000       0.000        1 <anonymous>                    14 ANONYMOUS BLOCK       3
+      0.000          157       0.000       0.000        1 <anonymous>                    11 ANONYMOUS BLOCK       3
+      0.000          139       0.000       0.000        1 <anonymous>                     7 ANONYMOUS BLOCK       3
+      0.000          103       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         30 l_ins := SQL%ROWCOUNT;
+      0.000           37       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          3 FUNCTION Ins_Min_Tree_Links(
+      0.000           27       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         39 END Ins_Min_Tree_Links;
+      0.000           27       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         33 EXIT WHEN l_ins = 0;
+      0.000           23       0.000       0.000        2 <anonymous>                     1 ANONYMOUS BLOCK       9
+      0.000           16       0.000       0.000       23 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         34 l_lev := l_lev + 1;
+      0.000           11       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         32 l_ins_tot := l_ins_tot + l_ins;
+      0.000            7       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         91 l_ins_tot := Ins_Min_Tree_Links(l_root_id);
+      0.000            4       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       1
+      0.000            4       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       1
+      0.000            4       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK      12
+      0.000            4       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         37 RETURN l_ins_tot;
+      0.000            3       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       1
+      0.000            3       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK      12
+      0.000            3       0.000       0.000        1 <anonymous>                     3 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        1 <anonymous>                     8 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        1 <anonymous>                    12 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        1 <anonymous>                    18 ANONYMOUS BLOCK       5
+      0.000            3       0.000       0.000        1 <anonymous>                     1 ANONYMOUS BLOCK      11
+      0.000            2       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       1
+      0.000            2       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       1
+      0.000            2       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       1
+      0.000            2       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       1
+      0.000            2       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       1
+      0.000            2       0.000       0.000        1 <anonymous>                     5 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 <anonymous>                     4 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 <anonymous>                    10 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 <anonymous>                    11 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 <anonymous>                    15 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 <anonymous>                    17 ANONYMOUS BLOCK       5
+      0.000            2       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         98 END Ins_Node_Roots;
+      0.000            2       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          7 l_lev         PLS_INTEGER := 0;
+      0.000            2       0.000       0.000       15 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY          9 l_ins_tot     PLS_INTEGER := 0;
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         75 PROCEDURE Ins_Node_Roots IS
+      0.000            1       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         89 END;
+      0.000            1       0.000       0.000        1 <anonymous>                     7 ANONYMOUS BLOCK       5
+      0.000            1       0.000       0.000        1 <anonymous>                     9 ANONYMOUS BLOCK       5
+      0.000            1       0.000       0.000        1 <anonymous>                    14 ANONYMOUS BLOCK       5
+      0.000            1       0.000       0.000        1 <anonymous>                    16 ANONYMOUS BLOCK       5
+      0.000            1       0.000       0.000        1 <anonymous>                     6 ANONYMOUS BLOCK       5
+      0.000            1       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         88 l_root_id := NULL;
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK       1
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       4
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       6
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK       9
+      0.000            0       0.000       0.000        0 <anonymous>                    17 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    18 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    16 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    15 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    14 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    13 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    12 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    11 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                    10 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     9 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     8 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     7 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     6 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     5 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     4 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     3 ANONYMOUS BLOCK      10
+      0.000            0       0.000       0.000        0 <anonymous>                     1 ANONYMOUS BLOCK      12
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         41 PROCEDURE Ins_All_Min_Path_Links(
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         44 l_lev         PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         46 l_ins_tot     PLS_INTEGER := 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         48 EXECUTE IMMEDIATE 'TRUNCATE TABLE min_tree_links';
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         49 INSERT INTO min_tree_links VALUES (p_root_node_id, '', 0);
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         50 LOOP
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         52 INSERT INTO min_tree_links
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         65 l_ins := SQL%ROWCOUNT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         66 COMMIT;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         67 l_ins_tot := l_ins_tot + l_ins;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         68 EXIT WHEN l_ins = 0;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         69 l_lev := l_lev + 1;
+      0.000            0       0.000       0.000        0 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         73 END Ins_All_Min_Path_Links;
+      0.000            0       0.000       0.000        1 <anonymous>                    13 ANONYMOUS BLOCK       5
+      0.000            0       0.000       0.000        1 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         87 WHEN NO_DATA_FOUND THEN
+      0.000            0       0.000       0.000       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         82 LOOP
+      0.000            0       0.000       0.000       16 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         90 EXIT WHEN l_root_id IS NULL;
+      0.000            0       0.000       0.000       38 SHORTEST_PATH_SQL_BASE          2 PACKAGE BODY         13 LOOP
+
+171 rows selected.
+
+Elapsed: 00:00:00.16
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 19:01:27
+

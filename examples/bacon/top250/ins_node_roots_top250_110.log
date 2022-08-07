@@ -1,0 +1,176 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          30-JUL-2022 18:59:08 Version 21.3.0.0.0
+
+Ins_Node_Roots: p_node_vsn = 1p_link_vsn = 1, p_order_type = 0
+SQL_ID  8fsnz2s9ugb87, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS SELECT /*+  gather_plan_statistics XPLAN_ISO_N
+*/ NOD.ID, NOD.ID, 0 FROM NODES NOD WHERE NOT EXISTS (SELECT 1 FROM
+LINKS LNK WHERE LNK.NODE_ID_FR = NOD.ID OR LNK.NODE_ID_TO = NOD.ID)
+Plan hash value: 1991568011
+------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT         |              |      1 |        |      0 |00:00:00.33 |    1624 |       |       |          |
+|   1 |  LOAD TABLE CONVENTIONAL | NODE_ROOTS   |      1 |        |      0 |00:00:00.33 |    1624 |       |       |          |
+|*  2 |   HASH JOIN ANTI         |              |      1 |    187 |      0 |00:00:00.33 |    1624 |  2402K|  2402K| 2075K (0)|
+|   3 |    INDEX FAST FULL SCAN  | SYS_C0018370 |      1 |  12466 |  12466 |00:00:00.01 |      33 |       |       |          |
+|   4 |    VIEW                  | VW_SQ_1      |      1 |   1167K|    839K|00:00:00.36 |    1591 |       |       |          |
+|   5 |     UNION-ALL            |              |      1 |        |    839K|00:00:00.25 |    1591 |       |       |          |
+|   6 |      TABLE ACCESS FULL   | LINKS        |      1 |    583K|    583K|00:00:00.05 |    1118 |       |       |          |
+|   7 |      TABLE ACCESS FULL   | LINKS        |      1 |    583K|    255K|00:00:00.02 |     473 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("VW_COL_1"="NOD"."ID")
+SQL_ID  2q4n5736jykj2, child number 0
+-------------------------------------
+INSERT INTO NODE_ROOTS WITH ISOLATED_LINKS AS ( SELECT LNK.NODE_ID_FR,
+LNK.NODE_ID_TO FROM LINKS LNK WHERE NOT EXISTS ( SELECT 1 FROM LINKS
+LNK_1 WHERE (LNK_1.NODE_ID_FR = LNK.NODE_ID_TO OR LNK_1.NODE_ID_TO =
+LNK.NODE_ID_FR OR LNK_1.NODE_ID_FR = LNK.NODE_ID_FR OR LNK_1.NODE_ID_TO
+= LNK.NODE_ID_TO) AND LNK_1.ROWID != LNK.ROWID ) ) SELECT /*+
+gather_plan_statistics XPLAN_ISO_L */ NODE_ID_FR, NODE_ID_FR, 0 FROM
+ISOLATED_LINKS UNION SELECT NODE_ID_TO, NODE_ID_FR, 1 FROM
+ISOLATED_LINKS
+Plan hash value: 1442004323
+---------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name                       | Starts | E-Rows | A-Rows |   A-Time   | Buffers |
+---------------------------------------------------------------------------------------------------------------------------------
+|   0 | INSERT STATEMENT                         |                            |      1 |        |      0 |00:00:47.79 |    4646K|
+|   1 |  TEMP TABLE TRANSFORMATION               |                            |      1 |        |      0 |00:00:47.79 |    4646K|
+|   2 |   LOAD AS SELECT (CURSOR DURATION MEMORY)| SYS_TEMP_0FD9D6C05_4F65443 |      1 |        |      0 |00:00:47.79 |    4646K|
+|*  3 |    FILTER                                |                            |      1 |        |      0 |00:00:47.79 |    4646K|
+|   4 |     TABLE ACCESS FULL                    | LINKS                      |      1 |    583K|    583K|00:00:00.08 |    1119 |
+|   5 |     TABLE ACCESS BY INDEX ROWID BATCHED  | LINKS                      |    583K|      1 |    583K|00:00:47.15 |    4645K|
+|*  6 |      BITMAP CONVERSION TO ROWIDS         |                            |    583K|        |    583K|00:00:46.06 |    4061K|
+|   7 |       BITMAP OR                          |                            |    583K|        |    583K|00:00:45.39 |    4061K|
+|*  8 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    571K|00:00:06.97 |     743K|
+|*  9 |         INDEX RANGE SCAN                 | LINKS_FR_N1                |    583K|        |     27M|00:00:06.25 |     743K|
+|* 10 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    583K|00:00:13.56 |    1286K|
+|* 11 |         INDEX RANGE SCAN                 | LINKS_FR_N1                |    583K|        |     54M|00:00:13.26 |    1286K|
+|* 12 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    572K|00:00:07.73 |    1227K|
+|* 13 |         INDEX RANGE SCAN                 | LINKS_TO_N1                |    583K|        |     27M|00:00:07.33 |    1227K|
+|* 14 |        BITMAP CONVERSION FROM ROWIDS     |                            |    583K|        |    583K|00:00:10.79 |     803K|
+|* 15 |         INDEX RANGE SCAN                 | LINKS_TO_N1                |    583K|        |     53M|00:00:11.40 |     803K|
+|  16 |   LOAD TABLE CONVENTIONAL                | NODE_ROOTS                 |      1 |        |      0 |00:00:00.01 |       0 |
+|  17 |    HASH UNIQUE                           |                            |      1 |   1167K|      0 |00:00:00.01 |       0 |
+|  18 |     UNION-ALL                            |                            |      1 |        |      0 |00:00:00.01 |       0 |
+|  19 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  20 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C05_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  21 |      VIEW                                |                            |      1 |    583K|      0 |00:00:00.01 |       0 |
+|  22 |       TABLE ACCESS FULL                  | SYS_TEMP_0FD9D6C05_4F65443 |      1 |    583K|      0 |00:00:00.01 |       0 |
+---------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+3 - filter( IS NULL)
+6 - filter("LNK_1".ROWID<>:B1)
+8 - filter("LNK_1".ROWID<>:B1)
+9 - access("LNK_1"."NODE_ID_FR"=:B1)
+filter("LNK_1".ROWID<>:B1)
+10 - filter("LNK_1".ROWID<>:B1)
+11 - access("LNK_1"."NODE_ID_FR"=:B1)
+filter("LNK_1".ROWID<>:B1)
+12 - filter("LNK_1".ROWID<>:B1)
+13 - access("LNK_1"."NODE_ID_TO"=:B1)
+filter("LNK_1".ROWID<>:B1)
+14 - filter("LNK_1".ROWID<>:B1)
+15 - access("LNK_1"."NODE_ID_TO"=:B1)
+filter("LNK_1".ROWID<>:B1)
+Timer Set: Ins_Node_Roots, Constructed at 30 Jul 2022 18:59:08, written at 19:00:00
+===================================================================================
+Timer                                                  Elapsed         CPU       Calls       Ela/Call       CPU/Call
+--------------------------------------------------  ----------  ----------  ----------  -------------  -------------
+Insert isolated nodes 1: 0                                0.35        0.32           1        0.35000        0.32000
+Insert isolated links 1: 0                               48.01       47.97           1       48.00900       47.97000
+SELECT id INTO l_root_id                                  0.26        0.27          16        0.01613        0.01688
+Insert min_tree_links (root node 579, size: 11803)        3.09        3.08           1        3.09200        3.08000
+Insert node_roots (root node 579, size: 11803)            0.09        0.04           1        0.08900        0.04000
+Insert min_tree_links (4-39 nodes)                        0.05        0.07           8        0.00650        0.00875
+Insert node_roots (4-39 nodes)                            0.00        0.00           8        0.00025        0.00000
+Insert min_tree_links (root node 612, size: 46)           0.01        0.02           1        0.01100        0.02000
+Insert node_roots (root node 612, size: 46)               0.00        0.00           1        0.00000        0.00000
+Insert min_tree_links (root node 616, size: 149)          0.06        0.05           1        0.05600        0.05000
+Insert node_roots (root node 616, size: 149)              0.00        0.00           1        0.00100        0.00000
+Insert min_tree_links (root node 679, size: 106)          0.02        0.02           1        0.02100        0.02000
+Insert node_roots (root node 679, size: 106)              0.00        0.00           1        0.00100        0.00000
+Insert min_tree_links (root node 689, size: 85)           0.02        0.01           1        0.02200        0.01000
+Insert node_roots (root node 689, size: 85)               0.00        0.00           1        0.00100        0.00000
+Insert min_tree_links (root node 981, size: 50)           0.01        0.01           1        0.01100        0.01000
+Insert node_roots (root node 981, size: 50)               0.00        0.00           1        0.00000        0.00000
+Insert min_tree_links (root node 1057, size: 47)          0.01        0.01           1        0.00900        0.01000
+Insert node_roots (root node 1057, size: 47)              0.00        0.00           1        0.00100        0.00000
+(Other)                                                   0.00        0.00           1        0.00000        0.00000
+--------------------------------------------------  ----------  ----------  ----------  -------------  -------------
+Total                                                    51.99       51.87          49        1.06094        1.05857
+--------------------------------------------------  ----------  ----------  ----------  -------------  -------------
+[Timer timed (per call in ms): Elapsed: 0.01263, CPU: 0.01250]
+
+PL/SQL procedure successfully completed.
+
+Elapsed: 00:00:52.10
+Node count by root node
+
+ROOT_NODE_ID NODE_NAME                                             N_NODES     MAXLEV
+------------ -------------------------------------------------- ---------- ----------
+        4600 Agnes Flanagan                                              6          1
+         345 Jean Martin (I)                                            12          1
+        1374 Sareh Bayat                                                            1
+         884 Gilbert Dacheux                                            21          1
+         590 Yi Yong                                                    29          2
+        1039 Pedro Kochdilian                                           31          1
+         652 Mila Espiga                                                32          1
+        1073 Karl-Robert Lindgren                                       37          1
+         612 Vanessa Bauche                                             46          1
+        1057 Pierre Larquey                                             47          2
+         981 Stig Poul Hansen                                           50          1
+         689 Meghana Jhalani                                            85          1
+         679 Flora Guiet                                               106          2
+         616 Alice Braga                                               149          1
+         579 Scott Winters (I)                                       11803          6
+                                                                ----------
+sum                                                                  12466
+
+15 rows selected.
+
+Elapsed: 00:00:00.03
+Subnet count by number of nodes
+
+   N_NODES  N_SUBNETS
+---------- ----------
+         6          1
+        12          2
+        21          1
+        29          1
+        31          1
+        32          1
+        37          1
+        46          1
+        47          1
+        50          1
+        85          1
+       106          1
+       149          1
+     11803          1
+----------
+     12454
+
+14 rows selected.
+
+Elapsed: 00:00:00.00
+Subnet count by maximum level
+
+    MAXLEV  N_SUBNETS
+---------- ----------
+         1         11
+         2          3
+         6          1
+
+Elapsed: 00:00:00.00
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 30-JUL-2022 19:00:00
+

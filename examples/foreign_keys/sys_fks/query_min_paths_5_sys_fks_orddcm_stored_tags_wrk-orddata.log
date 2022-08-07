@@ -1,0 +1,79 @@
+
+Database             Time                 Version
+-------------------- -------------------- ------------------------------
+Start: ORCL          28-JUL-2022 09:25:30 Version 21.3.0.0.0
+
+Elapsed: 00:00:00.00
+Root name: ORDDCM_STORED_TAGS_WRK|ORDDATA, Root id:        226
+Two recursive subqueries - XPLAN_RSF_2
+old   2:     SELECT &root_id_var, 0, 1
+new   2:     SELECT        226, 0, 1
+old  17:     SELECT &root_id_var, 0, 1
+new  17:     SELECT        226, 0, 1
+old  36:     SELECT &root_id_var, 0, 1
+new  36:     SELECT        226, 0, 1
+old  55:     SELECT &root_id_var, 0, 1
+new  55:     SELECT        226, 0, 1
+old  74:     SELECT &root_id_var, 0, 1
+new  74:     SELECT        226, 0, 1
+old  99:     SELECT &root_id_var, 0, 1
+new  99:     SELECT        226, 0, 1
+
+NODE_NAME                           NODE                            LEV
+----------------------------------- ------------------------------ ----
+ORDDCM_STORED_TAGS_WRK|ORDDATA      226                               0
+ORDDCM_DOCS_WRK|ORDDATA             ..175                             1
+ORDDCM_CT_LOCATORPATHS_WRK|ORDDATA  ....13                            2
+ORDDCM_UID_DEFS_WRK|ORDDATA         ....20                            2
+ORDDCM_RT_PREF_PARAMS_WRK|ORDDATA   ....51                            2
+ORDDCM_MAPPING_DOCS_WRK|ORDDATA     ....86                            2
+ORDDCM_MAPPED_PATHS_WRK|ORDDATA     ......135                         3
+ORDDCM_DOC_TYPES|ORDDATA            ....109                           2
+ORDDCM_INSTALL_DOCS|ORDDATA         ......203                         3
+ORDDCM_DOCS|ORDDATA                 ......276                         3
+ORDDCM_PRV_ATTRS|ORDDATA            ........8                         4
+ORDDCM_ANON_RULES|ORDDATA           ........48                        4
+ORDDCM_CT_PRED_SET|ORDDATA          ........68                        4
+ORDDCM_CT_MACRO_DEP|ORDDATA         ..........19                      5
+ORDDCM_CT_MACRO_PAR|ORDDATA         ..........85                      5
+ORDDCM_CT_PRED|ORDDATA              ..........114                     5
+ORDDCM_CT_ACTION|ORDDATA            ............2                     6
+ORDDCM_CT_PRED_PAR|ORDDATA          ............46                    6
+ORDDCM_CT_PRED_OPRD|ORDDATA         ............259                   6
+ORDDCM_DOC_REFS|ORDDATA             ........72                        4
+ORDDCM_STORED_TAGS|ORDDATA          ........73                        4
+ORDDCM_ANON_ATTRS|ORDDATA           ........118                       4
+ORDDCM_RT_PREF_PARAMS|ORDDATA       ........119                       4
+ORDDCM_UID_DEFS|ORDDATA             ........161                       4
+ORDDCM_STD_ATTRS|ORDDATA            ........188                       4
+ORDDCM_CT_DAREFS|ORDDATA            ........189                       4
+ORDDCM_DICT_ATTRS|ORDDATA           ..........9                       5
+ORDDCM_MAPPING_DOCS|ORDDATA         ........260                       4
+ORDDCM_MAPPED_PATHS|ORDDATA         ..........176                     5
+ORDDCM_CT_LOCATORPATHS|ORDDATA      ........261                       4
+ORDDCM_ANON_ATTRS_WRK|ORDDATA       ....127                           2
+ORDDCM_ANON_ACTION_TYPES|ORDDATA    ......62                          3
+ORDDCM_ANON_RULES_WRK|ORDDATA       ....170                           2
+ORDDCM_ANON_RULE_TYPES|ORDDATA      ......65                          3
+ORDDCM_DOC_REFS_WRK|ORDDATA         ....197                           2
+ORDDCM_PRV_ATTRS_WRK|ORDDATA        ....198                           2
+ORDDCM_VR_DT_MAP|ORDDATA            ......151                         3
+ORDDCM_DICT_ATTRS_WRK|ORDDATA       ......214                         3
+ORDDCM_CT_DAREFS_WRK|ORDDATA        ....199                           2
+ORDDCM_CT_PRED_SET_WRK|ORDDATA      ....224                           2
+ORDDCM_CT_MACRO_PAR_WRK|ORDDATA     ......83                          3
+ORDDCM_CT_PRED_WRK|ORDDATA          ......174                         3
+ORDDCM_CT_PRED_OPRD_WRK|ORDDATA     ........92                        4
+ORDDCM_CT_PRED_PAR_WRK|ORDDATA      ........232                       4
+ORDDCM_CT_ACTION_WRK|ORDDATA        ........273                       4
+ORDDCM_CT_MACRO_DEP_WRK|ORDDATA     ......193                         3
+ORDDCM_STD_ATTRS_WRK|ORDDATA        ....269                           2
+
+47 rows selected.
+
+Elapsed: 00:00:00.38
+
+'END:'||TO_CHAR(SYSDATE,'DD-MON-YY
+----------------------------------
+End: 28-JUL-2022 09:25:30
+
