@@ -42,7 +42,8 @@ Recently, I came across (by way of an article on using PostgreSQL for network an
 [&darr; Install 1: Install prerequisite tools (if necessary)](#install-1-install-prerequisite-tools-if-necessary)<br />
 [&darr; Install 2: Clone git repository](#install-2-clone-git-repository)<br />
 [&darr; Install 3: Install prerequisite modules](#install-3-install-prerequisite-modules)<br />
-[&darr; Install 4: Copy the unit test input JSON files to the database server](#install-4-copy-the-unit-test-input-json-files-to-the-database-server)<br />
+[&darr; Install 4: Copy the unit test input JSON files to the database server](#install-4-copy-the-unit-test-input-json-files-to-the-database-server-optional---for-unit-testing)<br />
+[&darr; Install 5: Copy the input data files to the database server](#install-5-copy-the-input-data-files-to-the-database-server)<br />
 
 ### Install 1: Install prerequisite tools (if necessary)
 - [&uarr; Installation](#installation)
@@ -106,7 +107,7 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
 ### Install 4: Copy the unit test input JSON files to the database server [Optional - for unit testing]
 [&uarr; Installation](#installation)
 
-- Copy the following files from the `subproject`\unit_test\input folders to the server folder pointed to by the Oracle directory INPUT_DIR:
+- Copy the following files from the unit_test\input folders to the server folder pointed to by the Oracle directory INPUT_DIR:
     - tt_shortest_path_sql.purely_wrap_ins_min_tree_links_inp.json
     - tt_shortest_path_sql.purely_wrap_ins_node_roots_inp.json
 
@@ -114,6 +115,32 @@ This should install the trapit nodejs package in a subfolder .\node_modules\trap
 ```powershell
 $ ./Copy-JSONToInput.ps1
 ```
+
+### Install 5: Copy the input data files to the database server
+[&uarr; Installation](#installation)
+
+- Unzip the following files from the examples\input folders to the server folder pointed to by the Oracle directory INPUT_DIR:
+
+    - brightkite_edges.csv.zip
+    - imdb.no_tv_v.txt.zip
+    - imdb.only_tv_v.txt.zip
+    - imdb.pre1950.txt.zip
+    - imdb.small.txt.zip
+    - imdb.top250.txt.zip
+
+The files are in Windows format, so conversion may be needed if not using Windows.
+
+- There is also a powershell script to do this, assuming C:\input as INPUT_DIR. From a powershell window in the root folder:
+```powershell
+$ ./Copy-InputDataToInput.ps1
+```
+The following files are too big, even zipped to save to GitHub, so these have to be obtained from the original source site (and converted to Windows format, if necessary): 
+
+https://www.cs.oberlin.edu/~rhoyle/16f-cs151/lab10/index.html
+
+    - imdb.full.txt
+    - imdb.post1950.txt
+
 
 ## Running the examples
 [&uarr; In this README...](#in-this-readme)<br />
