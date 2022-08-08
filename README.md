@@ -20,7 +20,7 @@ There *will be* some short recordings on the project (around 2m each), which can
 
 There is also a blog post:
 
-- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/jekyll/update/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
+- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
 
 ## In this README...
 [&darr; Background](#background)<br />
@@ -219,7 +219,7 @@ Oracle Database Version 21.3.0.0.0
 
 ## See Also
 [&uarr; In this README...](#in-this-readme)<br />
-- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/jekyll/update/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
+- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
 - [The Math Function Unit Testing design pattern, implemented in nodejs](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
