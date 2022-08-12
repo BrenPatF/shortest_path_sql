@@ -12,11 +12,17 @@ The two PL/SQL entry points have automated unit tests using the Math Function Un
 <img src="kevin-bacon.png"><br />
 [Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
 
-There *will be* some short recordings on the project (around 2m each), in the mp4 folder, which can also be viewed via a Twitter thread:
+There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going through the sections of the blog post, which can also be viewed via Twitter:
 
-| Recording                     | Tweet                                                                                   |
-|:------------------------------|:----------------------------------------------------------------------------------------|
-| sps_1_overview.mp4            | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744) |
+| Recording                        | Tweet                                                                                |
+|:---------------------------------|:-------------------------------------------------------------------------------------|
+| sps_1_overview.mp4               | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)               |
+| sps_2_shortest_path_problems.mp4 | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
+| sps_3_two_algorithms.mp4         | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)         |
+| sps_4_example_datasets.mp4       | [4: Example Datasets ](https://twitter.com/BrenPatF/status/1557976938664394752)      |
+| sps_5_data_model.mp4             | [5: Data Model TBA]()                                                                |
+| sps_6_network_paths_by_sql.mp4   | [6: Network Paths by SQL TBA]()                                                      |
+| sps_7_min_pathfinder.mp4         | [7: Min Pathfinder TBA]()                                                            |
 
 There is also a blog post:
 
