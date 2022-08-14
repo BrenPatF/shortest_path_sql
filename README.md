@@ -19,9 +19,9 @@ There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going 
 | sps_1_overview.mp4                   | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)               |
 | sps_2_shortest_path_problems.mp4     | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
 | sps_3_two_algorithms.mp4             | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)         |
-| sps_4_example_datasets.mp4           | [4: Example Datasets ](https://twitter.com/BrenPatF/status/1557976938664394752)      |
+| sps_4_example_datasets.mp4           | [4: Example Datasets](https://twitter.com/BrenPatF/status/1557976938664394752)       |
 | sps_5_data_model.mp4                 | [5: Data Model](https://twitter.com/BrenPatF/status/1558352895497719810)             |
-| sps_6_network_paths_by_sql.mp4       | [6: Network Paths by SQL TBA]()                                                      |
+| sps_6_network_paths_by_sql.mp4       | [6: Network Paths by SQL](https://twitter.com/BrenPatF/status/1558712512555655169)   |
 | sps_7_min_pathfinder.mp4             | [7: Min Pathfinder TBA]()                                                            |
 | sps_8_subnet_grouper.mp4             | [8: Subnet Grouper TBA]()                                                            |
 | sps_9_code_timing_subnet_grouper.mp4 | [9: Code Timing Subnet Grouper TBA]()                                                |
