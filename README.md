@@ -27,7 +27,7 @@ There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going 
 | sps_9_code_timing_subnet_grouper.mp4 | [9: Code Timing Subnet Grouper](https://twitter.com/BrenPatF/status/1559991977835372545)|
 | sps_10_profiling.mp4                 | [10: Oracle Profilers](https://twitter.com/BrenPatF/status/1560322412708773889)         |
 | sps_11_tuning_1_isolated_nodes.mp4   | [11: Tuning 1, Isolated Nodes](https://twitter.com/BrenPatF/status/1560669631895195649) |
-| sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links TBA]()                                                    |
+| sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links](https://twitter.com/BrenPatF/status/1560889815767420929) |
 | sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector TBA]()                                                |
 | sps_14_unit_testing.mp4              | [14: Unit Testing TBA]()                                                                |
 
