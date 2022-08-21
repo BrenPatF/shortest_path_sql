@@ -14,26 +14,26 @@ The two PL/SQL entry points have automated unit tests using the Math Function Un
 
 There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going through the sections of the blog post, which can also be viewed via Twitter:
 
-| Recording                            | Tweet                                                                                   |
-|:-------------------------------------|:----------------------------------------------------------------------------------------|
-| sps_1_overview.mp4                   | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)                  |
-| sps_2_shortest_path_problems.mp4     | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720)    |
-| sps_3_two_algorithms.mp4             | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)            |
-| sps_4_example_datasets.mp4           | [4: Example Datasets](https://twitter.com/BrenPatF/status/1557976938664394752)          |
-| sps_5_data_model.mp4                 | [5: Data Model](https://twitter.com/BrenPatF/status/1558352895497719810)                |
-| sps_6_network_paths_by_sql.mp4       | [6: Network Paths by SQL](https://twitter.com/BrenPatF/status/1558712512555655169)      |
-| sps_7_min_pathfinder.mp4             | [7: Min Pathfinder](https://twitter.com/BrenPatF/status/1559229647229001729)            |
-| sps_8_subnet_grouper.mp4             | [8: Subnetwork Grouper](https://twitter.com/BrenPatF/status/1559622529597177860)        |
-| sps_9_code_timing_subnet_grouper.mp4 | [9: Code Timing Subnet Grouper](https://twitter.com/BrenPatF/status/1559991977835372545)|
-| sps_10_profiling.mp4                 | [10: Oracle Profilers](https://twitter.com/BrenPatF/status/1560322412708773889)         |
-| sps_11_tuning_1_isolated_nodes.mp4   | [11: Tuning 1, Isolated Nodes](https://twitter.com/BrenPatF/status/1560669631895195649) |
-| sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links](https://twitter.com/BrenPatF/status/1560889815767420929) |
-| sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector TBA]()                                                |
-| sps_14_unit_testing.mp4              | [14: Unit Testing TBA]()                                                                |
+| Recording                            | Tweet                                                                                      |
+|:-------------------------------------|:-------------------------------------------------------------------------------------------|
+| sps_1_overview.mp4                   | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)                     |
+| sps_2_shortest_path_problems.mp4     | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720)       |
+| sps_3_two_algorithms.mp4             | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)               |
+| sps_4_example_datasets.mp4           | [4: Example Datasets](https://twitter.com/BrenPatF/status/1557976938664394752)             |
+| sps_5_data_model.mp4                 | [5: Data Model](https://twitter.com/BrenPatF/status/1558352895497719810)                   |
+| sps_6_network_paths_by_sql.mp4       | [6: Network Paths by SQL](https://twitter.com/BrenPatF/status/1558712512555655169)         |
+| sps_7_min_pathfinder.mp4             | [7: Min Pathfinder](https://twitter.com/BrenPatF/status/1559229647229001729)               |
+| sps_8_subnet_grouper.mp4             | [8: Subnetwork Grouper](https://twitter.com/BrenPatF/status/1559622529597177860)           |
+| sps_9_code_timing_subnet_grouper.mp4 | [9: Code Timing Subnet Grouper](https://twitter.com/BrenPatF/status/1559991977835372545)   |
+| sps_10_profiling.mp4                 | [10: Oracle Profilers](https://twitter.com/BrenPatF/status/1560322412708773889)            |
+| sps_11_tuning_1_isolated_nodes.mp4   | [11: Tuning 1, Isolated Nodes](https://twitter.com/BrenPatF/status/1560669631895195649)    |
+| sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links](https://twitter.com/BrenPatF/status/1560889815767420929)    |
+| sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector](https://twitter.com/BrenPatF/status/1561255729905995776)|
+| sps_14_unit_testing.mp4              | [14: Unit Testing TBA]()                                                                   |
 
 There is also a blog post:
 
-- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
+- [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql)
 
 ## In this README...
 [&darr; Background](#background)<br />
