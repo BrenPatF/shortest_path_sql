@@ -35,8 +35,9 @@ There is also a blog post:
 
 - [Blog: Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql)
 
-And a presentation, given in Dublin on 5 September 2022 for the 2022 Oracle User Group conference (the file is in the root folder):
-- Analysing Performance of Algorithmic SQL and PLSQL.pptx
+And a presentation, given in Dublin on 5 September 2022 for the 2022 Oracle User Group conference (the .pptxfile is in the root folder):
+- [Analysing Performance of Algorithmic SQL and PLSQL](https://www.slideshare.net/brendanfurey7/analysing-performance-of-algorithmic-sql-and-plsqlpptx)
+
 
 ## In this README...
 [&darr; Background](#background)<br />
